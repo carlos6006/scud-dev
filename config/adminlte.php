@@ -298,10 +298,10 @@ return [
         ],
         [
             'type'         => 'navbar-search',
-            'text'         => 'busqueda',
+            'text'         => 'Busqueda',
             'topnav_right' => true,
         ],
-      
+
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
@@ -310,7 +310,7 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Buscar',
         ],
         [
             'text' => 'blog',
@@ -318,26 +318,77 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Dashboard',
+            'text'        => 'Tableros',
             'url'         => 'admin/pages',
             'icon'        => 'nav-icon fas fa-tachometer-alt',
             'label'       => 4,
             'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Administrativo',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'IVA',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'ISR',
+                    'url'  => '#',
+                ],
+            ]
         ],
         [
             'text' => 'Alta de correo docentes',
             'url'  => 'docentes',
             'icon' => 'nav-icon far fa-envelope',
         ],
+        ['header' => 'Paginas'],
         [
             'text' => 'Declaración mensual',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-columns',
+            'icon' => 'nav-icon fas fa-file-contract',
         ],
         [
             'text' => 'Resumenes',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-chart-pie',
+            'icon' => 'nav-icon fas fa-balance-scale-left',
+        ],
+        [
+            'text' => 'Factura global',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-receipt',
+        ],
+        [
+            'text'    => 'Importar',
+            'icon'    => 'nav-icon fas fa-upload',
+            'submenu' => [
+                [
+                    'text' => 'Gastos XML',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-file-import',
+                ],
+                [
+                    'text' => 'Ingresos XML',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-file-import',
+                ],
+                [
+                    'text' => 'Retenciones XML',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-file-import',
+                ],
+                [
+                    'text' => 'Transaccion de pagos CSV',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-file-csv',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Perfil',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-user-cog',
         ],
         /*  ['header' => 'account_settings'],
         [
@@ -350,90 +401,17 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],*/
-        [
-            'text'    => 'Importar',
-            'icon'    => 'nav-icon fas fa-copy',
-            'submenu' => [
-                [
-                    'text' => 'Gastos XML',
-                    'url'  => '#',
-                ],
-                /*[
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],*/
-                [
-                    'text' => 'Viajes XML',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Retenciones XML',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Transaccion de pagos CSV',
-                    'url'  => '#',
-                ],
-            ],
-        ],
         ['header' => 'Configuración fiscal'],
-        [
-            'text' => 'Factura global',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-file-alt',
-        ],
+
         [
             'text'    => 'Extras',
-            'icon'    => 'fa fa-cog fa-fw',
+            'icon'    => 'nav-icon fas fa-compress',
             'submenu' => [
                 [
                     'text' => 'Gastos XML',
                     'url'  => '#',
                 ],
-                /*[
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],*/
+
                 [
                     'text' => 'Viajes XML',
                     'url'  => '#',
@@ -448,6 +426,80 @@ return [
                 ],
             ],
         ],
+        ['header' => 'APPS'],
+        [
+            'text' => 'Gestor de facturas',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-file-invoice',
+        ],
+        [
+            'text' => 'Sucripciones',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-comments-dollar',
+        ],
+
+        [
+            'text' => 'Administración',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-cog',
+            'submenu' => [
+                [
+                    'text' => 'Proveedores',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-users',
+                ],
+                [
+                    'text' => 'Clientes',
+                    'url'  => '',
+                    'icon' => 'nav-icon fas fa-user-shield',
+                ],
+                [
+                    'text' => 'Cuentas bancarias',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-lock-open',
+                ]
+            ],
+        ],
+        [
+            'text' => 'Gestión de usuarios',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-users-cog',
+           // 'can'=>'admin',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-users',
+                ],
+                [
+                    'text' => 'Roles de usuario',
+                    'url'  => 'admin/roles',
+                    'icon' => 'nav-icon fas fa-user-shield',
+                ],
+                [
+                    'text' => 'Permisos',
+                    'url'  => 'admin/permissions',
+                    'icon' => 'nav-icon fas fa-lock-open',
+                ]
+            ],
+        ],
+        ['header' => 'Ayuda'],
+        [
+            'text' => 'Componentes',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-rocket',
+        ],
+        [
+            'text' => 'Documentación',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-stream',
+        ],
+        [
+            'text' => 'Changelog v1.0.5',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-laptop-code',
+        ],
+
        /* ['header' => 'labels'],
         [
             'text'       => 'important',
@@ -465,6 +517,8 @@ return [
             'url'        => '#',
         ],*/
     ],
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -17,13 +17,13 @@
                 <div class="card-header">
                     <h3 class="card-title">
                       <i class="fas fa-users"></i>
-                      Docentes creados
+                      usuarios creados
                     </h3>
 
                     <div class="card-tools">
                       <ul class="nav nav-pills ml-auto">
                         <li class="nav-item">
-                          <a class="nav-link active" href="{{ url('docentes/create') }}">Nuevo docente</a>
+                          <a class="nav-link active" href="{{ url('docentes/create') }}">Nuevo Usuario</a>
                         </li>
                       </ul>
                     </div>
@@ -42,15 +42,15 @@
                     </thead>
                     <tbody>
                     <tr>
-                        @foreach($docentes as $docente)
-                      <td>{{$docente->first_name}}</td>
-                      <td>{{$docente->last_name}}</td>
-                      <td>{{$docente->rfc}}</td>
-                      <td>{{$docente->email_address}}</td>
-                      <td>{{$docente->created_at}}</td>
+                        @foreach($usuarios as $usuario)
+                      <td>{{$usuario->name}}</td>
+                      <td>{{$usuario->email}}</td>
+                      <td>{{$usuario->password}}</td>
+                      <td>{{$usuario->email_verified_at}}</td>
+                      <td>{{$usuario->remember_token}}</td>
                       <td class="project-actions text-right">
-                      <form action="{{ url('docentes/'.$docente->id) }}" method="POST">
-                        <a class="btn btn-info btn-sm" href="{{ url('docentes/'.$docente->id.'/edit') }}"><i class="fas fa-pencil-alt"></i> Editar</a>
+                      <form action="{{ url('docentes/'.$usuario->id) }}" method="POST">
+                        <a class="btn btn-info btn-sm" href="{{ url('docentes/'.$usuario->id.'/edit') }}"><i class="fas fa-pencil-alt"></i> Editar</a>
                         @method("delete")
                         @csrf
                         <button type="submit"class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Eliminar</button>

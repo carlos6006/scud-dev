@@ -3,14 +3,14 @@
 @section('title', 'Registrar')
 
 @section('content_header')
-    <h1>Agregar docente</h1>
+    <h1>Editar docente</h1>
 @stop
 
 @section('content')
 
 
 <?php
-$fileList = shell_exec('gam');
+
 
 //$fileList = shell_exec('gam info user nt43418 2>&1');
 //echo "<pre>$fileList</pre>";
@@ -22,7 +22,7 @@ $fileList = shell_exec('gam');
         <div class="col-md-12">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Agregar correo docente</h3>
+                    <h3 class="card-title">Editar correo docente</h3>
                 </div>
                 <div class="card-body">
 
@@ -43,23 +43,23 @@ $fileList = shell_exec('gam');
 
 @endif
 
-                    <form id="myForm" method="post" action="{{ url('docentes') }}" class="needs-validation" novalidate>
-
+                    <form id="myForm" method="post" action="{{ url('docentes/'.$docente->id) }}" class="needs-validation" novalidate>
+                        @method("PUT")
                         @csrf
 
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre"  name="nombre"  onkeyup="mayusculas(this);generarEmail();generarCode();" onkeypress="return check(event)" value="{{ old('nombre') }}" required>
+                            <input type="text" class="form-control" id="nombre"  name="nombre"  onkeyup="mayusculas(this);generarEmail();" onkeypress="return check(event)" value="{{ $docente->first_name}}" required>
                             <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
                         </div>
                         <div class="form-group">
                             <label for="apellidos">Apellidos:</label>
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" onkeyup="mayusculas(this);generarEmail();generarCode();" onkeypress="return check(event)" value="{{ old('apellidos') }}" required>
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" onkeyup="mayusculas(this);generarEmail();" onkeypress="return check(event)" value="{{ $docente->last_name}}" required>
                             <div class="invalid-feedback">Por favor ingresa tus apellidos.</div>
                         </div>
                         <div class="form-group">
                             <label for="rfc">RFC:</label>
-                            <input type="text" class="form-control" id="rfc" name="rfc" onkeyup="mayusculas(this);generarPassword();generarCode();" value="{{ old('rfc') }}" required
+                            <input type="text" class="form-control" id="rfc" name="rfc" onkeyup="mayusculas(this);generarPassword();" value="{{ $docente->rfc}}" required
                                 pattern="[A-Za-z]{4}[0-9]{6}[A-Za-z0-9]{3}">
                             <div class="invalid-feedback">Por favor ingresa un RFC válido (debe tener el formato
                                 AAAA######AAA).</div>
@@ -67,16 +67,13 @@ $fileList = shell_exec('gam');
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="username@uvp.edu.mx" value="{{ old('email') }}" readonly>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="username@uvp.edu.mx" value="{{ $docente->email_address}}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="disabledTextInput" class="form-label">Contraseña</label>
-                            <input type="text" name="password" id="password" class="form-control" placeholder="temporaluvp + RFC(minuscula)" value="{{ old('password') }}" readonly>
+                            <input type="text" name="password" id="password" class="form-control" placeholder="temporaluvp + RFC(minuscula)" value="{{ $docente->password}}" readonly>
                         </div>
-                        <div class="form-group">
-                            <label for="disabledTextInput" class="form-label">Codigo</label>
-                            <input type="text" name="code" id="code" class="form-control" placeholder="t" value="{{ old('password') }}" readonly>
-                        </div>
+
                         <div class="card-footer">
                             <a href="{{ url('docentes') }}" class="btn btn-secondary">Regresar</a>
                             <button type="submit" class="btn btn-success">Guardar</button>
@@ -131,12 +128,6 @@ $fileList = shell_exec('gam');
                 'temporaluvp' + document.getElementById("rfc").value.toUpperCase()
             /* +
                         ( Number(document.getElementById("numero3").value) || '') */
-            ;
-        }
-        function generarCode() {
-            document.getElementById("code").value ='gam create user '+
-            document.getElementById("nombre").value.split(' ')[0].toLowerCase() + '.' +
-                document.getElementById("apellidos").value.split(' ')[0] /* substr(0,2) */ .toLowerCase() + ' firstname "'+ document.getElementById("nombre").value+'" lastname "'+document.getElementById("apellidos").value+'" password "temporaluvp'+document.getElementById("rfc").value.toUpperCase()+'"'
             ;
         }
 
