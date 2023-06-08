@@ -8,6 +8,7 @@ use App\Http\Controllers\DocentesController;
 //use App\Http\Controllers\GmailController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\UserController;
 
 
 

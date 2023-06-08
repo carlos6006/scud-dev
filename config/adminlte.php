@@ -468,7 +468,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Usuarios',
-                    'url'  => '#',
+                    'url'  => 'admin/users',
                     'icon' => 'nav-icon fas fa-users',
                 ],
                 [

@@ -11,7 +11,8 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::whereNotIn('name', ['Admin'])->get();
+            //$roles = Role::whereNotIn('name', ['Admin'])->get();
+        $roles = Role::whereNotIn('name', [''])->get();
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -65,5 +66,13 @@ class RoleController extends Controller
             return back()->with('message', 'Permission revoked.');
         }
         return back()->with('message', 'Permission not exists.');
+    }
+
+    public function roles()
+    {
+        $sql = 'SELECT DISTINCT SUBSTRING_INDEX(name, " ",1) AS name_corto
+        FROM permissions ORDER BY name_corto ASC';
+        $products = DB::select($sql);
+        return $products;
     }
 }
