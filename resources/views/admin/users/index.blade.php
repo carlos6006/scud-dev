@@ -63,7 +63,11 @@
                                                   </div>
                                                 </div>
                                             </td>
-                                            <td class="align-middle"><span class="badge bg-primary">Administrador</span></td>
+                                            @if ($usuario->roles)
+                                            @foreach ($usuario->roles as $usuario_rol)
+                                            <td class="align-middle"><span class="badge bg-primary">{{ $usuario_rol->name }}</span></td>
+                                            @endforeach
+                                            @endif
                                             <td class="align-middle"><span class="badge bg-secondary">Hace 3 días</span>
                                             </td>
                                             <td class="align-middle"><span class="badge bg-success">Activo</span></td>

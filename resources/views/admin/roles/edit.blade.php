@@ -24,7 +24,8 @@
                     <div class="form-group">
                       <label for="message-text" class="col-form-label">Permisos del rol:</label>
                       <table class="table">
-                        <tbody>@if ($role->permissions)
+                        <tbody
+                        @if ($role->permissions)
                             @foreach ($role->permissions as $role_permission)
                             <tr>
                                 <td>{{ $role_permission->name }}</td>
