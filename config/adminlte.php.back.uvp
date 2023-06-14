@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'SCUD',
+    'title' => '',
     'title_prefix' => '',
     'title_postfix' => '| SCUD 1',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>SCUD</b>LTE',
+    'logo' => '<b>prueba</b>LTE',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -148,11 +148,11 @@ return [
     |
     */
 
-    'layout_topnav' => null,
+    'layout_topnav' => false,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => true,
-    'layout_fixed_navbar' => true,
-    'layout_fixed_footer' =>  true,
+    'layout_fixed_sidebar' => null,
+    'layout_fixed_navbar' => null,
+    'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
     /*
@@ -318,78 +318,11 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Tableros',
-            'url'         => 'admin/pages',
-            'icon'        => 'nav-icon fas fa-tachometer-alt',
-            'label'       => 4,
-            'label_color' => 'success',
-            'submenu' => [
-                [
-                    'text' => 'Administrativo',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'IVA',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'ISR',
-                    'url'  => '#',
-                ],
-            ]
-        ],
-        [
             'text' => 'Alta de correo docentes',
             'url'  => 'docentes',
             'icon' => 'nav-icon far fa-envelope',
         ],
-        ['header' => 'Paginas'],
-        [
-            'text' => 'Declaración mensual',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-file-contract',
-        ],
-        [
-            'text' => 'Resumenes',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-balance-scale-left',
-        ],
-        [
-            'text' => 'Factura global',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-receipt',
-        ],
-        [
-            'text'    => 'Importar',
-            'icon'    => 'nav-icon fas fa-upload',
-            'submenu' => [
-                [
-                    'text' => 'Gastos XML',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-file-import',
-                ],
-                [
-                    'text' => 'Ingresos XML',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-file-import',
-                ],
-                [
-                    'text' => 'Retenciones XML',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-file-import',
-                ],
-                [
-                    'text' => 'Transaccion de pagos CSV',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-file-csv',
-                ],
-            ],
-        ],
-        [
-            'text' => 'Perfil',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-user-cog',
-        ],
+
         /*  ['header' => 'account_settings'],
         [
             'text' => 'Perfil',
@@ -401,104 +334,7 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],*/
-        ['header' => 'Configuración fiscal'],
 
-        [
-            'text'    => 'Extras',
-            'icon'    => 'nav-icon fas fa-compress',
-            'submenu' => [
-                [
-                    'text' => 'Gastos XML',
-                    'url'  => '#',
-                ],
-
-                [
-                    'text' => 'Viajes XML',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Retenciones XML',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Transaccion de pagos CSV',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'APPS'],
-        [
-            'text' => 'Gestor de facturas',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-file-invoice',
-        ],
-        [
-            'text' => 'Sucripciones',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-comments-dollar',
-        ],
-
-        [
-            'text' => 'Administración',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-cog',
-            'submenu' => [
-                [
-                    'text' => 'Proveedores',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-users',
-                ],
-                [
-                    'text' => 'Clientes',
-                    'url'  => '',
-                    'icon' => 'nav-icon fas fa-user-shield',
-                ],
-                [
-                    'text' => 'Cuentas bancarias',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-lock-open',
-                ]
-            ],
-        ],
-        [
-            'text' => 'Gestión de usuarios',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-users-cog',
-           // 'can'=>'admin',
-            'submenu' => [
-                [
-                    'text' => 'Usuarios',
-                    'url'  => 'admin/users',
-                    'icon' => 'nav-icon fas fa-users',
-                ],
-                [
-                    'text' => 'Roles de usuario',
-                    'url'  => 'admin/roles',
-                    'icon' => 'nav-icon fas fa-user-shield',
-                ],
-                [
-                    'text' => 'Permisos',
-                    'url'  => 'admin/permissions',
-                    'icon' => 'nav-icon fas fa-lock-open',
-                ]
-            ],
-        ],
-        ['header' => 'Ayuda'],
-        [
-            'text' => 'Componentes',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-rocket',
-        ],
-        [
-            'text' => 'Documentación',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-stream',
-        ],
-        [
-            'text' => 'Changelog v1.0.5',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-laptop-code',
-        ],
 
        /* ['header' => 'labels'],
         [

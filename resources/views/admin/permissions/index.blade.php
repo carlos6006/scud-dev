@@ -48,17 +48,17 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    @foreach ($permissions as $permission => $permiso)
-                                        <td>{{ $permiso->name }}</td>
+                                    @foreach ($permissions as $permission)
+                                        <td>{{ $permission->name }}</td>
                                         <td><a href="#" class="badge badge-primary">Administrador</a></td>
-                                        <td>{{ $permiso->created_at }}</td>
+                                        <td>{{ $permission->created_at }}</td>
                                         <td class="project-actions text-right">
                                             <div class="d-inline">
                                                 <a href="" class="btn btn-info btn-sm mr-2" aria-pressed="true"
-                                                    data-toggle="modal" data-target="#ModalEdit_{{ $permiso->id }}"><i
+                                                    data-toggle="modal" data-target="#ModalEdit_{{ $permission->id }}"><i
                                                         class="fas fa-edit"></i> Editar</a>
                                                 @include('admin.permissions.editar')
-                                                <form action="{{ route('admin.permissions.destroy', $permiso->id) }}"
+                                                <form action="{{ route('admin.permissions.destroy', $permission->id) }}"
                                                     method="POST" class="d-inline">
                                                     @method('delete')
                                                     @csrf
@@ -94,27 +94,10 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs4/2.3.6/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
 @section('js')
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
-<script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
-
 <script>
     $(function() {
         $("#example1").DataTable({

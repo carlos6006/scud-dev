@@ -12,6 +12,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Faker\Factory as Faker;
+use Illuminate\Support\Arr;
 
 
 class AdminSeeder extends Seeder
@@ -80,7 +81,7 @@ class AdminSeeder extends Seeder
 
 
         $faker = Faker::create();
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $name = $faker->name;
             $email = $faker->unique()->safeEmail;
         $user=User::create([
@@ -91,7 +92,9 @@ class AdminSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        $user->assignRole('Cliente');
+        $array1 = ['Cliente','Supervisor'];
+
+        $user->assignRole(Arr::random($array1));
 
     }}
 }

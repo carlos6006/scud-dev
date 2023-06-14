@@ -23,276 +23,25 @@
 
                     <div class="form-group">
                       <label for="message-text" class="col-form-label">Permisos del rol:</label>
-                      <table class="table">
-                        <tbody
-                        @if ($role->permissions)
+
+
+                            @if ($role->permissions)
                             @foreach ($role->permissions as $role_permission)
-                            <tr>
-                                <td>{{ $role_permission->name }}</td>
-                                <td colspan="3"><label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" class="select-all" name="select_all" id="select_all">
-                                    <label class="form-check-label">
-                                        Seleccionar todo
-                                    </label>
-                                </td>
-                              </tr>
-                              @endforeach
-                              @endif
-                          <tr>
-                            <td scope="row">Gestión de usuarios</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
+                            <div class="container">
+                                <div class="badge-container">
+                            <form class="ontainer-fluid" method="POST"
+                            action="{{ route('admin.roles.permissions.revoke', [$role->id, $role_permission->id]) }}"
+                            onsubmit="return confirm('Are you sure?');">
+                            @csrf
+                            @method('DELETE')
+                                  <span class="badge badge-pill badge-primary d-inline-flex align-items-center">{{ $role_permission->name }} <button type="submit" class="close" aria-label="Cerrar">
+                                    <span aria-hidden="true" class="align-self-center mx-1 text-danger">&times;</span>
+                                  </button></span>
+                                </form>
                             </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-                          <tr>
-                            <td scope="row">Gestión de contenido</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-                          <tr>
-                            <td scope="row">Gestión financiera</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-                          <tr>
-                            <td scope="row">Reportes</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-                          <tr>
-                            <td scope="row">Suscripciones</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-                          <tr>
-                            <td scope="row">Tikets</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-                          <tr>
-                            <td scope="row">Controles de API</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-
-                          <tr>
-                            <td scope="row">Gestión de base de datos</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-
-                          <tr>
-                            <td scope="row">Respaldos</td>
-                            <td> <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_read">
-                                    <span class="form-check-label">Leer</span>
-                                </label>
-                            </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_write" class="chk-box">
-                                    <span class="form-check-label">Escribir</span>
-                                </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="checkbox rows">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                    <input class="form-check-input" type="checkbox" value="" name="user_management_create">
-                                    <span class="form-check-label">Crear
-                                </span>
-                                </label>
-                                </div>
-                           </td>
-                          </tr>
-                        </tbody>
-                      </table>
-
+                          </div>
+                            @endforeach
+                        @endif
 
                     </div>
                 </div>
@@ -302,11 +51,44 @@
                 </div>
                   </form>
 
+                  <div class="mt-6 p-2 bg-slate-100">
+                    <h2 class="text-2xl font-semibold">Role Permissions</h2>
+                    <button type="button" class="btn btn-primary">Primary <span class="badge">7</span></button>
+                    <span class="badge badge-primary">Notificación 1<button type="button" class="close">&times;</button></span>
+                    <div>
+                        <b-alert show dismissible>
+                          Dismissible Alert! Click the close button over there <b>&rArr;</b>
+                        </b-alert>
+                      </div>
 
+
+                    <div class="max-w-xl mt-6">
+                        <form method="POST" action="{{ route('admin.roles.permissions', $role->id) }}">
+                            @csrf
+                            <div class="sm:col-span-6">
+                                <label for="permission"
+                                    class="block text-sm font-medium text-gray-700">Permission</label>
+                                <select id="permission" name="permission" autocomplete="permission-name"
+                                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+                                </select>
+                            </div>
+                            @error('name')
+                                <span class="text-red-400 text-sm">{{ $message }}</span>
+                            @enderror
+                    </div>
+                    <div class="sm:col-span-6 pt-5">
+                        <button type="submit"
+                            class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-md">Assign</button>
+                    </div>
+                    </form>
+                </div>
             </div>
             <!--end::Modal body-->
     </div>
   </div>
+
+
   <script type="text/javascript">
     $('#select_all').change(function(e) {
     if (e.currentTarget.checked) {

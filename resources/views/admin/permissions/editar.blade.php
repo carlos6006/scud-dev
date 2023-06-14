@@ -1,4 +1,4 @@
-<div class="modal fade  text-left" id="ModalEdit_{{ $permiso->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade  text-left" id="ModalEdit_{{$permission->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -22,11 +22,11 @@
               </div>
             <!--begin::Modal body-->
             <div class="modal-body">
-                <form method="POST" action="{{ route('admin.permissions.update',$permiso->id) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.permissions.update',$permission->id) }}" enctype="multipart/form-data">
                     @csrf @method('PUT')
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nombre del permiso: *</label>
-                        <input type="text" class="form-control" id="name_editar" name="name" value="{{ $permiso->name }}">
+                        <input type="text" class="form-control" id="name_editar" name="name" value="{{ $permission->name }}">
                     </div>
             </div>
             <div class="modal-footer">

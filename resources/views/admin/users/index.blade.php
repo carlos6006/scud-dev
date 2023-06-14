@@ -3,24 +3,22 @@
 @section('title', 'Permisos')
 
 @section('content_header')
-    <div class="content row align-items-center my-1">
-        <div class="col">
-            <h1 class="h3 mb-0 page-title">{{ __('Lista de usuarios') }}</h1>
-        </div>
-        <div class="col-auto">
-            <a class="btn btn-primary" href="" data-toggle="modal" data-target="#ModalCreate"><i
-                    class="fas fa-plus-square"></i> Agregar usuario</a>
-        </div>
+<div class="container-fluid">
+    <div class="row mb-2">
+    <div class="col-sm-6">
+    <h1>{{ __('Lista de usuarios') }}</h1>
     </div>
-    <div class="row breadcrumbs-top">
-        <div class="breadcrumb-wrapper col-12">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/inicio') }}">{{ __('Inicio') }}</a></li>
-                <li class="breadcrumb-item active">{{ __('Usuarios') }}</li>
-            </ol>
-        </div>
+    <div class="col-sm-6">
+    <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item"><a href="{{ url('/inicio') }}">{{ __('Inicio') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('Usuarios') }}</li>
+    </ol>
+    </div>
+    </div>
+    </div>
 
-    </div>
+
+
 @stop
 
 @section('content')
@@ -36,6 +34,16 @@
                 <div class="col-12">
                     @include('components.flash_alerts')
                     <div class="card">
+                        <div class="card-header">
+                            <div class="content row align-items-center my-1">
+                                <div class="col">
+                                </div>
+                                <div class="col-auto">
+                                    <a class="btn btn-primary" href="" data-toggle="modal" data-target="#ModalCreate"><i
+                                            class="fas fa-plus"></i> Agregar usuario</a>
+                                </div>
+                            </div>
+                            </div>
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -76,7 +84,7 @@
                                                 <div class="d-inline">
                                                     <a href="" class="btn btn-info btn-sm mr-2" aria-pressed="true"
                                                         data-toggle="modal" data-target="#ModalEdit_{{ $usuario->id }}"><i
-                                                            class="fas fa-edit"></i> Editar</a>
+                                                            class="fas fa-pencil-alt"></i> Editar</a>
 
                                                     <form action="{{ route('admin.permissions.destroy', $usuario->id) }}"
                                                         method="POST" class="d-inline">
@@ -115,29 +123,20 @@
     <!-- /.content -->
 @stop
 
+@section('footer')
+<div class="float-right d-none d-sm-block">
+    <b>Version</b> 1.5.0
+  </div>
+  <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los derechos.
+
+@stop
+
+
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs4/2.3.6/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-
-    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.colVis.min.js"></script>
-
     <script>
         $(function() {
             $("#example1").DataTable({

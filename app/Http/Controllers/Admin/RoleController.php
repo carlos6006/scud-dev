@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
+
 class RoleController extends Controller
 {
     public function index()
@@ -32,6 +33,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $permissions = Permission::all();
+       // $permissions = Permission::selectRaw('DISTINCT SUBSTRING_INDEX(name," ", 1) AS name_corto')->orderBy('name_corto', 'asc')->get();
         return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
@@ -71,7 +73,7 @@ class RoleController extends Controller
     public function roles()
     {
         $sql = 'SELECT DISTINCT SUBSTRING_INDEX(name, " ",1) AS name_corto
-        FROM permissions ORDER BY name_corto ASC';
+       ORDER BY name_corto ASC';
         $products = DB::select($sql);
         return $products;
     }

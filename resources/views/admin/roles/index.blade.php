@@ -37,7 +37,6 @@
         </div>
     </section>
 
-
     <div class="card-deck">
         @foreach ($roles as $role)
         <div class="col-sm-4">
@@ -77,6 +76,8 @@
                     <a href="#" class="btn btn-primary"><i class="fas fa-eye"></i> Ver rol</a>
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit_{{ $role->id }}"><i class="fas fa-edit"></i> Editar rol</a>
                     @include('admin.roles.edit')
+                    @include('admin.permissions.add')
+
                 </div>
             </div>
           </div>
@@ -85,19 +86,16 @@
         @endforeach
       </div>
 
+@stop
 
-    <div class="col-sm-4">
-
-        <div class="card">
-
-
-        </div>
-
-    </div>
-
-
+@section('footer')
+<div class="float-right d-none d-sm-block">
+    <b>Version</b> 1.5.0
+  </div>
+  <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los derechos.
 
 @stop
+
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
@@ -105,12 +103,12 @@
 
 @section('js')
 <script type="text/javascript">
-    $('#select_all').change(function(e) {
-    if (e.currentTarget.checked) {
-    $('.rows').find('input[type="checkbox"]').prop('checked', true);
-  } else {
-      $('.rows').find('input[type="checkbox"]').prop('checked', false);
-    }
-  });
-      </script>
+  $('#select_all').change(function(e) {
+  if (e.currentTarget.checked) {
+  $('.rows').find('input[type="checkbox"]').prop('checked', true);
+} else {
+    $('.rows').find('input[type="checkbox"]').prop('checked', false);
+  }
+});
+    </script>
 @stop
