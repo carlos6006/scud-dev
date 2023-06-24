@@ -2,10 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
-
-
 use App\Http\Controllers\DocentesController;
-//use App\Http\Controllers\GmailController;
+use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
@@ -29,14 +27,16 @@ Route::get('/', function () {
 /*
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard'); */
+})->middleware(['auth'])->name('dashboard');
 
 Route::get('/admin', function () {
     return view('admin.index');
-})->middleware(['auth','role:admin'])->name('admin.index');
+})->middleware(['auth','role:admin'])->name('admin.index');*/
+Auth::routes();
+
 
 Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group(function(){
-    Route::get('/', [IndexController::class, 'index'])->name('index');
+   // Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::resource('/roles', RoleController::class);
     Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
     Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
@@ -62,13 +62,9 @@ Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group
 //     return view('auth/register');
 // });
 
-Route::get('/users_index', function () {
-    return view('auth/index');
-});
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 
 /* Route::get('/docentes', [App\Http\Controllers\DocentesController::class, 'index']); */
 Route::resource('/docentes',DocentesController::class);

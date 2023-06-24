@@ -63,21 +63,17 @@
                 </div>
                 <p class="card-text">
                 <ul>
-                    <li><i class="fas fa-horizontal-rule-"></i>Lorem ipsum dolor sit amet</li>
-                    <li>Consectetur adipiscing elit</li>
-                    <li>Integer molestie lorem at massa</li>
-                    <li>Facilisis in pretium nisl aliquet</li>
-                    <li>Nulla volutpat aliquam velit
-
-                    <li>Eget porttitor lorem</li>
+                    @if ($role->permissions)
+                    @foreach ($role->permissions as $role_permission)
+                    <li><i class="fas fa-horizontal-rule-"></i>{{ $role_permission->name }}</li>
+                    @endforeach
+                @endif
                 </ul>
                 </p>
                 <div class="card-body text-center">
                     <a href="#" class="btn btn-primary"><i class="fas fa-eye"></i> Ver rol</a>
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit_{{ $role->id }}"><i class="fas fa-edit"></i> Editar rol</a>
                     @include('admin.roles.edit')
-                    @include('admin.permissions.add')
-
                 </div>
             </div>
           </div>

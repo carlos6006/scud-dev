@@ -12,9 +12,9 @@ class RoleController extends Controller
 {
     public function index()
     {
-            //$roles = Role::whereNotIn('name', ['Admin'])->get();
+        $permissions = Permission::all();
         $roles = Role::whereNotIn('name', [''])->get();
-        return view('admin.roles.index', compact('roles'));
+        return view('admin.roles.index', compact('roles', 'permissions'));
     }
 
     public function create()
@@ -33,7 +33,6 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $permissions = Permission::all();
-       // $permissions = Permission::selectRaw('DISTINCT SUBSTRING_INDEX(name," ", 1) AS name_corto')->orderBy('name_corto', 'asc')->get();
         return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
@@ -49,7 +48,7 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return back()->with('message', 'Role eliminado.');
+        return back()->with('message', 'Role deleted.');
     }
 
     public function givePermission(Request $request, Role $role)
@@ -70,11 +69,4 @@ class RoleController extends Controller
         return back()->with('message', 'Permission not exists.');
     }
 
-    public function roles()
-    {
-        $sql = 'SELECT DISTINCT SUBSTRING_INDEX(name, " ",1) AS name_corto
-       ORDER BY name_corto ASC';
-        $products = DB::select($sql);
-        return $products;
-    }
 }
