@@ -161,51 +161,44 @@ class ImportBillXmlController extends Controller
                         $datos['Comprobante_Version'] = (string)$cfdiComprobante['Version'];
                     }
                     foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Emisor') as $Emisor){
-                        $datos['Emisor_Rfc'] = (string)$Emisor['Rfc'];
-                        $datos['Emisor_Nombre'] = (string)$Emisor['Nombre'];
-                    }
-                    foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Emisor//cfdi:ExpedidoEn') as $ExpedidoEn){
-                        $datos['DomicilioFiscalEmisor_Pais'] = (string)$ExpedidoEn['Pais'];
-                        $datos['DomicilioFiscalEmisor_Calle'] = (string)$ExpedidoEn['Calle'];
-                        $datos['DomicilioFiscalEmisor_Estado'] = (string)$ExpedidoEn['Estado'];
-                        $datos['DomicilioFiscalEmisor_Colonia'] = (string)$ExpedidoEn['Colonia'];
-                        $datos['DomicilioFiscalEmisor_Municipio'] = (string)$ExpedidoEn['Municipio'];
-                        $datos['DomicilioFiscalEmisor_NoExterior'] = (string)$ExpedidoEn['NoExterior'];
-                        $datos['DomicilioFiscalEmisor_CodigoPostal'] = (string)$ExpedidoEn['CodigoPostal'];
+                        $datos['Emisor_RFC'] = (string)$Emisor['Rfc'];
+                        $datos['Emisor_RegimenFiscal'] = (string)$Emisor['RegimenFiscal'];
+                        $datos['Emisor_Nombre'] = (string)$Emisor['Nombre'];//
                     }
                     foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor') as $Receptor){
-                        $datos['Receptor_Rfc'] = (string)$Receptor['Rfc'];
+                        $datos['Receptor_DomicilioFiscal'] = (string)$Receptor['DomicilioFiscalReceptor'];
                         $datos['Receptor_Nombre'] = (string)$Receptor['Nombre'];
-                    }
-                    foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Receptor//cfdi:Domicilio') as $ReceptorDomicilio){
-                        $datos['DomicilioFiscalReceptor_Pais'] = (string)$ReceptorDomicilio['Pais'];
-                        $datos['DomicilioFiscalReceptor_Calle'] = (string)$ReceptorDomicilio['Calle'];
-                        $datos['DomicilioFiscalReceptor_Estado'] = (string)$ReceptorDomicilio['Estado'];
-                        $datos['DomicilioFiscalReceptor_Colonia'] = (string)$ReceptorDomicilio['Colonia'];
-                        $datos['DomicilioFiscalReceptor_Municipio'] = (string)$ReceptorDomicilio['Municipio'];
-                        $datos['DomicilioFiscalReceptor_NoExterior'] = (string)$ReceptorDomicilio['NoExterior'];
-                        $datos['DomicilioFiscalReceptor_CodigoPostal'] = (string)$ReceptorDomicilio['CodigoPostal'];
+                        $datos['Receptor_RegimenFiscal'] = (string)$Receptor['RegimenFiscalReceptor'];
+                        $datos['Receptor_RFC'] = (string)$Receptor['Rfc'];
+                        $datos['Receptor_UsoCFDI'] = (string)$Receptor['UsoCFDI'];
                     }
                     foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Conceptos//cfdi:Concepto') as $Concepto){
-                        $datos['Concepto_Unidad'] = (string)$Concepto['Unidad'];
-                        $datos['Concepto_Importe'] = (string)$Concepto['Importe'];
-                        $datos['Concepto_Descripcion'] = (string)$Concepto['Cantidad'];
+                        $datos['Concepto_Cantidad'] = (string)$Concepto['Cantidad'];
+                        $datos['Concepto_ClaveProdServ'] = (string)$Concepto['ClaveProdServ'];
+                        $datos['Concepto_ClaveUnidad'] = (string)$Concepto['ClaveUnidad'];
                         $datos['Concepto_Descripcion'] = (string)$Concepto['Descripcion'];
+                        $datos['Concepto_Importe'] = (string)$Concepto['Importe'];
+                        $datos['Concepto_NoIdentificacion'] = (string)$Concepto['NoIdentificacion'];
+                        $datos['Concepto_ObjetoImp'] = (string)$Concepto['ObjetoImp'];
+                        $datos['Concepto_Unidad'] = (string)$Concepto['Unidad'];
                         $datos['Concepto_ValorUnitario'] = (string)$Concepto['ValorUnitario'];
                     }
                     foreach ($xml->xpath('//cfdi:Comprobante//cfdi:Impuestos//cfdi:Traslados//cfdi:Traslado') as $Traslado){
-                        $datos['Traslado_Tasa'] = (string)$Traslado['Tasa'];
+                        $datos['Traslado_Base'] = (string)$Traslado['Base'];
                         $datos['Traslado_Importe'] = (string)$Traslado['Importe'];
                         $datos['Traslado_Impuesto'] = (string)$Traslado['Impuesto'];
+                        $datos['Traslado_TasaOCuota'] = (string)$Traslado['TasaOCuota'];
+                        $datos['Traslado_TipoFactor'] = (string)$Traslado['TipoFactor'];
                     }
 
                     foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
-                        $datos['Tfd_SelloCFD'] = (string)$tfd['SelloCFD'];
                         $datos['Tfd_FechaTimbrado'] = (string)$tfd['FechaTimbrado'];
-                        $datos['Tfd_UUID'] = (string)$tfd['UUID'];
-                        $datos['Tfd_NoCertificadoSAT'] = (string)$tfd['NoCertificadoSAT'];
-                        $datos['Tfd_Version'] = (string)$tfd['Version'];
+                        $datos['Tfd_NoCertificadoSAT'] = (string)$tfd[' NoCertificadoSAT'];
+                        $datos['Tfd_RfcProvCertif'] = (string)$tfd['RfcProvCertif'];
+                        $datos['Tfd_SelloCFD'] = (string)$tfd['SelloCFD'];
                         $datos['Tfd_SelloSAT'] = (string)$tfd['SelloSAT'];
+                        $datos['Tfd_UUID'] = (string)$tfd['UUID'];
+                        $datos['Tfd_Version'] = (string)$tfd['Version'];
                     }
                     // Insertar los datos en la base de datos
 
