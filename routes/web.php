@@ -53,6 +53,11 @@ Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group
     Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
  });
 
+ Route::middleware(['auth','role:Admin'])->name('import-payment-transaction.')->prefix('import-payment-transaction')->group(function(){
+    Route::resource('/', ImportPaymentTransactionController::class);
+    Route::post('/', [ImportPaymentTransactionController::class, 'import'])->name('import');
+});
+
 
  Route::resource('/import-bill-xmls',ImportBillXmlController::class)->middleware('auth');
  Route::post('/import-bill-xmls', [ImportBillXmlController::class, 'import'])->name('import-bills-xmls.import')->middleware('auth');
