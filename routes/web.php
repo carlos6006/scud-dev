@@ -7,8 +7,9 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
-
-
+use App\Http\Controllers\ImportPaymentTransactionController;
+use App\Http\Controllers\ImportBillXmlController;
+use App\Http\Controllers\EmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +21,7 @@ use App\Http\Controllers\Admin\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Auth::routes();
 Route::get('/', function () {
     return view('auth/login');
 });
@@ -32,7 +33,7 @@ Route::get('/dashboard', function () {
 Route::get('/admin', function () {
     return view('admin.index');
 })->middleware(['auth','role:admin'])->name('admin.index');*/
-Auth::routes();
+
 
 
 Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group(function(){
@@ -53,6 +54,28 @@ Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group
  });
 
 
+ Route::resource('/import-bill-xmls',ImportBillXmlController::class)->middleware('auth');
+ Route::post('/import-bill-xmls', [ImportBillXmlController::class, 'import'])->name('import-bills-xmls.import')->middleware('auth');
+
+ Route::resource('/emails',EmailController::class)->middleware('auth');
+
+ //Auth::routes();
+
+ Route::middleware(['auth','role:Admin'])->name('import-payment-transaction.')->prefix('import-payment-transaction')->group(function(){
+    Route::resource('/', ImportPaymentTransactionController::class);
+    Route::post('/', [ImportPaymentTransactionController::class, 'import'])->name('import');
+});
+
+ //Route::resource('/import-payment-transaction',ImportPaymentTransactionController::class);
+// Route::post('/import-payment-transaction', [ImportPaymentTransactionController::class, 'import'])->name('import-payment-transaction.import')->middleware('auth');
+ //Route::post('import-payment-transaction/import', ImportPaymentTransactionController::class)->name('import-payment-transaction.import');
+
+
+
+ //Route::post('/import-payment-transaction', [App\Http\Controllers\ImportPaymentTransactionController::class, 'import'])->name('import');
+
+
+
 //Route::get('/roles',[App\Http\Controllers\Admin\RolesController::class,'index'])->name('roles');
 
 // Route::get('/', function () {
@@ -61,8 +84,6 @@ Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group
 // Route::get('/users', function () {
 //     return view('auth/register');
 // });
-
-
 
 Route::get('/index', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
 

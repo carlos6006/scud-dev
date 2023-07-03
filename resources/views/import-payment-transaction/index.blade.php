@@ -1,106 +1,173 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuarios')
+@section('title', 'Import Payment Transaction')
 
 @section('content_header')
-    <div class="container-fluid">
-
+<div class="container-fluid">
     </div>
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-10">
+@include('sweetalert::alert');
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                            <div class="col-sm-8">
                                 <span id="card_title">
-                                    <h2 class="mb-1">{{ __('Lista de ususarios') }}</h2>
+                                    <h2 class="mb-1"><i class="fas fa-car-side"></i>  {{ __('Transacción de pagos CSV') }}</h2>
                                 </span>
                                 <div class="text-muted fw-bold">
-                                    <a href="{{ url('/index') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span>
-                                    <a href=""
-                                        class="breadcrumb-item active">{{ __('Lista de usuarios') }}</a>
-                                    <span class="mx-3">|</span> 2.6 GB <span class="mx-3">|</span> 758 movimientos
+                                    <a href="{{ url('/index') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span> <a href="" class="breadcrumb-item active">{{ __('Transacción de pagos CSV') }}</a> <span class="mx-3">|</span> 2.6 GB <span class="mx-3">|</span> {{count($importPaymentTransactions)}} registros
                                 </div>
                             </div>
-                            <div class="col-sm-2 d-flex align-items-center justify-content-end">
-                                <a class="btn btn-primary" href="" data-toggle="modal" data-target="#ModalCreate"><i
-                                    class="fas fa-plus"></i> {{ __('Agregar usuario') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
+                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                <form action="{{ route('import-payment-transaction.import') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
+                                     <div class="input-group">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04"><i class="fas fa-upload"></i> {{ __('Importar Archivo') }}</button>
+                                          </div>
+                                        <div class="custom-file">
+                                          <input type="file" class="custom-file-input" name="csv_file" accept=".csv" onchange="updateFilePath()" required>
+                                          <label class="custom-file-label" for="inputGroupFile04">Elija el archivo</label>
+                                        </div>
 
-                                        <th class="col-4">Usuario</th>
-                                        <th class="col-1">Rol</th>
-                                        <th class="col-2">Último acceso</th>
-                                        <th class="col-1">Dos pasos</th>
-                                        <th class="col-2">Fecha de registro</th>
-                                        <th class="text-right col-2">Acciones</th>
+                                      </div>
+
+                        </form>
+                        </div>
+
+                            </div>
+                            </div>
+
+                            </div>
+
+
+
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+
+                    <div class="card-body">
+                        <div class="">
+                            <table id="example1" namne="example1" class="table table-bordered table-striped table-responsive">
+                                <thead class="thead">
+                                    <tr>
+                                        <th style="white-space: nowrap;">No</th>
+                                        <th style="white-space: nowrap;">Identificador Transaccion</th>
+                                        <th style="white-space: nowrap;">Identificador Socio App</th>
+                                        <th style="white-space: nowrap;">Nombre Socio App</th>
+                                        <th style="white-space: nowrap;">Apellido Socio App</th>
+                                        <th style="white-space: nowrap;">Identificador Viaje</th>
+                                        <th style="white-space: nowrap;">Descripcion</th>
+                                        <th style="white-space: nowrap;">Nombre Organizacion</th>
+                                        <th style="white-space: nowrap;">Alias Organizacion</th>
+                                        <th style="white-space: nowrap;">Vs Informes</th>
+                                        <th style="white-space: nowrap;">Recibes</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias</th>
+                                        <th style="white-space: nowrap;">Recibes Saldo Viajes Pagos Efectivo</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Impuestos</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Retencion Isr</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Tarifa</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Impuesto Servicio</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Retencion Iva</th>
+                                        <th style="white-space: nowrap;">Recibes Saldo Viajes Iva Tarifas Contribuciones</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Ajuste</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Dinamica</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Espera Recoleccion</th>
+                                        <th style="white-space: nowrap;">Recibes Saldo Viajes Pagos Transferencia Bancaria</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Cancelacion</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Promocion Desafio</th>
+                                        <th style="white-space: nowrap;">Recibes Saldo Viajes Impuestos Iva Servicio</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Extra Gratificacion Usuario</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Promocion Turbo</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Otras Tarifas Ajuste</th>
+                                        <th style="white-space: nowrap;">Recibes Ajustes Posteriores Viaje</th>
+                                        <th style="white-space: nowrap;">Recibes Saldo Viajes Gastos Peaje</th>
+                                        <th style="white-space: nowrap;">Recibes Saldo Viajes Reembolsos Deposito Validacion Cuenta</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Base</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Base Iva</th>
+                                        <th style="white-space: nowrap;">Recibes Saldo Viajes Reembolsos Peaje</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Otras Ganancias Ajuste</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Promocion Ganancia Referir</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Impuestos Retencion</th>
+                                        <th style="white-space: nowrap;">Recibes Tus Ganancias Tarifa Cancelacion Extra Espera Adicional</th>
+
+                                        <th style="white-space: nowrap;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        @foreach ($users as $user => $usuario)
-
-                                            <td class="">
-                                                <div class="media">
-                                                    <img width="50" src="https://picsum.photos/75/75" class="rounded-circle elevation-2 align-self-center mr-3" alt="Foto de perfil">
-                                                    <div class="media-body my-2">
-                                                        <h5 class="mt-0 mb-1">{{ $usuario->name }}</h5>
-                                                        {{ $usuario->email }}
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                            </td>
-                                            @if ($usuario->roles)
-                                            @foreach ($usuario->roles as $usuario_rol)
-                                            <td class="align-middle"><span class="badge bg-primary">{{ $usuario_rol->name }}</span></td>
-                                            @endforeach
-                                            @endif
-                                            <td class="align-middle"><span class="badge bg-secondary">Hace 3 días</span>
-                                            </td>
-                                            <td class="align-middle"><span class="badge bg-success">Activo</span></td>
-                                            <td class="align-middle">{{ $usuario->created_at }}</td>
+                                    @foreach ($importPaymentTransactions as $importPaymentTransaction)
+                                        <tr>
+                                            <td style="white-space: nowrap;">{{ ++$i }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->identificador_transaccion }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->identificador_socio_app }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->nombre_socio_app }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->apellido_socio_app }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->identificador_viaje }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->descripcion }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->nombre_organizacion }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->alias_organizacion }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->vs_informes }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_saldo_viajes_pagos_efectivo }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_impuestos }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_retencion_isr }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_tarifa }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_impuesto_servicio }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_retencion_iva }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_saldo_viajes_iva_tarifas_contribuciones }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_ajuste }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_dinamica }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_espera_recoleccion }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_saldo_viajes_pagos_transferencia_bancaria }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_cancelacion }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_promocion_desafio }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_saldo_viajes_impuestos_iva_servicio }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_extra_gratificacion_usuario }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_promocion_turbo }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_otras_tarifas_ajuste }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_ajustes_posteriores_viaje }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_saldo_viajes_gastos_peaje }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_saldo_viajes_reembolsos_deposito_validacion_cuenta }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_base }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_base_iva }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_saldo_viajes_reembolsos_peaje }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_otras_ganancias_ajuste }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_promocion_ganancia_referir }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_impuestos_retencion }}</td>
+											<td style="white-space: nowrap;">{{ $importPaymentTransaction->recibes_tus_ganancias_tarifa_cancelacion_extra_espera_adicional }}</td>
                                             <td style="white-space: nowrap;">
-                                                <form action="" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href=""><i class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="" data-target="#ModalEdit_{{ $usuario->id }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                <form action="{{ route('import-payment-transaction.destroy',$importPaymentTransaction->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('import-payment-transaction.show',$importPaymentTransaction->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('import-payment-transaction.edit',$importPaymentTransaction->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
                                             </td>
-
-                                    </tr>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
                 </div>
-                <!-- /.col -->
+                {{-- {!! $importPaymentTransactions->links() !!} --}}
             </div>
-            <!-- /.row -->
         </div>
     </div>
-</div>
-</div>
-</div>
-        <!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-@stop
+@endsection
 
 @section('footer')
 <div class="float-right d-none d-sm-block">
@@ -108,15 +175,16 @@
   </div>
   <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los derechos.
 
-@stop
-
-
+@endsection
 @section('css')
 
-@stop
+@endsection
 
 @section('js')
     <script>
+
+
+
         $(function() {
             $("#example1").DataTable({
                 "responsive": false,
@@ -368,5 +436,15 @@
                 }
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
+
+        function updateFilePath() {
+  var inputFile = document.querySelector('.custom-file-input');
+  var fileName = inputFile.files[0].name;
+  var filePathLabel = document.querySelector('.custom-file-label');
+  filePathLabel.textContent = fileName;
+}
+
     </script>
+
+
 @stop

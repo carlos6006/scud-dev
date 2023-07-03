@@ -365,7 +365,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Gastos XML',
-                    'url'  => '#',
+                    'url'  => 'import-bill-xmls',
                     'icon' => 'nav-icon fas fa-file-import',
                 ],
                 [
@@ -380,7 +380,7 @@ return [
                 ],
                 [
                     'text' => 'Transaccion de pagos CSV',
-                    'url'  => '#',
+                    'url'  => 'import-payment-transaction',
                     'icon' => 'nav-icon fas fa-file-csv',
                 ],
             ],
@@ -696,7 +696,7 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => 'https://cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

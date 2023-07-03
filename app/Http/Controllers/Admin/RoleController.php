@@ -41,14 +41,14 @@ class RoleController extends Controller
         $validated = $request->validate(['name' => ['required', 'min:3']]);
         $role->update($validated);
 
-        return to_route('admin.roles.index')->with('message', 'Role Updated successfully.');
+        return to_route('admin.roles.index')->with('update','true');
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
 
-        return back()->with('message', 'Role deleted.');
+        return back()->with('destroy','true');
     }
 
     public function givePermission(Request $request, Role $role)

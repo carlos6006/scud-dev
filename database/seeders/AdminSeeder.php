@@ -5,14 +5,16 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\User;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 use Faker\Factory as Faker;
-use Illuminate\Support\Arr;
+
 
 
 class AdminSeeder extends Seeder
@@ -53,7 +55,12 @@ class AdminSeeder extends Seeder
             'declaración'
         ];
 
-
+        $permissions = [
+            'create',
+            'read',
+            'update',
+            'delete'
+        ];
 
         foreach($modulos as $m){
             foreach($permissions as $p){

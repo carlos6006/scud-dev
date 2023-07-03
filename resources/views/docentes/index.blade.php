@@ -32,22 +32,22 @@
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Nombre(s)</th>
-                      <th>Apellidos(s)</th>
-                      <th>RFC</th>
-                      <th>Correo institucional</th>
-                      <th>Fecha de creación</th>
-                      <th>Opciones</th>
+                      <th style="white-space: nowrap;">Nombre(s)</th>
+                      <th style="white-space: nowrap;">Apellidos(s)</th>
+                      <th style="white-space: nowrap;">RFC</th>
+                      <th style="white-space: nowrap;">Correo institucional</th>
+                      <th style="white-space: nowrap;">Fecha de creación</th>
+                      <th style="white-space: nowrap;">Opciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         @foreach($docentes as $docente)
-                      <td>{{$docente->first_name}}</td>
-                      <td>{{$docente->last_name}}</td>
-                      <td>{{$docente->rfc}}</td>
-                      <td>{{$docente->email_address}}</td>
-                      <td>{{$docente->created_at}}</td>
+                      <td style="white-space: nowrap;">{{$docente->first_name}}</td>
+                      <td style="white-space: nowrap;">{{$docente->last_name}}</td>
+                      <td style="white-space: nowrap;">{{$docente->rfc}}</td>
+                      <td style="white-space: nowrap;">{{$docente->email_address}}</td>
+                      <td style="white-space: nowrap;">{{$docente->created_at}}</td>
                       <td class="project-actions text-right">
                       <form action="{{ url('docentes/'.$docente->id) }}" method="POST">
                         <a class="btn btn-info btn-sm" href="{{ url('docentes/'.$docente->id.'/edit') }}"><i class="fas fa-pencil-alt"></i> Editar</a>
@@ -59,16 +59,7 @@
                     </tr>
                     @endforeach
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Nombre(s)</th>
-                      <th>Apellidos(s)</th>
-                      <th>RFC</th>
-                      <th>Correo institucional</th>
-                      <th>Fecha de creación</th>
-                      <th>Opciones</th>
-                    </tr>
-                    </tfoot>
+
                   </table>
                 </div>
                 <!-- /.card-body -->

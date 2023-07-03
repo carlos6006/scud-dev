@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PermissionController extends Controller
 {
@@ -40,14 +41,13 @@ class PermissionController extends Controller
         $validated = $request->validate(['name' => 'required']);
         $permission->update($validated);
 
-        return to_route('admin.permissions.index')->with('message', 'Permission updated.');
+        return to_route('admin.permissions.index')->with('update', 'true');
     }
 
     public function destroy(Permission $permission)
     {
         $permission->delete();
-
-        return back()->with('message', 'Permission deleted.');
+        return back()->with('destroy','true');
     }
 
     public function assignRole(Request $request, Permission $permission)

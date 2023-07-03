@@ -20,7 +20,8 @@
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.roles.update', $role->id) }}"
                                 enctype="multipart/form-data">
-                                @csrf @method('PUT')
+                                @csrf
+                                @method('PUT')
                                 <div class="form-group">
                                     <p class="font-weight-bold ">Nombre del rol: *</p>
                                     <div class="input-group">
