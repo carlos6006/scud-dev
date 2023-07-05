@@ -15,17 +15,20 @@ class EmailSeeder extends Seeder
      */
     public function run(): void
     {
-        $arrays = range(0,20);
-        foreach ($arrays as $valor) {
+        $faker = \Faker\Factory::create();
 
-        DB::table('emails')->insert([
-            'email_address' => Str::random(10).'@uvp.edu.mx',
-            'rfc' => Str::random(13),
-            'first_name' => Str::random(10),
-            'last_name' => Str::random(10),
-            'password' => Hash::make('password'),
-        ]);
-
-    }
+        for ($i = 0; $i < 20; $i++) {
+            DB::table('emails')->insert([
+                'first_name' => $faker->firstName,
+                'last_name' => $faker->lastName,
+                'rfc' => $faker->regexify('[A-Z]{4}\d{6}[A-Z0-9]{3}'),
+                'email_address' => $faker->unique()->safeEmail,
+                'email_verified_at' => now(),
+                'password' => Hash::make('password'),
+                'remember_token' => Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

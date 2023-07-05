@@ -193,7 +193,7 @@ class ImportBillXmlController extends Controller
 
                     foreach ($xml->xpath('//t:TimbreFiscalDigital') as $tfd) {
                         $datos['Tfd_FechaTimbrado'] = (string)$tfd['FechaTimbrado'];
-                        $datos['Tfd_NoCertificadoSAT'] = (string)$tfd[' NoCertificadoSAT'];
+                        $datos['Tfd_NoCertificadoSAT'] = (string)$tfd['NoCertificadoSAT'];
                         $datos['Tfd_RfcProvCertif'] = (string)$tfd['RfcProvCertif'];
                         $datos['Tfd_SelloCFD'] = (string)$tfd['SelloCFD'];
                         $datos['Tfd_SelloSAT'] = (string)$tfd['SelloSAT'];

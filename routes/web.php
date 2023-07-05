@@ -11,6 +11,7 @@ use App\Http\Controllers\ImportPaymentTransactionController;
 use App\Http\Controllers\ImportBillXmlController;
 use App\Http\Controllers\EmailController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +64,8 @@ Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group
  Route::post('/import-bill-xmls', [ImportBillXmlController::class, 'import'])->name('import-bills-xmls.import')->middleware('auth');
 
  Route::resource('/emails',EmailController::class)->middleware('auth');
+
+
 
  //Auth::routes();
 

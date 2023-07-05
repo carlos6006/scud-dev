@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('template_title')
-{{ $importBillXml->name ?? __('Show') . ' ' . __('Import Bill Xml') }}
+{{ $importBillXml->name ?? __('Show') . ' ' . __('Emails') }}
 @endsection
 
 @section('content_header')

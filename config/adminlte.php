@@ -339,8 +339,8 @@ return [
             ]
         ],
         [
-            'text' => 'Alta de correo docentes',
-            'url'  => 'docentes',
+            'text' => 'Correos electrónicos',
+            'url'  => 'emails',
             'icon' => 'nav-icon far fa-envelope',
         ],
         ['header' => 'Paginas'],

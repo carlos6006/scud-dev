@@ -460,24 +460,6 @@
 
     </script>
 
-@if (session('import') == 'true')
-<script>
-    Swal.fire(
-        '¡Carga exitosa!',
-        'Su archivo ha sido cargado exitosamente.',
-        'success'
-    )
-</script>
-@endif
 
-@if (session('import') == 'duplicate')
-<script>
-    Swal.fire(
-        'Oops...',
-        'El archivo ya ha sido cargado anteriormente.',
-        'error'
-    )
-</script>
-@endif
 @stop
 
