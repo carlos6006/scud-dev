@@ -107,7 +107,7 @@ class ImportBillXmlController extends Controller
         $importBillXml = ImportBillXml::find($id)->delete();
         Alert::success('¡Carga exitosa!', 'El archivo ha sido cargado correctamente.')->flash();
         // Redirecciona a la página anterior
-        return redirect()->route('import-bill-xmls.index')
+        return redirect()->route('import-bill-xmls.index');
        // return redirect()->route('import-bill-xmls.index')
          //   ->with('success', 'ImportBillXml deleted successfully');
     }
