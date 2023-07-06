@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('import_payment_transactions', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('identificador_transaccion')->nullable();

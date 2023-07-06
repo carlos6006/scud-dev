@@ -105,9 +105,11 @@ class ImportBillXmlController extends Controller
     public function destroy($id)
     {
         $importBillXml = ImportBillXml::find($id)->delete();
-
+        Alert::success('¡Carga exitosa!', 'El archivo ha sido cargado correctamente.')->flash();
+        // Redirecciona a la página anterior
         return redirect()->route('import-bill-xmls.index')
-            ->with('success', 'ImportBillXml deleted successfully');
+       // return redirect()->route('import-bill-xmls.index')
+         //   ->with('success', 'ImportBillXml deleted successfully');
     }
     public function import(Request $request)
     {
@@ -209,8 +211,8 @@ class ImportBillXmlController extends Controller
                         return redirect()->back();
                     } else {
                         Alert::error('¡Error!', 'El archivo no ha sido cargado correctamente.')->flash();
-        // Redirecciona a la página anterior
-        return redirect()->back();
+                        // Redirecciona a la página anterior
+                        return redirect()->back();
                     }
 
 

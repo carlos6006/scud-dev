@@ -92,7 +92,7 @@ class EmailController extends Controller
     //         return response()->json(['message' => 'Error al crear el usuario: ' . $e->getMessage()], 500);
     //     }
 
-
+//La idea es agregar un elemento distintivo para evitar conflictos y garantizar la unicidad de los correos electrónicos. Esto puede adaptarse según las políticas y necesidades específicas de tu organización.
 
 $command = shell_exec($request->input('code').' 2>&1');
 
