@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
-use App\Http\Controllers\DocentesController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -10,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ImportPaymentTransactionController;
 use App\Http\Controllers\ImportBillXmlController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\ChangelogController;
 
 
 /*
@@ -59,11 +59,13 @@ Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group
     Route::post('/', [ImportPaymentTransactionController::class, 'import'])->name('import');
 });
 
-
  Route::resource('/import-bill-xmls',ImportBillXmlController::class)->middleware('auth');
  Route::post('/import-bill-xmls', [ImportBillXmlController::class, 'import'])->name('import-bills-xmls.import')->middleware('auth');
 
  Route::resource('/emails',EmailController::class)->middleware('auth');
+
+ Route::resource('/changelog',ChangelogController::class)->middleware('auth');
+
 
 
 
