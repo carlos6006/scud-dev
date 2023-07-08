@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('version');
             $table->unsignedBigInteger('type_id');
-            $table->string('titulo');
+            $table->string('titulo')->nullable();
             $table->text('descripcion')->nullable();
-            $table->unsignedBigInteger('categori_id');
+            $table->unsignedBigInteger('categori_id')->nullable();
             $table->string('ruta')->nullable();
             $table->date('fecha_actualizacion');
             $table->timestamps();

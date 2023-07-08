@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Changelog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ChangelogController
@@ -19,9 +20,11 @@ class ChangelogController extends Controller
     public function index()
     {
         $changelogs = Changelog::paginate();
+        $tableSize = Changelog::getTableSize();
 
-        return view('changelog.index', compact('changelogs'))
-            ->with('i', (request()->input('page', 1) - 1) * $changelogs->perPage());
+       // return view('changelog.index', compact('changelogs'))->with('i', (request()->input('page', 1) - 1) * $changelogs->perPage());
+       return view('changelog.index', ['changelogs' => $changelogs])
+    ->with('tableSize', $tableSize);
     }
 
     /**

@@ -318,23 +318,21 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Tableros',
+            'text'        => 'Estadisticas',
             'url'         => 'admin/pages',
             'icon'        => 'nav-icon fas fa-tachometer-alt',
             'label'       => 4,
             'label_color' => 'success',
             'submenu' => [
                 [
-                    'text' => 'Administrativo',
+                    'text' => 'Sistema',
                     'url'  => '#',
+                    'icon' => 'nav-icon fas fa-server',
                 ],
                 [
-                    'text' => 'IVA',
+                    'text' => 'Usuario',
                     'url'  => '#',
-                ],
-                [
-                    'text' => 'ISR',
-                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-id-card',
                 ],
             ]
         ],
@@ -343,16 +341,16 @@ return [
             'url'  => 'emails',
             'icon' => 'nav-icon far fa-envelope',
         ],
-        ['header' => 'Paginas'],
+        ['header' => 'Finanzas UBER'],
         [
             'text' => 'Declaración mensual',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-file-contract',
+            'icon' => 'nav-icon fas fa-calendar-alt',
         ],
         [
             'text' => 'Resumenes',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-balance-scale-left',
+            'icon' => 'nav-icon fas fa-chart-line',
         ],
         [
             'text' => 'Factura global',
@@ -366,29 +364,50 @@ return [
                 [
                     'text' => 'Gastos XML',
                     'url'  => 'import-bill-xmls',
-                    'icon' => 'nav-icon fas fa-file-import',
+                    'icon' => 'nav-icon fas fa-money-bill',
                 ],
                 [
                     'text' => 'Ingresos XML',
                     'url'  => '#',
-                    'icon' => 'nav-icon fas fa-file-import',
+                    'icon' => 'nav-icon fas fa-money-bill-wave',
                 ],
                 [
                     'text' => 'Retenciones XML',
                     'url'  => '#',
-                    'icon' => 'nav-icon fas fa-file-import',
+                    'icon' => 'nav-icon fas fa-file-invoice-dollar',
                 ],
                 [
-                    'text' => 'Transaccion de pagos CSV',
+                    'text' => 'Historial de vaijes',
                     'url'  => 'import-payment-transaction',
-                    'icon' => 'nav-icon fas fa-file-csv',
+                 'icon' => 'nav-icon fas fa-road',
+                    // 'icon' => 'nav-icon fab fa-uber',
                 ],
             ],
         ],
         [
-            'text' => 'Perfil',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-user-cog',
+            'text'    => 'Configuracion',
+            'icon'    => 'nav-icon fas fa-tools',
+            'submenu' => [
+                [
+                    'text' => 'Finciera',
+                    'icon'    => 'nav-icon fas fa-chart-bar',
+                    'url'  => '#',
+                ],
+
+                [
+                    'text' => 'Perfil',
+                    'icon' => 'nav-icon fas fa-user-cog',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Retenciones XML',
+                    'url'  => '#',
+                ],
+                [
+                    'text' => 'Transaccion de pagos CSV',
+                    'url'  => '#',
+                ],
+            ],
         ],
         /*  ['header' => 'account_settings'],
         [
@@ -401,32 +420,10 @@ return [
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],*/
-        ['header' => 'Configuración fiscal'],
 
-        [
-            'text'    => 'Extras',
-            'icon'    => 'nav-icon fas fa-compress',
-            'submenu' => [
-                [
-                    'text' => 'Gastos XML',
-                    'url'  => '#',
-                ],
 
-                [
-                    'text' => 'Viajes XML',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Retenciones XML',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Transaccion de pagos CSV',
-                    'url'  => '#',
-                ],
-            ],
-        ],
-        ['header' => 'APPS'],
+        ['header' => 'Configuración de sistema'],
+
         [
             'text' => 'Gestor de facturas',
             'url'  => 'admin/settings',
@@ -435,51 +432,40 @@ return [
         [
             'text' => 'Sucripciones',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-comments-dollar',
-        ],
-
-        [
-            'text' => 'Administración',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-cog',
+            'icon' => 'nav-icon fas fa-check-circle',
             'submenu' => [
                 [
-                    'text' => 'Proveedores',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-users',
-                ],
-                [
-                    'text' => 'Clientes',
-                    'url'  => '',
-                    'icon' => 'nav-icon fas fa-user-shield',
-                ],
-                [
-                    'text' => 'Cuentas bancarias',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-lock-open',
-                ]
-            ],
+     'text' => 'Clientes',
+     'url'  => '',
+     'icon' => 'nav-icon fas fa-address-book',
+ ],
+ [
+     'text' => 'Cuentas bancarias',
+     'url'  => '#',
+     'icon' => 'nav-icon fas fa-credit-card',
+ ]
+],
         ],
         [
             'text' => 'Gestión de usuarios',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-users-cog',
+            'icon' => 'nav-icon fas fa-users',
            // 'can'=>'admin',
             'submenu' => [
                 [
                     'text' => 'Usuarios',
                     'url'  => 'admin/users',
-                    'icon' => 'nav-icon fas fa-users',
+                    'icon' => 'nav-icon fas fa-user',
                 ],
                 [
                     'text' => 'Roles de usuario',
                     'url'  => 'admin/roles',
-                    'icon' => 'nav-icon fas fa-user-shield',
+                    'icon' => 'nav-icon fas fa-user-tag',
                 ],
                 [
                     'text' => 'Permisos',
                     'url'  => 'admin/permissions',
-                    'icon' => 'nav-icon fas fa-lock-open',
+                    'icon' => 'nav-icon fas fa-lock',
                 ]
             ],
         ],
@@ -492,12 +478,29 @@ return [
         [
             'text' => 'Documentación',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-stream',
+            'icon' => 'nav-icon fas fa-file-alt',
         ],
         [
-            'text' => 'Changelog v1.0.5',
-            'url'  => 'admin/settings',
+            'text' => 'Changelog',
+            'url'  => 'changelogs',
             'icon' => 'nav-icon fas fa-laptop-code',
+            'submenu' => [
+                [
+                    'text' => 'Vista',
+                    'url'  => 'changelogs',
+                    'icon' => 'nav-icon fa fa-table',
+                ],
+                [
+                    'text' => 'Tipos',
+                    'url'  => 'types',
+                    'icon' => 'nav-icon fas fa-list',
+                ],
+                [
+                    'text' => 'Categorias',
+                    'url'  => 'categorate',
+                    'icon' => 'nav-icon fas fa-tag',
+                ],
+            ],
         ],
 
        /* ['header' => 'labels'],

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Changelog
@@ -27,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Changelog extends Model
 {
-    
+
     static $rules = [
 		'user_id' => 'required',
 		'version' => 'required',
@@ -52,24 +53,38 @@ class Changelog extends Model
      */
     public function category()
     {
+        //return $this->belongsTo(Category::class);
         return $this->hasOne('App\Models\Category', 'id', 'categori_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function type()
     {
-        return $this->hasOne('App\Models\Type', 'id', 'type_id');
+       //return $this->belongsTo(Type::class);
+       return $this->hasOne('App\Models\Type', 'id', 'type_id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function user()
     {
+        //eturn $this->belongsTo(User::class);
         return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
-    
+    public static function getTableSize()
+    {
+        $tableName = (new self())->getTable();
+        $tableSize = DB::table('information_schema.tables')
+            ->select(DB::raw('SUM(data_length + index_length) / 1024 as table_size'))
+            ->where('table_schema', '=', env('DB_DATABASE'))
+            ->where('table_name', '=', $tableName)
+            ->groupBy('table_name')
+            ->pluck('table_size');
+
+        return $tableSize;
+    }
 
 }

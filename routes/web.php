@@ -10,6 +10,7 @@ use App\Http\Controllers\ImportPaymentTransactionController;
 use App\Http\Controllers\ImportBillXmlController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\ChangelogController;
+use App\Http\Controllers\TypeController;
 
 
 /*
@@ -64,7 +65,8 @@ Route::middleware(['auth','role:Admin'])->name('admin.')->prefix('admin')->group
 
  Route::resource('/emails',EmailController::class)->middleware('auth');
 
- Route::resource('/changelog',ChangelogController::class)->middleware('auth');
+ Route::resource('/changelogs',ChangelogController::class)->middleware('auth');
+ Route::resource('/types',TypeController::class)->middleware('auth');
 
 
 
