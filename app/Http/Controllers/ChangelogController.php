@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Changelog;
+use App\Models\Type;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 /**
  * Class ChangelogController
@@ -35,7 +38,9 @@ class ChangelogController extends Controller
     public function create()
     {
         $changelog = new Changelog();
-        return view('changelog.create', compact('changelog'));
+        $types = Type::pluck('nombre', 'id');
+        $category = Category::pluck('nombre', 'id');
+        return view('changelog.create', compact('changelog', 'types','category'));
     }
 
     /**

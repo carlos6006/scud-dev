@@ -82,9 +82,10 @@ class Changelog extends Model
             ->where('table_schema', '=', env('DB_DATABASE'))
             ->where('table_name', '=', $tableName)
             ->groupBy('table_name')
-            ->pluck('table_size');
+            ->pluck('table_size')
+            ->first();
 
-        return $tableSize;
+            return number_format($tableSize, 2);
     }
 
 }
