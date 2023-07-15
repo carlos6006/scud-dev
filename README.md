@@ -7,9 +7,9 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About SCUD
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+SCUD is a specialized web application designed for financial accounting and tax declaration purposes, targeting Uber drivers in Mexico. Our goal is to provide a comprehensive solution for managing your financial activities and ensuring compliance with tax regulations specific to the ride-hailing industry.
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
@@ -19,7 +19,9 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - [Robust background job processing](https://laravel.com/docs/queues).
 - [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+SCUD is built on the Laravel web application framework, known for its elegant syntax and developer-friendly environment. It offers a solid foundation for scalability, performance, and future enhancements.
+
+Our mission is to empower Uber drivers in Mexico with a reliable and efficient solution for their financial management and tax obligations. With SCUD, you can focus on driving and growing your business while ensuring accurate financial records and tax compliance.
 
 ## Learning Laravel
 
