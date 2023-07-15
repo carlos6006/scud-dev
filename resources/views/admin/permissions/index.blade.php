@@ -10,11 +10,10 @@
 
 @section('content')
     @include('admin.permissions.create')
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card card-primary card-outline">
                     <div class="card-header">
                         <div class="container-fluid">
                             <div class="row mb-2">

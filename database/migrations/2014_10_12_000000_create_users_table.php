@@ -15,6 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->timestamp('last_access')->nullable();
+            $table->time('two_steps')->nullable();
             $table->boolean('activo');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

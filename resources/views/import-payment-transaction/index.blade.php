@@ -1,29 +1,37 @@
 @extends('adminlte::page')
 
-@section('title', 'Import Payment Transaction')
+@section('title', 'Historial de viajes')
 
 @section('content_header')
-<div class="container-fluid">
+    <div class="container-fluid">
     </div>
 @endsection
 
 @section('content')
-@include('sweetalert::alert');
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="container-fluid">
-                            <div class="row mb-2">
+@include('sweetalert::alert')
+<div class="container-fluid">
+    <div class="callout callout-warning">
+    <h5><i class="fas fa-info"></i> Nota:</h5>
+    Para obtener el archivo .csv necesario para cargar el historial de viajes, te invito a <a href="https://supplier.uber.com/orgs/45641fb1-ba1b-4974-8167-47f7d2892c62/reports" target="_blank">visitar la siguiente página</a>.
+</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
                             <div class="col-sm-8">
                                 <span id="card_title">
-                                    <h2 class="mb-1"><i class="fas fa-car-side"></i>  {{ __('Transacción de pagos CSV') }}</h2>
+                                    <h2 class="mb-1"><i class="fas fa-road"></i> @yield('title')</h2>
                                 </span>
                                 <div class="text-muted fw-bold">
-                                    <a href="{{ url('/index') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span> <a href="" class="breadcrumb-item active">{{ __('Transacción de pagos CSV') }}</a> <span class="mx-3">|</span> 2.6 GB <span class="mx-3">|</span> {{count($importPaymentTransactions)}} registros
+                                    <a href="{{ url('/') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span>
+                                    <a href="{{ route('admin.users.create') }}" class="breadcrumb-item active">@yield('title')</a> <span
+                                        class="mx-3">|</span> {{ $tableSize }} Kb <span class="mx-3">|</span>
+                                    {{ count($importPaymentTransactions) }} registros
                                 </div>
                             </div>
+
                             <div class="col-sm-4 d-flex align-items-center justify-content-end">
                                 <form action="{{ route('import-payment-transaction.import') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -33,8 +41,8 @@
                                             <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04"><i class="fas fa-upload"></i> {{ __('Importar Archivo') }}</button>
                                           </div>
                                         <div class="custom-file">
-                                          <input type="file" class="custom-file-input" name="csv_file" accept=".csv" onchange="updateFilePath()" required>
-                                          <label class="custom-file-label" for="inputGroupFile04">Elija el archivo</label>
+                                        <input type="file" class="custom-file-input" name="csv_file"  id="csv_file"accept=".csv" onchange="updateFilePath()" required>
+                                          <label class="custom-file-label" for="csv_file">Elija el archivo</label>
                                         </div>
 
                                       </div>
@@ -42,18 +50,15 @@
                         </form>
                         </div>
 
-                            </div>
-                            </div>
-
-                            </div>
-
-
-
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
                         </div>
-                    @endif
+                    </div>
+                </div>
+
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
 
                     <div class="card-body">
                         <div class="">

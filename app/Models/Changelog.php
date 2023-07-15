@@ -79,7 +79,7 @@ class Changelog extends Model
         $tableName = (new self())->getTable();
         $tableSize = DB::table('information_schema.tables')
             ->select(DB::raw('SUM(data_length + index_length) / 1024 as table_size'))
-            ->where('table_schema', '=', env('DB_DATABASE'))
+            ->where('table_schema', '=', config('database.connections.mysql.database'))
             ->where('table_name', '=', $tableName)
             ->groupBy('table_name')
             ->pluck('table_size')

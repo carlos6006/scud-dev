@@ -8,22 +8,53 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
+
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate();
+        $tableSize = User::getTableSize();
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.index', compact('users', 'tableSize'))
+            ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
+
     }
 
-    public function show(User $user)
+
+    public function store(Request $request)
     {
+        request()->validate(User::$rules);
+
+        $user = User::create($request->all());
+
+        return redirect()->route('users.index')
+            ->with('success', 'User created successfully.');
+    }
+
+
+    public function create()
+    {
+        $user = new User();
+        return view('admin.users.create', compact('user'));
+    }
+
+    public function edit($id)
+    {
+        $user = User::find($id);
+
+        return view('admin.users.edit', compact('user'));
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
         $roles = Role::all();
         $permissions = Permission::all();
 
-        return view('admin.users.role', compact('user', 'roles', 'permissions'));
+        return view('admin.users.show', compact('user', 'roles', 'permissions'));
     }
+
 
     public function assignRole(Request $request, User $user)
     {

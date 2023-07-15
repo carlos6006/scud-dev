@@ -315,7 +315,7 @@ return [
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'can'  => 'clientes delete',
         ],
         [
             'text'        => 'Estadisticas',
@@ -349,8 +349,9 @@ return [
         ],
         [
             'text' => 'Resumenes',
-            'url'  => 'admin/settings',
+            'url'  => 'summary',
             'icon' => 'nav-icon fas fa-chart-line',
+            // 'can'    => 'Admin',
         ],
         [
             'text' => 'Factura global',
@@ -379,7 +380,7 @@ return [
                 [
                     'text' => 'Historial de vaijes',
                     'url'  => 'import-payment-transaction',
-                 'icon' => 'nav-icon fas fa-road',
+                    'icon' => 'nav-icon fas fa-road',
                     // 'icon' => 'nav-icon fab fa-uber',
                 ],
             ],
@@ -389,7 +390,7 @@ return [
             'icon'    => 'nav-icon fas fa-tools',
             'submenu' => [
                 [
-                    'text' => 'Finciera',
+                    'text' => 'Financiera',
                     'icon'    => 'nav-icon fas fa-chart-bar',
                     'url'  => '#',
                 ],
@@ -397,14 +398,6 @@ return [
                 [
                     'text' => 'Perfil',
                     'icon' => 'nav-icon fas fa-user-cog',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Retenciones XML',
-                    'url'  => '#',
-                ],
-                [
-                    'text' => 'Transaccion de pagos CSV',
                     'url'  => '#',
                 ],
             ],
@@ -433,18 +426,19 @@ return [
             'text' => 'Sucripciones',
             'url'  => 'admin/settings',
             'icon' => 'nav-icon fas fa-check-circle',
+           // 'can'=>'admin',
             'submenu' => [
                 [
-     'text' => 'Clientes',
-     'url'  => '',
-     'icon' => 'nav-icon fas fa-address-book',
- ],
- [
-     'text' => 'Cuentas bancarias',
-     'url'  => '#',
-     'icon' => 'nav-icon fas fa-credit-card',
- ]
-],
+                    'text' => 'Clientes',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-address-book',
+                ],
+                [
+                    'text' => 'Cuentas bancarias',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-credit-card',
+                ]
+            ],
         ],
         [
             'text' => 'Gestión de usuarios',
@@ -486,9 +480,10 @@ return [
             'icon' => 'nav-icon fas fa-laptop-code',
             'submenu' => [
                 [
-                    'text' => 'Vista',
-                    'url'  => 'changelogs',
-                    'icon' => 'nav-icon fa fa-table',
+                    'text' => 'Changelogs',
+                    'url'  => 'admin/changelogs',
+                    'icon' => 'nav-icon fa fa-sync-alt',
+                    'can'  => ['changelog.crear', 'changelog.ver', 'changelog.modificar', 'changelog.elimuinar'],
                 ],
                 [
                     'text' => 'Tipos',

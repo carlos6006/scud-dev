@@ -12,6 +12,7 @@ use Spatie\Permission\Guard;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $id
@@ -153,5 +154,18 @@ class Permission extends Model implements PermissionContract
     protected static function getPermission(array $params = []): ?PermissionContract
     {
         return static::getPermissions($params, true)->first();
+    }
+    public static function getTableSize()
+    {
+        $tableName = (new self())->getTable();
+        $tableSize = DB::table('information_schema.tables')
+            ->select(DB::raw('SUM(data_length + index_length) / 1024 as table_size'))
+            ->where('table_schema', '=', config('database.connections.mysql.database'))
+            ->where('table_name', '=', $tableName)
+            ->groupBy('table_name')
+            ->pluck('table_size')
+            ->first();
+
+            return number_format($tableSize, 2);
     }
 }

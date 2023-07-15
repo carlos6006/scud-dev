@@ -30,41 +30,37 @@ class AdminSeeder extends Seeder
             $Cliente=Role::create(['name' => 'Cliente']);
 
         $modulos=[
-            'usuarios',
-            'roles',
-            'resúmenes',
-            'clientes',
-            'facturas',
-            'productos',
-            'informes',
-            'configuración',
-            'perfiles',
-            'permisos',
-            'categorías',
-            'mensajes',
-            'notificaciones',
-            'tareas',
-            'gastos',
-            'ingresos',
+            'declaracion_mesnual',
+            'resumenes',
             'factura_global',
-            'permisos_avanzados',
-            'suscripciones',
-            'estadísticas administrador',
-            'estadísticas supervisor',
-            'estadísticas_cliente',
-            'declaración'
+            'importar-gastosXML',
+            'importar-ingresosXML',
+            'importar-retencionesXML',
+            'importar-historial_de_viajesCSV',
+            'configuracion-perfil',
+            'configuracion-financiera',
+            'suscirpciones-clientes',
+            'suscirpciones-cuentas bancarias',
+            'gestion_usuarios-usuarios',
+            'gestion_usuarios-roles_de_usuario',
+            'gestion_usuarios-permisos',
+            'componentes',
+            'documentacion',
+            'changelog',
+            'changelog-tipos',
+            'changelog-categorias',
         ];
 
         $permissions = [
-            'create',
-            'read',
-            'update',
-            'delete'
+            'crear',
+            'ver',
+            'modificar',
+            'eliminar'
         ];
 
         foreach($modulos as $m){
             foreach($permissions as $p){
-                Permission::create(['name' => "{$m} $p"]);
+                Permission::create(['name' => "{$m}.$p"]);
             }
         }
 

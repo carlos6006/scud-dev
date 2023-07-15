@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Gastos XML')
+@section('title', 'Usuarios')
 
 @section('content_header')
     <div class="container-fluid">
@@ -8,201 +8,130 @@
 @endsection
 
 @section('content')
-@include('sweetalert::alert')
-<div class="container-fluid">
-    <div class="callout callout-warning">
-        <h5><i class="fas fa-info"></i> Nota:</h5>
-        Para obtener los archivos XML necesarios para alimentar las facturas de gastos, te invito a <a href="https://www.ejemplo.com" target="_blank">visitar la siguiente página</a>.
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-8">
-                                <span id="card_title">
-                                    <h2 class="mb-1"><i class="fas fa-money-bill"></i> @yield('title')</h2>
-                                </span>
-                                <div class="text-muted fw-bold">
-                                    <a href="{{ url('/') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span>
-                                    <a href="{{ route('admin.users.create') }}" class="breadcrumb-item active">@yield('title')</a> <span
-                                        class="mx-3">|</span> {{ $tableSize }} Kb <span class="mx-3">|</span>
-                                    {{ count($importBillXmls) }} registros
+
+    @include('sweetalert::alert')
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-8">
+                                    <span id="card_title">
+                                        <h2 class="mb-1"><i class="fas fa-user"></i> @yield('title')</h2>
+                                    </span>
+                                    <div class="text-muted fw-bold">
+                                        <a href="{{ url('/index') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span>
+                                        <a href="" class="breadcrumb-item active">@yield('title')</a> <span
+                                            class="mx-3">|</span> {{ $tableSize }} Kb <span class="mx-3">|</span>
+                                        {{ count($users) }} registros
+                                    </div>
                                 </div>
+
+                                <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                    <a  data-toggle="modal"
+                                    data-target="#modalCreate" class="btn btn-primary float-right"
+                                        data-placement="left">
+                                        <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
+                                    </a>
+                                </div>
+
                             </div>
-
-                            <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                <form action="{{ route('import-bills-xmls.import') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('POST')
-                                     <div class="input-group">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="submit" id="inputGroupFileAddon04"><i class="fas fa-upload"></i> {{ __('Importar XML') }}</button>
-                                          </div>
-                                        <div class="custom-file">
-                                          <input type="file" class="custom-file-input" name="xml_file" id="xml_file" accept=".xml" onchange="updateFilePath()" required>
-                                          <label class="custom-file-label" for="xml_file">Elija el archivo</label>
-                                        </div>
-
-                                      </div>
-
-                        </form>
-                        </div>
-
                         </div>
                     </div>
-                </div>
 
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="example1" namne="example1" class="table table-bordered table-striped table-responsive">
-                                <thead class="thead">
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
                                     <tr>
-                                        <th style="white-space: nowrap;">No</th>
 
-
-										<th style="white-space: nowrap;">Comprobante Certificado</th>
-										<th style="white-space: nowrap;">Comprobante Exportacion</th>
-										<th style="white-space: nowrap;">Comprobante Fecha</th>
-										<th style="white-space: nowrap;">Comprobante Folio</th>
-										<th style="white-space: nowrap;">Comprobante Formapago</th>
-										<th style="white-space: nowrap;">Comprobante Metodopago</th>
-										<th style="white-space: nowrap;">Comprobante Lugarexpedicion</th>
-										<th style="white-space: nowrap;">Comprobante Moneda</th>
-										<th style="white-space: nowrap;">Comprobante Nocertificado</th>
-										<th style="white-space: nowrap;">Comprobante Sello</th>
-										<th style="white-space: nowrap;">Comprobante Serie</th>
-										<th style="white-space: nowrap;">Comprobante Subtotal</th>
-										<th style="white-space: nowrap;">Comprobante Tipodecomprobante</th>
-										<th style="white-space: nowrap;">Comprobante Total</th>
-										<th style="white-space: nowrap;">Comprobante Version</th>
-										<th style="white-space: nowrap;">Emisor Rfc</th>
-										<th style="white-space: nowrap;">Emisor Regimenfiscal</th>
-										<th style="white-space: nowrap;">Emisor Nombre</th>
-										<th style="white-space: nowrap;">Receptor Domiciliofiscal</th>
-										<th style="white-space: nowrap;">Receptor Nombre</th>
-										<th style="white-space: nowrap;">Receptor Regimenfiscal</th>
-										<th style="white-space: nowrap;">Receptor Rfc</th>
-										<th style="white-space: nowrap;">Receptor Usocfdi</th>
-										<th style="white-space: nowrap;">Concepto Cantidad</th>
-										<th style="white-space: nowrap;">Concepto Claveprodserv</th>
-										<th style="white-space: nowrap;">Concepto Claveunidad</th>
-										<th style="white-space: nowrap;">Concepto Descripcion</th>
-										<th style="white-space: nowrap;">Concepto Importe</th>
-										<th style="white-space: nowrap;">Concepto Noidentificacion</th>
-										<th style="white-space: nowrap;">Concepto Objetoimp</th>
-										<th style="white-space: nowrap;">Concepto Unidad</th>
-										<th style="white-space: nowrap;">Concepto Valorunitario</th>
-										<th style="white-space: nowrap;">Traslado Base</th>
-										<th style="white-space: nowrap;">Traslado Importe</th>
-										<th style="white-space: nowrap;">Traslado Impuesto</th>
-										<th style="white-space: nowrap;">Traslado Tasaocuota</th>
-										<th style="white-space: nowrap;">Traslado Tipofactor</th>
-										<th style="white-space: nowrap;">Tfd Fechatimbrado</th>
-										<th style="white-space: nowrap;">Tfd Nocertificadosat</th>
-										<th style="white-space: nowrap;">Tfd Rfcprovcertif</th>
-										<th style="white-space: nowrap;">Tfd Sellocfd</th>
-										<th style="white-space: nowrap;">Tfd Sellosat</th>
-										<th style="white-space: nowrap;">Tfd Uuid</th>
-										<th style="white-space: nowrap;">Tfd Version</th>
-
-                                        <th style="white-space: nowrap;"></th>
+                                        <th class="col-4">Usuario</th>
+                                        <th class="col-1">Rol</th>
+                                        <th class="col-2">Último acceso</th>
+                                        <th class="col-1">Dos pasos</th>
+                                        <th class="col-2">Fecha de registro</th>
+                                        <th class="text-right col-2">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($importBillXmls as $importBillXml)
-                                        <tr>
-                                            <td style="white-space: nowrap;">{{ ++$i }}</td>
+                                    <tr>
+                                        @foreach ($users as $user => $usuario)
 
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Certificado }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Exportacion }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Fecha }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Folio }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_FormaPago }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_MetodoPago }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_LugarExpedicion }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Moneda }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_NoCertificado }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Sello }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Serie }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_SubTotal }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_TipoDeComprobante }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Total }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Comprobante_Version }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Emisor_RFC }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Emisor_RegimenFiscal }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Emisor_Nombre }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Receptor_DomicilioFiscal }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Receptor_Nombre }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Receptor_RegimenFiscal }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Receptor_RFC }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Receptor_UsoCFDI }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_Cantidad }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_ClaveProdServ }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_ClaveUnidad }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_Descripcion }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_Importe }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_NoIdentificacion }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_ObjetoImp }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_Unidad }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Concepto_ValorUnitario }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Traslado_Base }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Traslado_Importe }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Traslado_Impuesto }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Traslado_TasaOCuota }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Traslado_TipoFactor }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Tfd_FechaTimbrado }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Tfd_NoCertificadoSAT }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Tfd_RfcProvCertif }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Tfd_SelloCFD }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Tfd_SelloSAT }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Tfd_UUID }}</td>
-											<td style="white-space: nowrap;">{{ $importBillXml->Tfd_Version }}</td>
-
+                                            <td class="">
+                                                <div class="media">
+                                                    <img width="50" src="https://picsum.photos/75/75" class="rounded-circle elevation-2 align-self-center mr-3" alt="Foto de perfil">
+                                                    <div class="media-body my-2">
+                                                        <h5 class="mt-0 mb-1">{{ $usuario->name }}</h5>
+                                                        {{ $usuario->email }}
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </td>
+                                            @if ($usuario->roles)
+                                            @foreach ($usuario->roles as $usuario_rol)
+                                            <td class="align-middle"><span class="badge bg-primary">{{ $usuario_rol->name }}</span></td>
+                                            @endforeach
+                                            @endif
+                                            <td class="align-middle"><span class="badge bg-secondary">Hace 3 días</span>
+                                            </td>
+                                            <td class="align-middle"><span class="badge bg-success">Activo</span></td>
+                                            <td class="align-middle">{{ $usuario->created_at }}</td>
                                             <td style="white-space: nowrap;">
-                                                <form action="{{ route('import-bill-xmls.destroy',$importBillXml->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('import-bill-xmls.show',$importBillXml->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('import-bill-xmls.edit',$importBillXml->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href=""><i class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="" data-target="#ModalEdit_{{ $usuario->id }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                             </td>
-                                        </tr>
+
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
+                        <!-- /.card-body -->
                     </div>
+                    <!-- /.card -->
                 </div>
-                {!! $importBillXmls->links() !!}
+                <!-- /.col -->
             </div>
+            <!-- /.row -->
         </div>
     </div>
-@endsection
-@section('footer')
-<div class="float-right d-none d-sm-block">
-    <b>Version</b> 1.5.0
-  </div>
-  <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los derechos.
+</div>
+</div>
+</div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    @endsection
 
-@endsection
+    @section('footer')
+        <div class="float-right d-none d-sm-block">
+            <b>Version</b> 1.5.0
+        </div>
+        <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
+        derechos.
+
+    @endsection
+
+
 @section('css')
 
-@endsection
+@stop
 
 @section('js')
     <script>
-
-
-
         $(function() {
             $("#example1").DataTable({
                 "responsive": false,
@@ -454,16 +383,5 @@
                 }
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
-
-        function updateFilePath() {
-  var inputFile = document.querySelector('.custom-file-input');
-  var fileName = inputFile.files[0].name;
-  var filePathLabel = document.querySelector('.custom-file-label');
-  filePathLabel.textContent = fileName;
-}
-
     </script>
-
-
 @stop
-

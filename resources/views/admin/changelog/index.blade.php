@@ -8,13 +8,14 @@
 @endsection
 
 @section('content')
+@include('admin.changelog.create')
     @include('sweetalert::alert')
     <div class="container-fluid">
 
         <div class="row">
             <div class="col-sm-12">
 
-                <div class="card">
+                <div class="card card-primary card-outline">
                     <div class="card-header">
                         <div class="container-fluid">
                             <div class="row mb-2">
@@ -29,8 +30,10 @@
                                         {{ count($changelogs) }} registros
                                     </div>
                                 </div>
+
                                 <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                    <a href="{{ route('changelogs.create') }}" class="btn btn-primary float-right"
+                                    <a  data-toggle="modal"
+                                    data-target="#modalCreate" class="btn btn-primary float-right"
                                         data-placement="left">
                                         <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
                                     </a>
@@ -73,9 +76,9 @@
                                                                     {{ $registro->descripcion }}
                                                                 </div>
                                                                 <div class="card-tools">
-                                                                    <form  action="{{ route('changelogs.destroy',$registro->id) }}" class="boton-eliminar" method="POST"
+                                                                    <form  action="{{ route('admin.changelogs.destroy',$registro->id) }}" class="boton-eliminar" method="POST"
                                                                         action="">
-                                                                        <a class="btn btn-sm btn-success" href="{{ route('changelogs.edit',$registro->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                                        <a class="btn btn-sm btn-success" href="{{ route('admin.changelogs.edit',$registro->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
@@ -101,4 +104,14 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('footer')
+    <div class="float-right d-none d-sm-block">
+        <b>Version</b> 1.5.0
+    </div>
+    <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
+    derechos.
+
 @endsection

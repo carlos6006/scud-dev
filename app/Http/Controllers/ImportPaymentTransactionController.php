@@ -22,8 +22,9 @@ class ImportPaymentTransactionController extends Controller
     {
        // $importPaymentTransactions = ImportPaymentTransaction::paginate();
         $importPaymentTransactions = ImportPaymentTransaction::all();
+        $tableSize = ImportPaymentTransaction::getTableSize();
 
-        return view('import-payment-transaction.index', compact('importPaymentTransactions'))
+        return view('import-payment-transaction.index', compact('importPaymentTransactions','tableSize'))
               ->with('i');
             //  ->with('i', (request()->input('page', 1) - 1) * $importPaymentTransactions->perPage());
     }

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Changelog;
 use App\Models\Type;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 
 /**
  * Class ChangelogController
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\Admin
  */
 class ChangelogController extends Controller
 {
@@ -22,12 +22,17 @@ class ChangelogController extends Controller
      */
     public function index()
     {
-        $changelogs = Changelog::paginate();
-        $tableSize = Changelog::getTableSize();
 
-       // return view('changelog.index', compact('changelogs'))->with('i', (request()->input('page', 1) - 1) * $changelogs->perPage());
-       return view('changelog.index', ['changelogs' => $changelogs])
-    ->with('tableSize', $tableSize);
+
+    $changelog = new Changelog();
+    $types = Type::pluck('nombre', 'id');
+    $category = Category::pluck('nombre', 'id');
+    $changelogs = Changelog::paginate();
+    $tableSize = Changelog::getTableSize();
+    $latestVersion = Changelog::max('version');
+
+    return view('admin.changelog.index', compact('changelog', 'types', 'category', 'changelogs','latestVersion'))
+        ->with('tableSize', $tableSize);
     }
 
     /**
@@ -40,7 +45,7 @@ class ChangelogController extends Controller
         $changelog = new Changelog();
         $types = Type::pluck('nombre', 'id');
         $category = Category::pluck('nombre', 'id');
-        return view('changelog.create', compact('changelog', 'types','category'));
+        return view('changelog.index', compact('changelog', 'types','category'));
     }
 
     /**

@@ -1,0 +1,81 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class User
+ *
+ * @property $id
+ * @property $name
+ * @property $email
+ * @property $last_access
+ * @property $two_steps
+ * @property $activo
+ * @property $email_verified_at
+ * @property $password
+ * @property $remember_token
+ * @property $created_at
+ * @property $updated_at
+ *
+ * @property Changelog[] $changelogs
+ * @property ImportBillXml[] $importBillXmls
+ * @property ImportPaymentTransaction[] $importPaymentTransactions
+ * @property ProfilePicture[] $profilePictures
+ * @package App
+ * @mixin \Illuminate\Database\Eloquent\Builder
+ */
+class User extends Model
+{
+    
+    static $rules = [
+		'name' => 'required',
+		'email' => 'required',
+		'activo' => 'required',
+    ];
+
+    protected $perPage = 20;
+
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name','email','last_access','two_steps','activo'];
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function changelogs()
+    {
+        return $this->hasMany('App\Models\Changelog', 'user_id', 'id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function importBillXmls()
+    {
+        return $this->hasMany('App\Models\ImportBillXml', 'users_id', 'id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function importPaymentTransactions()
+    {
+        return $this->hasMany('App\Models\ImportPaymentTransaction', 'users_id', 'id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function profilePictures()
+    {
+        return $this->hasMany('App\Models\ProfilePicture', 'user_id', 'id');
+    }
+    
+
+}

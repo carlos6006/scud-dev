@@ -13,8 +13,9 @@ class RoleController extends Controller
     public function index()
     {
         $permissions = Permission::all();
+        $tableSize = Permission::getTableSize();
         $roles = Role::whereNotIn('name', [''])->get();
-        return view('admin.roles.index', compact('roles', 'permissions'));
+        return view('admin.roles.index', compact('roles', 'permissions','tableSize'));
     }
 
     public function create()

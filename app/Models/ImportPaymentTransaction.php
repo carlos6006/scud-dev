@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ImportPaymentTransaction
@@ -57,7 +58,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ImportPaymentTransaction extends Model
 {
-    
+
     static $rules = [
 		'users_id' => 'required',
 		'identificador_transaccion' => 'required',
@@ -118,6 +119,32 @@ class ImportPaymentTransaction extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'users_id');
     }
-    
+
+    public static function getTableSize()
+    {
+        $tableName = (new self())->getTable();
+        $tableSize = DB::table('information_schema.tables')
+            ->select(DB::raw('SUM(data_length + index_length) / 1024 as table_size'))
+            ->where('table_schema', '=', config('database.connections.mysql.database'))
+            ->where('table_name', '=', $tableName)
+            ->groupBy('table_name')
+            ->pluck('table_size')
+            ->first();
+            return number_format($tableSize, 2);
+    }
+
+
+    public function obtenerSumaPorMes($mes, $año)
+    {
+        $usuarioActivo = 1; // Reemplaza con el ID de usuario activo
+       // $usuarioActivo = Auth::id(); // Obtener el ID de usuario del inicio de sesión actual
+        $resultado = $this->selectRaw('SUM(recibes) as suma_columna')
+            ->where('users_id', $usuarioActivo)
+            ->whereYear('vs_informes', $año)
+            ->whereMonth('vs_informes', $mes)
+            ->first();
+//dd($resultado);
+        return $resultado;
+    }
 
 }

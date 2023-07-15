@@ -21,9 +21,12 @@ class ImportBillXmlController extends Controller
      */
     public function index()
     {
-        $importBillXmls = ImportBillXml::paginate();
+        $userId = auth()->id(); // Obtener el ID del usuario autenticado
+        $importBillXmls = ImportBillXml::where('users_id', $userId)
+        ->paginate();
+        $tableSize = ImportBillXml::getTableSize();
 
-        return view('import-bill-xml.index', compact('importBillXmls'))
+        return view('import-bill-xml.index', compact('importBillXmls','tableSize'))
             ->with('i', (request()->input('page', 1) - 1) * $importBillXmls->perPage());
     }
 

@@ -1,49 +1,57 @@
 @extends('adminlte::page')
 
-@section('title', 'Roles')
+@section('title', 'Usuarios')
 
 @section('content_header')
-<div class="container-fluid">
-
-</div>
+    <div class="container-fluid">
+    </div>
 @endsection
 
 @section('content')
-    @include('admin.roles.create')
-
+@include('admin.roles.create')
+    @include('sweetalert::alert')
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <div class="card">
+                <div class="card card-primary card-outline">
                     <div class="card-header">
                         <div class="container-fluid">
                             <div class="row mb-2">
-                                <div class="col-sm-10">
+                                <div class="col-sm-8">
                                     <span id="card_title">
-                                        <h2 class="mb-1">{{ __('Roles de usuario') }}</h2>
+                                        <h2 class="mb-1"><i class="fas fa-user-tag"></i> @yield('title')</h2>
                                     </span>
                                     <div class="text-muted fw-bold">
-                                        <a href="{{ url('/index') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span>
-                                        <a href=""
-                                            class="breadcrumb-item active">{{ __('Lista de roles') }}</a>
-                                        <span class="mx-3">|</span> 2.6 GB <span class="mx-3">|</span> 3 roles cereados
+                                        <a href="{{ url('/') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span>
+                                        <a href="{{ route('admin.users.create') }}" class="breadcrumb-item active">@yield('title')</a> <span
+                                            class="mx-3">|</span> {{ $tableSize }} Kb <span class="mx-3">|</span>
+                                        {{ count($roles) }} registros
                                     </div>
                                 </div>
-                                <div class="col-sm-2 d-flex align-items-center justify-content-end">
-                                    <a class="btn btn-primary" href="" data-toggle="modal" data-target="#Modal_create"><i
-                                        class="fas fa-plus"></i> {{ __('Agregar rol') }}</a>
+
+                                <div class="col-sm-4 d-flex align-items-center justify-content-end">
+                                    <a  href="" data-toggle="modal" data-target="#modalCreate"class="btn btn-primary float-right"
+                                        data-placement="left">
+                                        <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
+                                    </a>
                                 </div>
+
                             </div>
                         </div>
-
                     </div>
+
+                    @if ($message = Session::get('success'))
+                        <div class="alert alert-success">
+                            <p>{{ $message }}</p>
+                        </div>
+                    @endif
 
     <div class="card-deck my-3">
         @foreach ($roles as $role)
         <div class="col-sm-4">
           <div class="card">
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-user-shield"></i> {{ $role->name }}</h3>
+                <h3 class="card-title"><i class="fas fa-user-tag"></i> {{ $role->name }}</h3>
                 <div class="card-tools">
                     <form class="boton-eliminar" method="POST" action="{{ route('admin.roles.destroy', $role->id) }}">
                         <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" title="Collapse">

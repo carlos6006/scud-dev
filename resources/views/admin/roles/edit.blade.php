@@ -39,8 +39,6 @@
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.roles.permissions', $role->id) }}">
                                 @csrf
-
-
                                 <div class="form-group">
                                     <p class="font-weight-bold ">Asiganar permisos:</p>
                                     <div class="input-group">
