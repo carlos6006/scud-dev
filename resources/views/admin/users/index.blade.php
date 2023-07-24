@@ -4,47 +4,62 @@
 
 @section('content_header')
     <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                {{-- <h1>@yield('title')</h1> --}}
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+                    <li class="breadcrumb-item active">@yield('title')</li>
+                </ol>
+            </div>
+        </div>
     </div>
-@endsection
+@stop
 
 @section('content')
+@include('admin.users.create')
     @include('sweetalert::alert')
+
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-12">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                         <div class="container-fluid">
                             <div class="row mb-2">
-                                <div class="col-sm-8">
-                                    <span id="card_title">
-                                        <h2 class="mb-1"><i class="fas fa-user"></i> @yield('title')</h2>
-                                    </span>
+                                <div class="col-sm-7">
+                                    <h2 class="mb-1 text-primary"><i class="fas fa-users"></i> @yield('title')</h2>
                                     <div class="text-muted fw-bold">
-                                        <a href="{{ url('/') }}">{{ __('Inicio') }}</a> <span class="mx-3">|</span>
-                                        <a href="{{ route('admin.users.create') }}" class="breadcrumb-item active">@yield('title')</a> <span
-                                            class="mx-3">|</span> {{ $tableSize }} Kb <span class="mx-3">|</span>
-                                        {{ count($users) }} registros
+                                        {{ $tableSize }} Kb <span class="mx-3">|</span>{!! $users->total() !!} registros
                                     </div>
                                 </div>
-
-                                <div class="col-sm-4 d-flex align-items-center justify-content-end">
-                                    <a  data-toggle="modal"
-                                    data-target="#modalCreate" class="btn btn-primary float-right"
-                                        data-placement="left">
-                                        <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
-                                    </a>
+                                <div class="col-sm-5 d-flex align-items-center justify-content-end">
+                                        @csrf
+                                        @method('POST')
+                                        <a data-toggle="modal" data-target="#modalCreate" class="btn btn-primary mx-3" data-placement="left">
+                                            <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
+                                        </a>
+                                        <div class="btn-group" role="group">
+                                            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-download"></i> Exportar
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                <a class="dropdown-item" href="#"><i class="fas fa-file-csv"></i> Exportar CVS</a>
+                                                <a class="dropdown-item" href="#"><i class="fas fa-file-pdf"></i> Exportar PDF</a>
+                                            </div>
+                                        </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -52,31 +67,33 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-
-										<th>Usuario</th>
-										<th>Rol</th>
-										<th>Ultimo acceso</th>
-										<th>Verificacion dos passo</th>
-										<th>Estatus</th>
-
+                                        <th>Usuario</th>
+                                        <th>Rol</th>
+                                        <th>Ultimo acceso</th>
+                                        <th>Verificacion dos passo</th>
+                                        <th>Estatus</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+
+                                    @foreach ($users as $userItem)
+
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
-											<td> <div class="media">
-                                                <img width="50" src="https://picsum.photos/75/75" class="rounded-circle elevation-2 align-self-center mr-3" alt="Foto de perfil">
-                                                <div class="media-body my-2">
-                                                    <h5 class="mt-0 mb-1">{{ $user->name }}</h5>
-                                                    {{ $user->email }}
-                                                </div>
-                                            </div>
                                             <td>
-                                                @if ($user->roles)
-                                                    @foreach ($user->roles as $user_role)
+                                                <div class="media">
+                                                    <img width="50" src="https://picsum.photos/75/75"
+                                                        class="rounded-circle elevation-2 align-self-center mr-3"
+                                                        alt="Foto de perfil">
+                                                    <div class="media-body my-2">
+                                                        <h5 class="mt-0 mb-1">{{ $userItem->name }}</h5>
+                                                        {{ $userItem->email }}
+                                                    </div>
+                                                </div>
+                                            <td>
+                                                @if ($userItem->roles)
+                                                    @foreach ($userItem->roles as $user_role)
                                                         @php
                                                             $color = '';
                                                             switch ($user_role->name) {
@@ -97,39 +114,44 @@
                                                     @endforeach
                                                 @endif
                                             </td>
-											<td>{{ $user->last_access }}</td>
-											<td>{{ $user->two_steps }}</td>
-											<td>
-                                                @if ($user->activo == 1)
+                                            <td>{{ $userItem->last_access }}</td>
+                                            <td>{{ $userItem->two_steps }}</td>
+                                            <td>
+                                                @if ($userItem->activo == 1)
                                                     <span class="badge bg-success">Activo</span>
                                                 @else
                                                     <span class="badge bg-secondary">Inactivo</span>
                                                 @endif
                                             </td>
-
-
-
                                             <td>
-                                                <form action="{{ route('admin.users.destroy',$user->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('admin.users.show',$user->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('admin.users.edit',$user->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('admin.users.destroy', $userItem->id) }}"
+                                                    method="POST">
+                                                    <a class="btn btn-sm btn-primary "
+                                                        href="{{ route('admin.users.show', $userItem->id) }}"><i
+                                                            class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success"
+                                                        href="{{ route('admin.users.edit', $userItem->id) }}"><i
+                                                            class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
+                    <div class="card-footer ">
+                        {!! $users->links() !!}
+                    </div>
                 </div>
-                {!! $users->links() !!}
             </div>
         </div>
-    </div>
-    @endsection
+    @stop
 
     @section('footer')
         <div class="float-right d-none d-sm-block">
@@ -137,5 +159,12 @@
         </div>
         <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
         derechos.
+    @stop
 
-    @endsection
+    @section('js')
+    <script>
+       document.getElementById("attachment").addEventListener('click', function() {
+    document.getElementById("file-input").click();
+});
+    </script>
+@stop

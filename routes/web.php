@@ -1,15 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//use Laravel\Socialite\Facades\Socialite;
 
 use App\Http\Controllers\Admin\IndexController;
-
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ChangelogController;
-
+use App\Http\Controllers\Admin\TaxRegimeController;
 
 use App\Http\Controllers\ImportPaymentTransactionController;
 use App\Http\Controllers\ImportBillXmlController;
@@ -37,7 +35,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         return view('index');
     })->name('index');
 
-    Route::name('admin.')->prefix('admin')->name('admin.')->prefix('admin')->group(function(){
+    Route::name('admin.')->prefix('admin')->group(function(){
+        Route::resource('/tax-regimes', TaxRegimeController::class);
         Route::resource('/changelogs', ChangelogController::class);
         Route::resource('/types', TypeController::class);
         Route::resource('/users', UserController::class);
@@ -47,8 +46,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
         Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
         Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('users.permissions');
-        Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
         Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
+        Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
         Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
     });
 });
@@ -57,20 +56,10 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
 Route::middleware(['auth', 'role:Admin|Cliente'])->group(function () {
     Route::resource('/import-bill-xmls', ImportBillXmlController::class);
     Route::post('/import-bill-xmls', [ImportBillXmlController::class, 'import'])->name('import-bills-xmls.import');
-    Route::post('/import-bill-xmls', [ImportBillXmlController::class, 'import'])->name('import-bills-xmls.import');
     Route::resource('/summary', SummaryController::class);
     Route::get('/summary{columna}/{anio}/{mes}', [SummaryController::class,'uber'])->name('summary.uber');
     Route::resource('/import-payment-transaction', ImportPaymentTransactionController::class);
     Route::post('/import-payment-transaction', [ImportPaymentTransactionController::class, 'import'])->name('import-payment-transaction.import');
 });
 
-
-
-
-
-
- Route::resource('/emails',EmailController::class)->middleware('auth');
-
-
-
-
+Route::resource('/emails', EmailController::class)->middleware('auth');

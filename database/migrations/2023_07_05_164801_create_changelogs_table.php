@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('changelogs');
         Schema::create('changelogs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('ruta')->nullable();
             $table->date('fecha_actualizacion');
             $table->timestamps();
+                        // Clave foránea que hace referencia a la tabla 'users'
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('categori_id')->references('id')->on('categories')->onDelete('cascade');

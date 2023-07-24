@@ -415,7 +415,7 @@ return [
         ],*/
 
 
-        ['header' => 'Configuración de sistema'],
+        ['header' => 'Configuraciones de sistema'],
 
         [
             'text' => 'Gestor de facturas',
@@ -425,13 +425,31 @@ return [
         [
             'text' => 'Sucripciones',
             'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-check-circle',
+            'icon' => 'nav-icon fas fa-gem',
            // 'can'=>'admin',
             'submenu' => [
                 [
                     'text' => 'Clientes',
                     'url'  => '#',
                     'icon' => 'nav-icon fas fa-address-book',
+                ],
+                [
+                    'text' => 'Cuentas bancarias',
+                    'url'  => '#',
+                    'icon' => 'nav-icon fas fa-credit-card',
+                ]
+            ],
+        ],
+        [
+            'text' => 'Fisacales',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-hand-holding-usd',
+           // 'can'=>'admin',
+            'submenu' => [
+                [
+                    'text' => 'Régimen fiscal',
+                    'url'  => 'admin/tax-regimes',
+                    'icon' => 'nav-icon fas fa-tasks',
                 ],
                 [
                     'text' => 'Cuentas bancarias',
@@ -449,7 +467,7 @@ return [
                 [
                     'text' => 'Usuarios',
                     'url'  => 'admin/users',
-                    'icon' => 'nav-icon fas fa-user',
+                    'icon' => 'nav-icon fas fa-users',
                 ],
                 [
                     'text' => 'Roles de usuario',
@@ -459,7 +477,7 @@ return [
                 [
                     'text' => 'Permisos',
                     'url'  => 'admin/permissions',
-                    'icon' => 'nav-icon fas fa-lock',
+                    'icon' => 'nav-icon fas fa-check-circle',
                 ]
             ],
         ],

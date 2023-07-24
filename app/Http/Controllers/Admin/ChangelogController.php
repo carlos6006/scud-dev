@@ -45,7 +45,7 @@ class ChangelogController extends Controller
         $changelog = new Changelog();
         $types = Type::pluck('nombre', 'id');
         $category = Category::pluck('nombre', 'id');
-        return view('changelog.index', compact('changelog', 'types','category'));
+        return view('admin.changelog.index', compact('changelog', 'types','category'));
     }
 
     /**
@@ -60,7 +60,7 @@ class ChangelogController extends Controller
 
         $changelog = Changelog::create($request->all());
 
-        return redirect()->route('changelogs.index')
+        return redirect()->route('admin.changelogs.index')
             ->with('success', 'Changelog created successfully.');
     }
 

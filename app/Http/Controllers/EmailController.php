@@ -3,15 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Email;
-use Google_Client;
-use Google_Service_Gmail;
-use Google_Service_Gmail_User;
-use Google_Service_Directory;
 use Illuminate\Http\Request;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
-use Illuminate\Support\Facades\Artisan;
 use RealRashid\SweetAlert\Facades\Alert;
+use Symfony\Component\Process\Process;
 
 
 /**
@@ -51,67 +45,39 @@ class EmailController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-    //     // Configurar las credenciales del cliente
-    //     $client = new Google_Client();
-    //     $client->setAuthConfig(storage_path('../storage/app/credentials.json'));
-    //    // dd($client);
-    //     $client->setScopes([
-    //         Google_Service_Directory::ADMIN_DIRECTORY_USER,
-    //         Google_Service_Directory::ADMIN_DIRECTORY_USERSCHEMA,
-    //     ]);
+{
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        // Estás trabajando en Windows.
+        $commandOutput = shell_exec($request->input('code').' 2>&1');
 
-    //     // Get a valid access token
-    //     $client->useApplicationDefaultCredentials();
-    //     $accessToken = $client->fetchAccessTokenWithAssertion()["access_token"];
+        if (strpos($commandOutput, 'ERROR: 409: Entity already exists.') !== false) {
+            // Mensaje adicional en caso de error
+            Alert::error('¡Error!', 'El correo electrónico ya existe. Por favor, póngase en contacto con el administrador del dominio.')->flash();
+        } else {
+            request()->validate(Email::$rules);
+            $email = Email::create($request->all());
+            Alert::success('¡La creación se ha realizado exitosamente!', 'El correo electrónico ha sido dado de alta correctamente.')->flash();
+        }
+    } else {
+        // Estás trabajando en Linux.
+        $code = $request->input('code');
+        $gamPath = '/home/carlos/bin/gam/';
+        $command = 'sudo -u carlos '.$gamPath. $code.' 2>&1';
+        $output = shell_exec($command);
 
+        if (strpos($output, 'ERROR: 409: Entity already exists.') !== false) {
+            // Mensaje adicional en caso de error
+            Alert::error('¡Error!', 'El correo electrónico ya existe. Por favor, póngase en contacto con el administrador del dominio.')->flash();
+        } else {
+            request()->validate(Email::$rules);
+            $email = Email::create($request->all());
+            Alert::success('¡La creación se ha realizado exitosamente!', 'El correo electrónico ha sido dado de alta correctamente.')->flash();
+        }
+    }
 
-    //     // Crear una instancia del servicio de Directory de Google
-    //     $service = new Google_Service_Directory($client);
-
-    //     // Crear un nuevo usuario
-    //     $user = new \Google_Service_Directory_User();
-    //    // dd($request->input('email_address'));
-    //     $user->setPrimaryEmail($request->input('email_address'));
-    //     $user->setPassword($request->input('password'));
-    //     $user->setName(new \Google_Service_Directory_UserName([
-    //         'givenName' => $request->input('first_name'),
-    //         'familyName' => $request->input('last_name'),
-    //     ]));
-
-    //     // Enviar la solicitud para crear el usuario
-    //     try {
-    //         $service->users->insert($user);
-    //         //dd($service);
-
-    //         // El usuario se creó correctamente
-    //         return response()->json(['message' => 'Usuario creado correctamente'], 200);
-    //     } catch (\Exception $e) {
-    //         dd($e);
-    //         // Error al crear el usuario
-    //         return response()->json(['message' => 'Error al crear el usuario: ' . $e->getMessage()], 500);
-    //     }
-
-//La idea es agregar un elemento distintivo para evitar conflictos y garantizar la unicidad de los correos electrónicos. Esto puede adaptarse según las políticas y necesidades específicas de tu organización.
-
-$command = shell_exec($request->input('code').' 2>&1');
-
-if (strpos($command, 'ERROR: 409: Entity already exists.') !== false) {
-    // Mensaje adicional en caso de error
-    Alert::error('¡Error!', 'El correo electrónico ya existe. Por favor, póngase en contacto con el administrador del dominio.')->flash();
     return redirect()->route('emails.index');
-} else {
-    request()->validate(Email::$rules);
-    $email = Email::create($request->all());
-    Alert::success('¡La creación se ha realizado exitosamente!', 'El correo electrónico ha sido dado de alta correctamente.')->flash();
-    return redirect()->route('emails.index');
-   // return redirect()->route('emails.index')
-   // ->with('success', 'Email created successfully.');
 }
 
-
-
-    }
 
     /**
      * Display the specified resource.

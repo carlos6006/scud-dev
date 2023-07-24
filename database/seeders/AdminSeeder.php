@@ -52,10 +52,9 @@ class AdminSeeder extends Seeder
         ];
 
         $permissions = [
-            'crear',
-            'ver',
-            'modificar',
-            'eliminar'
+            'read',
+            'write',
+            'create'
         ];
 
         foreach($modulos as $m){

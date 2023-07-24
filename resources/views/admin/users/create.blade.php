@@ -1,30 +1,20 @@
-@extends('layouts.app')
+<div class="modal fade bd-example-modal-lg " id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalCreateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header card-primary card-outline">
+                 <h3 class="mb-1 text-primary" id="modalCreateLabel"><i class="fas fa-edit"></i>{{ __('Crear') }} usuario</h3>
+            </div>
 
-@section('template_title')
-    {{ __('Create') }} User
-@endsection
+            <div class="modal-body">
+                @includeIf('partials.errors')
 
-@section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
+                <form method="POST" action="{{ route('admin.users.store') }}" role="form" enctype="multipart/form-data">
+                    @csrf
 
-                @includeif('partials.errors')
+                    @include('admin.users.form')
 
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} User</span>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('admin.users.store') }}"  role="form" enctype="multipart/form-data">
-                            @csrf
-
-                            @include('admin.users.form')
-
-                        </form>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
-    </section>
-@endsection
+    </div>
+</div>

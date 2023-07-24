@@ -1,7 +1,5 @@
 <div class="box box-info padding-1">
     <div class="box-body">
-
-
             {{ Form::hidden('user_id', auth()->check() ? auth()->user()->id : '', ['class' => 'form-control']) }}
             <div class="row">
                 <div class="col-sm-6">
@@ -23,8 +21,6 @@
 
                 </div>
             </div>
-
-
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
@@ -60,9 +56,8 @@
         </div>
 
     </div>
-    <div class="box-footer mt20 card-footer" >
-        <button type="submit" class="btn btn-primary">{{ __('Enviar') }}</button>
-        <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Cancelar</button>
-
-    </div>
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+        </div>
 </div>

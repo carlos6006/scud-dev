@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $email->name ?? "{{ __('Show') Email" }}
+{{ $email->name ?? __('Show Email') }}
 @endsection
 
 @section('content')
@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
                             <strong>First Name:</strong>
                             {{ $email->first_name }}

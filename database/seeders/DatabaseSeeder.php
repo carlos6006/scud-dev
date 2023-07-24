@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TypesSeeder::class);
         $this->call(CategoriesSeeder::class);
         $this->call(ChangelogsSeeder::class);
+        $this->call(TaxsRegimeSeeder::class);
 
 
 

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('import_bill_xmls');
         Schema::create('import_bill_xmls', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('users_id');
@@ -74,6 +75,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+       // Desactivar las restricciones de clave externa
+DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+// Ejecutar la migración para eliminar la tabla 'users'
+Schema::dropIfExists('import_bill_xmls');
+
+// Reactivar las restricciones de clave externa
+DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
     }
 };

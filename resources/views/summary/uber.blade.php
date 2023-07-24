@@ -1,4 +1,4 @@
-<table class="table table-hover my-2">
+<table id="table" namne="table" class="table table-striped table-responsive my-2">
     <thead>
         <tr>
             <th scope="col" class="col-1 text-center"></th>
@@ -346,31 +346,39 @@
         <tr class="cell-1 table-active" data-toggle="collapse" data-target="#demo-4">
             <td scope="row" class="text-wrap font-weight-bold" style="text-align: right;">Total:</td>
             @php
-            $columnasGrupoDos = [
-                'recibes_ajustes_posteriores_viaje',
-                'recibes_saldo_viajes_pagos_efectivo',
-                'recibes_saldo_viajes_impuestos_iva_servicio',
-                'recibes_saldo_viajes_iva_tarifas_contribuciones',
-                'recibes_saldo_viajes_reembolsos_deposito_validacion_cuenta',
-                'recibes_saldo_viajes_gastos_peaje',
-                'recibes_saldo_viajes_reembolsos_peaje',
-                'recibes',
-            ];
+
+    $columnasGrupoTres = [
+        'recibes_tus_ganancias',
+        'recibes_ajustes_posteriores_viaje',
+        'recibes_saldo_viajes_pagos_efectivo',
+        'recibes_saldo_viajes_impuestos_iva_servicio',
+        'recibes_saldo_viajes_iva_tarifas_contribuciones',
+        'recibes_saldo_viajes_reembolsos_deposito_validacion_cuenta',
+        'recibes_saldo_viajes_gastos_peaje',
+        'recibes_saldo_viajes_reembolsos_peaje',
+        'recibes',
+    ];
+@endphp
+
+@foreach ($resultados as $mes => $datosMesGrupoTres)
+    @php
+        $totalMesGrupoTres = 0;
+    @endphp
+
+    @foreach ($columnasGrupoTres as $columnaGrupoTres)
+        @php
+            // Si es la columna "recibes", restamos su valor en lugar de sumarlo
+            if ($columnaGrupoTres === 'recibes') {
+                $totalMesGrupoTres -= $datosMesGrupoTres[$columnaGrupoTres] ?? 0;
+            } else {
+                $totalMesGrupoTres += $datosMesGrupoTres[$columnaGrupoTres] ?? 0;
+            }
         @endphp
+    @endforeach
 
-        @foreach ($resultados as $mes => $datosMesGrupoDos)
-            @php
-                $totalMesGrupoDos = 0;
-            @endphp
+    <td>{{ '$' . number_format(abs($totalMesGrupoTres), 2, '.', ',') }}</td>
+@endforeach
 
-            @foreach ($columnasGrupoDos as $columnaGrupoDos)
-                @php
-                    $totalMesGrupoDos += $datosMesGrupoDos[$columnaGrupoDos] ?? 0;
-                @endphp
-            @endforeach
-
-            <td>{{ '$' . number_format(abs($totalMesGrupoDos), 2, '.', ',') }}</td>
-        @endforeach
             <td></td>
             <td></td>
         </tr>

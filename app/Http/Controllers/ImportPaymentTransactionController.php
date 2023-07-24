@@ -20,13 +20,23 @@ class ImportPaymentTransactionController extends Controller
      */
     public function index()
     {
-       // $importPaymentTransactions = ImportPaymentTransaction::paginate();
-        $importPaymentTransactions = ImportPaymentTransaction::all();
+
+        $user = Auth::user();
+
+        if ($user->hasRole('Admin')) {
+            // Si el usuario tiene el rol de "Admin", mostrar todos los registros
+            $importPaymentTransactions = ImportPaymentTransaction::paginate();
+        } else {
+            // Si no, mostrar solo los registros del usuario logueado
+            $importPaymentTransactions = ImportPaymentTransaction::where('user_id', $user->id)->paginate();
+        }
+
+        // Obtener el tamaño de la tabla
         $tableSize = ImportPaymentTransaction::getTableSize();
 
-        return view('import-payment-transaction.index', compact('importPaymentTransactions','tableSize'))
-              ->with('i');
-            //  ->with('i', (request()->input('page', 1) - 1) * $importPaymentTransactions->perPage());
+        // Pasar la variable de paginación a la vista
+        return view('import-payment-transaction.index', compact('importPaymentTransactions', 'tableSize'))
+            ->with('i', (request()->input('page', 1) - 1) * $importPaymentTransactions->perPage());
     }
 
     /**
@@ -200,9 +210,21 @@ class ImportPaymentTransactionController extends Controller
                 }
             }
 
+             // Check if "identificador_transaccion" already exists in the database
+             $identificadorTransaccion = $rowData['identificador_transaccion'];
+             $existingRecord = ImportPaymentTransaction::where('identificador_transaccion', $identificadorTransaccion)->first();
+
+
+
+            if (!$existingRecord) {
             // Insertar todas las columnas disponibles en la base de datos
             $rowData['users_id'] = Auth::user()->id; // Agregar el ID del usuario
             ImportPaymentTransaction::create($rowData);
+        } else {
+            Alert::error('Error', 'El archivo ya ha sido cargado previamente. Por favor, asegúrate de que solo se cargue una vez.')->autoClose(50000)->flash();
+            return redirect()->back();
+
+        }
         }
 
         Alert::success('¡Carga exitosa!', 'El archivo ha sido cargado correctamente.')->autoClose(50000)->flash();

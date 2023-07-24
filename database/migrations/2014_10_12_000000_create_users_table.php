@@ -30,6 +30,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+       // Desactivar las restricciones de clave externa
+DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+// Ejecutar la migración para eliminar la tabla 'users'
+Schema::dropIfExists('users');
+
+// Reactivar las restricciones de clave externa
+DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
     }
 };

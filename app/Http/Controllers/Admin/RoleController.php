@@ -14,8 +14,10 @@ class RoleController extends Controller
     {
         $permissions = Permission::all();
         $tableSize = Permission::getTableSize();
-        $roles = Role::whereNotIn('name', [''])->get();
-        return view('admin.roles.index', compact('roles', 'permissions','tableSize'));
+        $roles = Role::whereNotIn('name', [''])->paginate(10);
+        $item_permissions = Permission::selectRaw("DISTINCT SUBSTRING_INDEX(name, '.', 1) AS resultado")
+        ->get();
+        return view('admin.roles.index', compact('roles', 'permissions','tableSize','item_permissions'));
     }
 
     public function create()

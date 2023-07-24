@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h5 class="modal-title text-white" id="modalCreateLabel">{{ __('Crear') }} registro de cambio</h5>
+                <h2 class="modal-title text-white" id="modalCreateLabel">{{ __('Crear') }} registro de cambio</h2>
             </div>
 
             <div class="modal-body">

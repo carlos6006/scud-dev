@@ -13,37 +13,42 @@ class UserController extends Controller
 {
     public function index()
     {
+        $user = new User();
         $users = User::paginate();
         $tableSize = User::getTableSize();
+        $item_permissions = Permission::selectRaw("DISTINCT SUBSTRING_INDEX(name, '.', 1) AS resultado")
+        ->get();
 
-        return view('admin.users.index', compact('users', 'tableSize'))
+
+
+        return view('admin.users.index', compact('users', 'tableSize','user','item_permissions'))
             ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
 
     }
+    public function create()
+    {
+        $user = new User();
+        dd($user);
+        return view('admin.users.index', compact('user'));
 
+    }
 
     public function store(Request $request)
     {
         request()->validate(User::$rules);
-
-        $user = User::create($request->all());
-
-        return redirect()->route('users.index')
+        $users = User::create($request->all());
+        return redirect()->route('admin.users.index')
             ->with('success', 'User created successfully.');
     }
 
 
-    public function create()
-    {
-        $user = new User();
-        return view('admin.users.create', compact('user'));
-    }
+
 
     public function edit($id)
     {
-        $user = User::find($id);
+        $users = User::find($id);
 
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.edit', compact('users'));
     }
 
     public function show($id)

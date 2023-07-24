@@ -12,8 +12,10 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        $permissions = Permission::all();
-        return view('admin.permissions.index', compact('permissions'));
+        $permissions = Permission::paginate();
+        $tableSize = Permission::getTableSize();
+        return view('admin.permissions.index', compact('permissions','tableSize'))
+        ->with('i', (request()->input('page', 1) - 1) * $permissions->perPage());
     }
 
     public function create()

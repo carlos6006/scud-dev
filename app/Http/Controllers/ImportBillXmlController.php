@@ -21,13 +21,20 @@ class ImportBillXmlController extends Controller
      */
     public function index()
     {
-        $userId = auth()->id(); // Obtener el ID del usuario autenticado
-        $importBillXmls = ImportBillXml::where('users_id', $userId)
-        ->paginate();
+        $user = Auth::user();
+
+        if ($user->hasRole('Admin')) {
+            // Si el usuario tiene el rol de "Admin", mostrar todos los registros
+           $importBillXmls = ImportBillXml::paginate();
+        } else {
+            // Si no, mostrar solo los registros del usuario logueado
+           $importBillXmls = ImportBillXml::where('user_id', $user->id)->paginate();
+        }
         $tableSize = ImportBillXml::getTableSize();
 
+
         return view('import-bill-xml.index', compact('importBillXmls','tableSize'))
-            ->with('i', (request()->input('page', 1) - 1) * $importBillXmls->perPage());
+        ->with('i', (request()->input('page', 1) - 1) * $importBillXmls->perPage());
     }
 
     /**
