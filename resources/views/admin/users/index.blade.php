@@ -48,7 +48,7 @@
                                             <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
                                         </a>
                                         <div class="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-download"></i> Exportar
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -94,24 +94,17 @@
                                             <td>
                                                 @if ($userItem->roles)
                                                     @foreach ($userItem->roles as $user_role)
-                                                        @php
-                                                            $color = '';
-                                                            switch ($user_role->name) {
-                                                                case 'Admin':
-                                                                    $color = 'badge bg-primary';
-                                                                    break;
-                                                                case 'Cliente':
-                                                                    $color = 'badge bg-success';
-                                                                    break;
-                                                                case 'Supervisor':
-                                                                    $color = 'badge bg-warning';
-                                                                    break;
-                                                                default:
-                                                                    $color = 'badge bg-secondary';
-                                                            }
-                                                        @endphp
-                                                        <span class="{{ $color }}">{{ $user_role->name }}</span>
-                                                    @endforeach
+                                                    @php
+                                                    // Define un array con los colores de badge que desees
+                                                    $badgeColors = ['badge-primary', 'badge-secondary', 'badge-success', 'badge-danger'];
+                                                    // Calcula un índice para seleccionar el color de badge
+                                                    $colorIndex = $user_role->id % count($badgeColors);
+                                                    // Obtiene el color de badge correspondiente
+                                                    $badgeColor = $badgeColors[$colorIndex];
+                                                @endphp
+                                                    {{-- <a href="#" class="badge {{ $badgeColor }}">{{ $role->name }}</a> --}}
+                                                    <span class="badge {{ $badgeColor }}">{{ $user_role->name }}</span>
+                                                @endforeach
                                                 @endif
                                             </td>
                                             <td>{{ $userItem->last_access }}</td>
@@ -124,19 +117,21 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                <div class="d-flex justify-content-end mb-2">
                                                 <form action="{{ route('admin.users.destroy', $userItem->id) }}"
                                                     method="POST">
                                                     <a class="btn btn-sm btn-primary "
                                                         href="{{ route('admin.users.show', $userItem->id) }}"><i
-                                                            class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                            class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
                                                     <a class="btn btn-sm btn-success"
                                                         href="{{ route('admin.users.edit', $userItem->id) }}"><i
-                                                            class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                            class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i
-                                                            class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                            class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
+                                            </div>
                                             </td>
                                         </tr>
                                     @endforeach

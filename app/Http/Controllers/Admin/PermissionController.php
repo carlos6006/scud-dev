@@ -14,6 +14,8 @@ class PermissionController extends Controller
     {
         $permissions = Permission::paginate();
         $tableSize = Permission::getTableSize();
+      //  $roles = $permissions->roles; // Obtener los roles relacionados con el permiso
+
         return view('admin.permissions.index', compact('permissions','tableSize'))
         ->with('i', (request()->input('page', 1) - 1) * $permissions->perPage());
     }

@@ -57,9 +57,16 @@ Route::middleware(['auth', 'role:Admin|Cliente'])->group(function () {
     Route::resource('/import-bill-xmls', ImportBillXmlController::class);
     Route::post('/import-bill-xmls', [ImportBillXmlController::class, 'import'])->name('import-bills-xmls.import');
     Route::resource('/summary', SummaryController::class);
-    Route::get('/summary{columna}/{anio}/{mes}', [SummaryController::class,'uber'])->name('summary.uber');
+    Route::get('/summary{columna}/{anio}/{mes}', [SummaryController::class,'uber'])->name('summary.viajes');
+    Route::get('/summary{columna}/{anio}/{mes}', [SummaryController::class,'uber'])->name('summary.general');
     Route::resource('/import-payment-transaction', ImportPaymentTransactionController::class);
     Route::post('/import-payment-transaction', [ImportPaymentTransactionController::class, 'import'])->name('import-payment-transaction.import');
 });
 
 Route::resource('/emails', EmailController::class)->middleware('auth');
+Route::get('/emails/{id}/suspend', [EmailController::class, 'suspend'])->name('emails.suspend');
+Route::get('/emails/{id}/active', [EmailController::class, 'active'])->name('emails.active');
+Route::get('/emails/{id}/change_password', [EmailController::class, 'change_password'])->name('emails.change_password');
+
+
+

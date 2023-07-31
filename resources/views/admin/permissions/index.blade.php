@@ -21,12 +21,6 @@
 @include('admin.permissions.create')
 @include('sweetalert::alert')
 
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -64,49 +58,51 @@
                             <thead>
                                 <tr>
                                     <th class="col-2">Nombre del rol</th>
-                                    <th class="col-5">Asignado a</th>
-                                    <th class="col-2">Fecha de creación</th>
-                                    <th class="text-right col-2">Acciones</th>
+                                    <th class="col-5">Descripción del rol</th>
+                                    <th class="col-2">Asignado a</th>
+                                    <th class="col-1">Fecha de creación</th>
+                                    <th class="col-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     @foreach ($permissions as $permission)
                                         <td style="white-space: nowrap;">{{ $permission->name }}</td>
-                                        <td style="white-space: nowrap;"><a href="#" class="badge badge-primary">Administrador</a></td>
+                                        <td style="white-space: nowrap;">{{ $permission->descripcion }}</td>
+                                        <td style="white-space: nowrap;">
+                                            @foreach ($permission->roles as $role)
+                                                @php
+                                                    // Define un array con los colores de badge que desees
+                                                    $badgeColors = ['badge-primary', 'badge-secondary', 'badge-success', 'badge-danger'];
+                                                    // Calcula un índice para seleccionar el color de badge
+                                                    $colorIndex = $role->id % count($badgeColors);
+                                                    // Obtiene el color de badge correspondiente
+                                                    $badgeColor = $badgeColors[$colorIndex];
+                                                @endphp
+                                                <a href="#" class="badge {{ $badgeColor }}">{{ $role->name }}</a>
+                                            @endforeach
+                                        </td>
                                         <td style="white-space: nowrap;">{{ $permission->created_at }}</td>
-                                        {{-- <td style="white-space: nowrap;">
-                                            <form class="boton-eliminar" action="{{ route('admin.permissions.destroy', $permission->id) }}" >
-                                                <a class="btn btn-sm btn-primary " href=""><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                <a class="btn btn-sm btn-success" href="" aria-pressed="true"
-                                                data-toggle="modal" data-target="#ModalEdit_{{ $permission->id }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
-
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                            </form>
-                                        </td> --}}
-
-                                        <td class="project-actions text-right">
-
-                                                <a class="btn btn-sm btn-primary " href=""><i
-                                                        class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
-                                                <a class="btn btn-sm btn-success" href="" aria-pressed="true"
-                                                    data-toggle="modal" data-target="#ModalEdit_{{ $permission->id }}"><i
-                                                        class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                        <td class="project-actions">
+                                            <div class="d-flex justify-content-end mb-2">
+                                                <a class="btn btn-sm btn-success mr-2" href="" aria-pressed="true" data-toggle="modal" data-target="#modalEdit_{{ $permission->id }}">
+                                                    <i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}
+                                                </a>
                                                 @include('admin.permissions.edit')
-                                                <form class="d-inline boton-eliminar"
-                                                action="{{ route('admin.permissions.destroy', $permission->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"><i
-                                                        class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                            </form>
+
+                                                <form class="d-inline boton-eliminar" action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST" id="deleteForm_{{ $permission->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ $permission->id }}', '{{ $permission->name }}')">
+                                                        <i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}
+                                                    </button>
+                                                </form>
+                                            </div>
 
                                         </td>
                                 </tr>
                                 @endforeach
+
                             </tbody>
 
                         </table>
@@ -137,45 +133,23 @@
 @stop
 
 @section('js')
-    @if (session('destroy') == 'true')
-        <script>
-            Swal.fire(
-                '¡Eliminado!',
-                'Su registro ha sido eliminado.',
-                'success'
-            )
-        </script>
-    @endif
-
-
-    @if (session('update') == 'true')
-    <script>
-        Swal.fire(
-            '¡Actualizado!',
-            'Su registro ha sido modificado.',
-            'success'
-        )
-    </script>
-@endif
-
-
-    <script>
-        $('.boton-eliminar').submit(function(e) {
-            e.preventDefault();
-            Swal.fire({
-                title: '¿Estas seguro?',
-                text: "¡No podrás revertir esto!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '¡Sí, bórralo!',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit();
-                }
-            })
+   <script>
+  function confirmDelete(permissionId, permissionName) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: `Estás a punto de eliminar el permiso "${permissionName}".`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario de eliminación
+                document.getElementById('deleteForm_' + permissionId).submit();
+            }
         });
-    </script>
+    }
+</script>
 @stop

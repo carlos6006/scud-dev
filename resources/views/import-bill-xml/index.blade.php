@@ -71,7 +71,7 @@
                                             <div class="btn-group ml-3" role="group">
                                                 <!-- Ajustamos el espaciado con la clase "ml-3" -->
                                                 <button id="btnGroupDrop1" type="button"
-                                                    class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                                    class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
                                                     <i class="fas fa-download"></i> Exportar
                                                 </button>

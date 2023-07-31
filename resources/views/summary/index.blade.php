@@ -68,7 +68,12 @@
                         <div class="tab-content">
                             <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="historialViajes-tab" data-toggle="tab" href="#historialViajes" role="tab" aria-controls="historialViajes" aria-selected="true">
+                                    <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">
+                                        <i class="fas fa-cubes"></i> General
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="historialViajes-tab" data-toggle="tab" href="#historialViajes" role="tab" aria-controls="historialViajes" aria-selected="false">
                                         <i class="fas fa-road"></i> Historial de viajes
                                     </a>
                                 </li>
@@ -85,7 +90,8 @@
                             </ul>
 
                             <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="historialViajes" role="tabpanel" aria-labelledby="historialViajes-tab">@include('summary.uber')</div>
+                                <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">@include('summary.general')</div>
+                                <div class="tab-pane fade" id="historialViajes" role="tabpanel" aria-labelledby="historialViajes-tab">@include('summary.viajes')</div>
                                 <div class="tab-pane fade" id="gastos" role="tabpanel" aria-labelledby="gastos-tab">Contenido de la pestaña de Gastos</div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Contenido de la pestaña de Contacto</div>
                             </div>

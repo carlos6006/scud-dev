@@ -42,10 +42,10 @@ class Email extends Model
     protected $fillable = ['first_name', 'last_name', 'rfc', 'password', 'email_address'];
 
     // Mutator for password attribute
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::make($password);
-    }
+    //public function setPasswordAttribute($password)
+   // {
+    //    $this->attributes['password'] = Hash::make($password);
+    //}
 
 
 

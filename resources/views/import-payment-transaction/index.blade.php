@@ -59,12 +59,12 @@
                                             </button>
                                           </div>
                                           <div class="custom-file">
-                                            <input type="file" class="custom-file-input" name="csv_file" id="csv_file" accept=".csv" onchange="updateFilePath()" required data-browse="Español" lang="es">
+                                            <input type="file" class="custom-file-input" name="csv_file" id="csv_file" accept=".csv" onchange="updateFilePath()" required lang="es" data-browse="Elegir">
                                             <label class="custom-file-label" for="csv_file">Elija el archivo</label>
                                           </div>
                                         </div>
                                         <div class="btn-group ml-3" role="group"> <!-- Ajustamos el espaciado con la clase "ml-3" -->
-                                          <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-download"></i> Exportar
                                           </button>
                                           <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">

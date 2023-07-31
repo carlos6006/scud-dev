@@ -58,9 +58,10 @@ class AdminSeeder extends Seeder
         ];
 
         foreach($modulos as $m){
-            foreach($permissions as $p){
-                Permission::create(['name' => "{$m}.$p"]);
-            }
+            // foreach($permissions as $p){
+                Permission::create(['name' => "$m"]);
+                // Permission::create(['name' => "{$m}.$p"]);
+            // }
         }
 
 

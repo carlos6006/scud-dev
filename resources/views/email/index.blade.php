@@ -51,10 +51,11 @@
                                     <tr>
                                         <th>No</th>
 
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Rfc</th>
-										<th>Email Address</th>
+										<th>Nombre(s)</th>
+										<th>Apellidos</th>
+										<th>RFC</th>
+										<th>Correo electronico</th>
+                                        <th>Estatus</th>
 
                                         <th></th>
                                     </tr>
@@ -68,15 +69,33 @@
 											<td>{{ $email->last_name }}</td>
 											<td>{{ $email->rfc }}</td>
 											<td>{{ $email->email_address }}</td>
+                                            <td>
+                                                @if ($email->status === 'active')
+                                                <a class="badge badge-success" href="{{ route('emails.suspend', $email->id) }}">
+                                                    <span class="rounded-circle bg-lime" style="width: 8px; height: 8px; display: inline-block; margin-right: 5px;"></span>
+                                                    Activo
+                                                  </a>
+                                                @else
+                                                <a class="badge bg-teal" href="{{ route('emails.active', $email->id) }}">
+                                                    <span class="rounded-circle bg-white" style="width: 8px; height: 8px; display: inline-block; margin-right: 5px;"></span>
+                                                    Suspendido
+                                                  </a>
+
+                                                @endif
+                                            </td>
 
                                             <td>
+                                                <div class="d-flex justify-content-end mb-2">
                                                 <form action="{{ route('emails.destroy',$email->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('emails.show',$email->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('emails.edit',$email->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('emails.show',$email->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('emails.edit',$email->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <a class="btn btn-sm btn-secondary" href="{{ route('emails.change_password', $email->id) }}"> <i class="fa fa-fw fa-undo"></i> {{ __('Restablecer contraseña') }} </a>
+
                                                 </form>
+                                            </div>
                                             </td>
                                         </tr>
                                     @endforeach
