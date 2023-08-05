@@ -22,10 +22,15 @@ use Spatie\Permission\Traits\RefreshesPermissionCache;
  */
 class Role extends Model implements RoleContract
 {
+    static $rules = [
+		'name' => 'required',
+    ];
+
     use HasPermissions;
     use RefreshesPermissionCache;
 
     protected $guarded = [];
+
 
     public function __construct(array $attributes = [])
     {
@@ -194,4 +199,19 @@ class Role extends Model implements RoleContract
 
         return $this->permissions->contains($permission->getKeyName(), $permission->getKey());
     }
+
+    public static function getTableSize()
+    {
+        $tableName = (new self())->getTable();
+        $tableSize = DB::table('information_schema.tables')
+            ->select(DB::raw('SUM(data_length + index_length) / 1024 as table_size'))
+            ->where('table_schema', '=', config('database.connections.mysql.database'))
+            ->where('table_name', '=', $tableName)
+            ->groupBy('table_name')
+            ->pluck('table_size')
+            ->first();
+
+            return number_format($tableSize, 2);
+    }
+
 }

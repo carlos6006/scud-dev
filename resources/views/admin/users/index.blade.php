@@ -148,18 +148,18 @@
         </div>
     @stop
 
-    @section('footer')
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 1.5.0
-        </div>
-        <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
-        derechos.
-    @stop
+@section('footer')
+    @include('footer')
+@stop
 
-    @section('js')
+
+@section('css')
+
+@stop
+
+@section('js')
     <script>
-       document.getElementById("attachment").addEventListener('click', function() {
-    document.getElementById("file-input").click();
-});
+    document.getElementById("attachment").addEventListener('click', function() {
+    document.getElementById("file-input").click();});
     </script>
 @stop

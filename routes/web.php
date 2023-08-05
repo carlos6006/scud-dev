@@ -12,7 +12,6 @@ use App\Http\Controllers\Admin\TaxRegimeController;
 use App\Http\Controllers\ImportPaymentTransactionController;
 use App\Http\Controllers\ImportBillXmlController;
 use App\Http\Controllers\SummaryController;
-use App\Http\Controllers\EmailController;
 
 use App\Http\Controllers\TypeController;
 

@@ -274,27 +274,22 @@
             </div>
         </div>
     @stop
-    @section('footer')
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 1.5.0
-        </div>
-        <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
-        derechos.
 
-    @stop
-    @section('css')
+@section('footer')
+    @include('footer')
+@stop
 
-    @stop
+@section('css')
 
-    @section('js')
-        <script>
-            function updateFilePath() {
-                var inputFile = document.querySelector('.custom-file-input');
-                var fileName = inputFile.files[0].name;
-                var filePathLabel = document.querySelector('.custom-file-label');
-                filePathLabel.textContent = fileName;
-            }
-        </script>
+@stop
 
-
-    @stop
+@section('js')
+<script>
+    function updateFilePath() {
+        var inputFile = document.querySelector('.custom-file-input');
+        var fileName = inputFile.files[0].name;
+        var filePathLabel = document.querySelector('.custom-file-label');
+        filePathLabel.textContent = fileName;
+    }
+</script>
+@stop

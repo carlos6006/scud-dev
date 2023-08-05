@@ -18,7 +18,6 @@
     </div>
 @stop
 @section('content')
-    @include('admin.roles.create')
     @include('sweetalert::alert')
 
     <div class="container-fluid">
@@ -38,7 +37,7 @@
                                 <div class="col-sm-5 d-flex align-items-center justify-content-end">
                                     @csrf
                                     @method('POST')
-                                    <a data-toggle="modal" data-target="#modalCreate" class="btn btn-primary mx-3"
+                                    <a href="{{ route('admin.roles.create') }}"  class="btn btn-primary mx-3"
                                         data-placement="left">
                                         <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
                                     </a>
@@ -62,7 +61,7 @@
                     <div class="card-deck">
                         @foreach ($roles as $role)
                             <div class="col-sm-4 my-2">
-                                <div class="card">
+                                <div class="card ">
                                     <div class="card-header">
                                         <h3 class="card-title"><i class="fas fa-user-tag"></i> {{ $role->name }}</h3>
                                         <div class="card-tools">
@@ -76,26 +75,6 @@
                                                     <i class="fas fa-trash text-danger"></i>
                                                 </button>
                                             </form>
-                                            <script>
-                                                function confirmDelete(roleId) {
-                                                    Swal.fire({
-                                                        title: '¿Estás seguro?',
-                                                        text: "Estás a punto de eliminar el rol '{{ $role->name }}'. Esta acción no se puede deshacer.",
-                                                        icon: 'warning',
-                                                        showCancelButton: true,
-                                                        confirmButtonColor: '#DD6B55',
-                                                        cancelButtonColor: '#3085d6',
-                                                        confirmButtonText: 'Eliminar',
-                                                        cancelButtonText: 'Cancelar',
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            // Si el usuario confirma, enviar el formulario
-                                                            document.getElementById('deleteForm_' + roleId).submit();
-                                                        }
-                                                    });
-                                                }
-                                            </script>
-
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -103,53 +82,87 @@
                                             <h5 class="mb-1">Lista de permisos:</h5>
                                             <small>{{ $role->users->count() }} usuarios con este rol</small>
                                         </div>
-                                        <p class="card-text">
-                                        <ul>
-                                            @if ($role->permissions)
-                                                @foreach ($role->permissions as $role_permission)
-                                                    <li>{{ $role_permission->name }}</li>
-                                                @endforeach
-                                            @endif
-                                        </ul>
-                                        </p>
-
-                                        <div class="card-body">
-                                            <div class="col text-center mb-2">
-                                                <button class="btn btn-primary center-block" data-toggle="modal" data-target="#modalEdit_{{ $role->id }}">
-                                                    <i class="fas fa-edit"></i> Editar rol
-                                                </button>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <ul class="badge-list">
+                                                    @if ($role->permissions)
+                                                        @php
+                                                            $totalItems = $role->permissions->count();
+                                                            $itemsPerColumn = ceil($totalItems / 2);
+                                                        @endphp
+                                                        @foreach ($role->permissions->take($itemsPerColumn) as $role_permission)
+                                                            <li><span class="badge badge-pill badge-primary">{{ $role_permission->name }}</span></li>
+                                                        @endforeach
+                                                    @endif
+                                                </ul>
                                             </div>
-
-                                            @include('admin.roles.edit')
+                                            <div class="col-md-6">
+                                                <ul class="badge-list">
+                                                    @if ($role->permissions)
+                                                        @php
+                                                            $totalItems = $role->permissions->count();
+                                                            $itemsPerColumn = ceil($totalItems / 2);
+                                                        @endphp
+                                                        @foreach ($role->permissions->slice($itemsPerColumn) as $role_permission)
+                                                            <li><span class="badge badge-pill badge-primary">{{ $role_permission->name }}</span></li>
+                                                        @endforeach
+                                                    @endif
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col text-center mb-2">
+                                            <a class="btn btn-primary center-block" href="{{ route('admin.roles.edit',$role->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }} rol</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
 
-@endsection
+@stop
 
 @section('footer')
-    <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.5.0
-    </div>
-    <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
-    derechos.
-
-@endsection
+    @include('footer')
+@stop
 
 
 @section('css')
+    <style>
+        /* Your custom CSS styles go here */
+        .badge-list {
+            list-style: none;
+            padding-left: 0;
+        }
 
-@endsection
+        .badge-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+@stop
 
 @section('js')
+<script>
+    function confirmDelete(roleId) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Estás a punto de eliminar el rol '{{ $role->name }}'. Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#DD6B55',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviar el formulario
+                document.getElementById('deleteForm_' + roleId).submit();
+            }
+        });
+    }
+</script>
 
-@endsection
+@stop

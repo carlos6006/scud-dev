@@ -24,7 +24,7 @@
                             <!-- Imagen -->
                             <div class="row">
                                 <!-- Etiqueta img con la clase img-thumbnail -->
-                                <img src="https://st4.depositphotos.com/4329009/19956/v/450/depositphotos_199564354-stock-illustration-creative-vector-illustration-of-default.jpg"
+                                <img src="https://themewagon.github.io/stisla-1/assets/img/avatar/avatar-1.png"
                                     alt="Avatar" class="rounded-circle elevation-2" width="150">
                                 <div class="col-sm-0 align-self-start first-column">
                                     <div id="attachment"><i class="fa fa-camera fa-lg" style="color: red;"></i></div>
@@ -37,13 +37,13 @@
                             <!-- Nombre -->
                             <div class="form-group">
                                 {{ Form::label('name', 'Nombre completo') }}
-                                {{ Form::text('name', $user->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre completo']) }}
+                                {{ Form::text('name', $users->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre completo']) }}
                                 {!! $errors->first('name', '<div class="invalid-feedback">:message</div>') !!}
                             </div>
                             <!-- Correo electrónico -->
                             <div class="form-group">
                                 {{ Form::label('email', 'Correo electrónico') }}
-                                {{ Form::text('email', $user->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'Email']) }}
+                                {{ Form::text('email', $users->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'Email']) }}
                                 {!! $errors->first('email', '<div class="invalid-feedback">:message</div>') !!}
                             </div>
                         </div>

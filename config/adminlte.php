@@ -2,6 +2,7 @@
 
 return [
 
+
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -51,6 +52,13 @@ return [
         'allowed' => true,
     ],
 
+
+
+    'footer' => [
+        'version' => '2.0.0',
+        'time' => '2023-08-05',
+        // Otros datos del footer
+    ],
     /*
     |--------------------------------------------------------------------------
     | Admin Panel Logo
@@ -150,8 +158,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => true,
-    'layout_fixed_navbar' => true,
+    'layout_fixed_sidebar' => null,
+    'layout_fixed_navbar' => null,
     'layout_fixed_footer' =>  true,
     'layout_dark_mode' => null,
 
@@ -291,11 +299,11 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
-            'text'=> 'v1.0',
-            'url'=> '#',
-            'topnav' => true,
-        ],
+        // [
+        //     'text'=> 'v1.0',
+        //     'url'=> '#',
+        //     'topnav' => true,
+        // ],
         [
             'type'         => 'navbar-search',
             'text'         => 'Busqueda',
@@ -335,11 +343,6 @@ return [
                     'icon' => 'nav-icon fas fa-id-card',
                 ],
             ]
-        ],
-        [
-            'text' => 'Correos electrónicos',
-            'url'  => 'emails',
-            'icon' => 'nav-icon far fa-envelope',
         ],
         ['header' => 'Finanzas UBER'],
         [
@@ -501,16 +504,16 @@ return [
                     'text' => 'Changelogs',
                     'url'  => 'admin/changelogs',
                     'icon' => 'nav-icon fa fa-sync-alt',
-                    'can'  => ['changelog.crear', 'changelog.ver', 'changelog.modificar', 'changelog.elimuinar'],
+                   // 'can'  => ['changelog.crear', 'changelog.ver', 'changelog.modificar', 'changelog.elimuinar'],
                 ],
                 [
                     'text' => 'Tipos',
-                    'url'  => 'types',
+                    'url'  => 'admin/types',
                     'icon' => 'nav-icon fas fa-list',
                 ],
                 [
                     'text' => 'Categorias',
-                    'url'  => 'categorate',
+                    'url'  => 'admin/categorate',
                     'icon' => 'nav-icon fas fa-tag',
                 ],
             ],

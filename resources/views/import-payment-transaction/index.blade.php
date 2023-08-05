@@ -262,38 +262,20 @@
     </div>
 @stop
 @section('footer')
-    <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.5.0
-    </div>
-    <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
-    derechos.
+    @include('footer')
 @stop
-<!-- Aquí puedes agregar el resto del código HTML que proporcionaste -->
 
-<!-- Agregar la sección CSS para definir los estilos personalizados -->
 @section('css')
-<style>
 
-$custom-file-text: (
-  en: "Browse",
-  es: "Elegir"
-);
-
-.custom-file-label::after {
-  content: map-get($custom-file-text, es); /* Selecciona el idioma que desees aquí */
-}
-
-
-</style>
 @stop
 
 @section('js')
-    <script>
-        function updateFilePath() {
-            var inputFile = document.querySelector('.custom-file-input');
-            var fileName = inputFile.files[0].name;
-            var filePathLabel = document.querySelector('.custom-file-label');
-            filePathLabel.textContent = fileName;
-        }
-    </script>
+<script>
+    function updateFilePath() {
+        var inputFile = document.querySelector('.custom-file-input');
+        var fileName = inputFile.files[0].name;
+        var filePathLabel = document.querySelector('.custom-file-label');
+        filePathLabel.textContent = fileName;
+    }
+</script>
 @stop

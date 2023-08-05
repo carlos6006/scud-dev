@@ -101,4 +101,22 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
+@section('footer')
+    @include('footer')
+@stop
+
+@section('css')
+
+@stop
+
+@section('js')
+<script>
+    function updateFilePath() {
+        var inputFile = document.querySelector('.custom-file-input');
+        var fileName = inputFile.files[0].name;
+        var filePathLabel = document.querySelector('.custom-file-label');
+        filePathLabel.textContent = fileName;
+    }
+</script>
+@stop

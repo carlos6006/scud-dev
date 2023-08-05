@@ -69,9 +69,9 @@
 											<td>{{ $type->nombre }}</td>
 
                                             <td>
-                                                <form action="{{ route('types.destroy',$type->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('types.show',$type->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('types.edit',$type->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('admin.types.destroy',$type->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('admin.types.show',$type->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('admin.types.edit',$type->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -91,10 +91,5 @@
 @endsection
 
 @section('footer')
-    <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.5.0
-    </div>
-    <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
-    derechos.
-
+    @include('footer')
 @endsection

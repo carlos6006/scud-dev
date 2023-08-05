@@ -119,17 +119,12 @@
 @endsection
 
 @section('footer')
-    <div class="float-right d-none d-sm-block">
-        <b>Version</b> 1.5.0
-    </div>
-    <strong>Copyright &copy; 2023-2024 <a href="https://scud.com.mx">ScudLTE.com.mx</a>.</strong> Reservados todos los
-    derechos.
-
+    @include('footer')
 @endsection
 
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')

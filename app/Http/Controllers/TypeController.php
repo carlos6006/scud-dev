@@ -22,7 +22,7 @@ class TypeController extends Controller
         $types = Type::paginate();
         $tableSize = Type::getTableSize();
 
-        return view('type.index', compact('types','tableSize'))
+        return view('admin.type.index', compact('types','tableSize'))
             ->with('i', (request()->input('page', 1) - 1) * $types->perPage());
     }
 
@@ -76,7 +76,7 @@ class TypeController extends Controller
     {
         $type = Type::find($id);
 
-        return view('type.edit', compact('type'));
+        return view('admin.type.edit', compact('type'));
     }
 
     /**
