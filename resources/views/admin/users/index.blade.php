@@ -19,7 +19,6 @@
 @stop
 
 @section('content')
-@include('admin.users.create')
     @include('sweetalert::alert')
 
     @if ($message = Session::get('success'))
@@ -44,9 +43,10 @@
                                 <div class="col-sm-5 d-flex align-items-center justify-content-end">
                                         @csrf
                                         @method('POST')
-                                        <a data-toggle="modal" data-target="#modalCreate" class="btn btn-primary mx-3" data-placement="left">
-                                            <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
-                                        </a>
+                                        <a href="{{ route('admin.users.create') }}"  class="btn btn-primary mx-3"
+                                        data-placement="left">
+                                        <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
+                                    </a>
                                         <div class="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-download"></i> Exportar
@@ -158,8 +158,5 @@
 @stop
 
 @section('js')
-    <script>
-    document.getElementById("attachment").addEventListener('click', function() {
-    document.getElementById("file-input").click();});
-    </script>
+
 @stop

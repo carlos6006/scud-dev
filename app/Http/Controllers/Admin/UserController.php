@@ -13,7 +13,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = new User();
         $users = User::paginate();
         $tableSize = User::getTableSize();
         $item_permissions = Permission::selectRaw("DISTINCT SUBSTRING_INDEX(name, '.', 1) AS resultado")
@@ -21,15 +20,16 @@ class UserController extends Controller
 
 
 
-        return view('admin.users.index', compact('users', 'tableSize','user','item_permissions'))
+        return view('admin.users.index', compact('users', 'tableSize','item_permissions'))
             ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
 
     }
     public function create()
     {
-        $user = new User();
-        dd($user);
-        return view('admin.users.index', compact('user'));
+        $users = new User();
+        $roles = Role::all();
+       //dd($users);
+        return view('admin.users.create', compact('users','roles'));
 
     }
 
@@ -42,13 +42,11 @@ class UserController extends Controller
     }
 
 
-
-
     public function edit($id)
     {
         $users = User::find($id);
-
-        return view('admin.users.edit', compact('users'));
+        $roles = Role::all();
+        return view('admin.users.edit', compact('users','roles'));
     }
 
     public function show($id)
