@@ -3,7 +3,6 @@
             {{ Form::hidden('user_id', auth()->check() ? auth()->user()->id : '', ['class' => 'form-control']) }}
             <div class="row">
                 <div class="col-sm-6">
-
                     <div class="form-group">
                         {{ Form::label('Versión') }}
                         {{ Form::number('version', $latestVersion, ['class' => 'form-control' . ($errors->has('version') ? ' is-invalid' : ''), 'placeholder' => 'Version', 'required' => true, 'step' => '0.01']) }}
@@ -12,7 +11,6 @@
 
                 </div>
                 <div class="col-sm-6">
-
                     <div class="form-group">
                         {{ Form::label('fecha_actualizacion') }}
                         {{ Form::text('fecha_actualizacion', \Carbon\Carbon::now()->addMonth()->startOfMonth()->toDateString(), ['class' => 'form-control' . ($errors->has('fecha_actualizacion') ? ' is-invalid' : ''), 'placeholder' => 'Fecha Actualizacion']) }}
@@ -56,8 +54,10 @@
         </div>
 
     </div>
-    <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar Cambios</button>
-        </div>
+    <div class="box-footer mt20 d-flex justify-content-end">
+        <a href="{{ URL::previous() }}" class="btn btn-secondary">Cancelar</a>
+        <span style="margin-left: 10px;"></span>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-save"></i> Guardar</button>
+    </div>
+
 </div>

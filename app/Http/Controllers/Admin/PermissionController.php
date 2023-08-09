@@ -50,9 +50,15 @@ class PermissionController extends Controller
 
     public function destroy(Permission $permission)
     {
-        $permission->delete();
-        return back()->with('destroy','true');
+        if ($permission->delete()) {
+            Alert::success('¡Éxito!', 'El permiso ha sido eliminado exitosamente.')->flash();
+        } else {
+            Alert::error('¡Error!', 'No se pudo eliminar el permiso.')->flash();
+        }
+
+        return back();
     }
+
 
     public function assignRole(Request $request, Permission $permission)
     {

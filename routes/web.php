@@ -6,14 +6,18 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ChangelogController;
+
 use App\Http\Controllers\Admin\TaxRegimeController;
+
+use App\Http\Controllers\Admin\Changelog\ChangelogController;
+use App\Http\Controllers\Admin\Changelog\TypeController;
+use App\Http\Controllers\Admin\Changelog\CategoryController;
 
 use App\Http\Controllers\ImportPaymentTransactionController;
 use App\Http\Controllers\ImportBillXmlController;
 use App\Http\Controllers\SummaryController;
 
-use App\Http\Controllers\TypeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,10 +38,18 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         return view('index');
     })->name('index');
 
+    Route::middleware(['auth', 'role:Admin'])->group(function(){
+        Route::resource('changelogs', ChangelogController::class);
+        Route::resource('types', TypeController::class);
+        Route::resource('categories', CategoryController::class);
+    });
+
+
+
+
     Route::name('admin.')->prefix('admin')->group(function(){
         Route::resource('/tax-regimes', TaxRegimeController::class);
-        Route::resource('/changelogs', ChangelogController::class);
-        Route::resource('/types', TypeController::class);
+
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);
         Route::resource('/roles', RoleController::class);
@@ -62,10 +74,7 @@ Route::middleware(['auth', 'role:Admin|Cliente'])->group(function () {
     Route::post('/import-payment-transaction', [ImportPaymentTransactionController::class, 'import'])->name('import-payment-transaction.import');
 });
 
-Route::resource('/emails', EmailController::class)->middleware('auth');
-Route::get('/emails/{id}/suspend', [EmailController::class, 'suspend'])->name('emails.suspend');
-Route::get('/emails/{id}/active', [EmailController::class, 'active'])->name('emails.active');
-Route::get('/emails/{id}/change_password', [EmailController::class, 'change_password'])->name('emails.change_password');
+
 
 
 

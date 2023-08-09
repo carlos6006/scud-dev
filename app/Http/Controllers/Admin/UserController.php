@@ -17,9 +17,6 @@ class UserController extends Controller
         $tableSize = User::getTableSize();
         $item_permissions = Permission::selectRaw("DISTINCT SUBSTRING_INDEX(name, '.', 1) AS resultado")
         ->get();
-
-
-
         return view('admin.users.index', compact('users', 'tableSize','item_permissions'))
             ->with('i', (request()->input('page', 1) - 1) * $users->perPage());
 

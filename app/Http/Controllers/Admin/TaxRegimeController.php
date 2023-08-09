@@ -19,7 +19,7 @@ class TaxRegimeController extends Controller
      */
     public function index()
     {
-        $taxRegimes = TaxRegime::paginate();
+        $taxRegimes = TaxRegime::paginate(9);
         $tableSize = TaxRegime::getTableSize();
 
         return view('tax-regime.index', compact('taxRegimes','tableSize'))

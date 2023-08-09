@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Cambios de sistema')
+@section('title', 'Tipo')
 
 @section('content_header')
     <div class="container-fluid">
@@ -27,17 +27,15 @@
 
                 <div class="card card-default card-primary card-outline">
                     <div class="card-header card-primary card-outline">
-                        <h3 class="mb-1 text-primary"><i class="fas fa-pencil-alt"></i>{{ __(' Editar') }} {{ strtolower(trim($__env->yieldContent('title'))) }}</h3>
+                        <h3 class="mb-1 text-primary"><i class="fas fa-pencil-alt"></i>{{ __(' Crear') }} {{ strtolower(trim($__env->yieldContent('title'))) }}</h3>
                     </div>
                     <div class="card-body">
                         @includeIf('partials.errors')
 
-                        <form method="POST" action="{{ route('admin.changelogs.update',$changelog->id) }}" role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                        <form method="POST" action="{{ route('admin.types.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-
-                            @include('admin.changelog.form')
+                            @include('admin.type.form')
 
                         </form>
                     </div>

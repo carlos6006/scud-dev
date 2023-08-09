@@ -502,18 +502,18 @@ return [
             'submenu' => [
                 [
                     'text' => 'Changelogs',
-                    'url'  => 'admin/changelogs',
+                    'url'  => 'changelogs',
                     'icon' => 'nav-icon fa fa-sync-alt',
                    // 'can'  => ['changelog.crear', 'changelog.ver', 'changelog.modificar', 'changelog.elimuinar'],
                 ],
                 [
                     'text' => 'Tipos',
-                    'url'  => 'admin/types',
+                    'url'  => 'types',
                     'icon' => 'nav-icon fas fa-list',
                 ],
                 [
                     'text' => 'Categorias',
-                    'url'  => 'admin/categorate',
+                    'url'  => 'categories',
                     'icon' => 'nav-icon fas fa-tag',
                 ],
             ],

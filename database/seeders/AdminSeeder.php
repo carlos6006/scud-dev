@@ -56,10 +56,13 @@ class AdminSeeder extends Seeder
             'write',
             'create'
         ];
-
+        $faker = Faker::create();
         foreach($modulos as $m){
             // foreach($permissions as $p){
-                Permission::create(['name' => "$m"]);
+                Permission::create([
+                    'name' => $m,
+                    'description' => $faker->sentence(), // Generar una descripción aleatoria
+                ]);
                 // Permission::create(['name' => "{$m}.$p"]);
             // }
         }

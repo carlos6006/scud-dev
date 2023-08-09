@@ -62,13 +62,13 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table table-bordered table-striped">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
 
 										<th>Clave</th>
-										<th>Descripcion</th>
+										<th>Descripción</th>
 
                                         <th></th>
                                     </tr>
@@ -82,6 +82,7 @@
 											<td>{{ $taxRegime->descripcion }}</td>
 
                                             <td>
+                                                <div class="d-flex justify-content-end mb-2">
                                                 <form action="{{ route('admin.tax-regimes.destroy',$taxRegime->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('admin.tax-regimes.show',$taxRegime->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('admin.tax-regimes.edit',$taxRegime->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
@@ -89,6 +90,7 @@
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

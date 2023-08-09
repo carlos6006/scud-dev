@@ -18,7 +18,6 @@
     </div>
 @stop
 @section('content')
-@include('admin.permissions.create')
 @include('sweetalert::alert')
 
 <div class="container-fluid">
@@ -37,9 +36,10 @@
                             <div class="col-sm-5 d-flex align-items-center justify-content-end">
                                     @csrf
                                     @method('POST')
-                                    <a data-toggle="modal" data-target="#modalCreate" class="btn btn-primary mx-3" data-placement="left">
-                                        <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
-                                    </a>
+                                    <a href="{{ route('admin.permissions.create') }}"  class="btn btn-primary mx-3"
+                                    data-placement="left">
+                                    <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
+                                </a>
                                     <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-download"></i> Exportar
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th class="col-2">Nombre del rol</th>
@@ -68,7 +68,7 @@
                                 <tr>
                                     @foreach ($permissions as $permission)
                                         <td style="white-space: nowrap;">{{ $permission->name }}</td>
-                                        <td style="white-space: nowrap;">{{ $permission->descripcion }}</td>
+                                        <td style="white-space: nowrap;">{{ $permission->description }}</td>
                                         <td style="white-space: nowrap;">
                                             @foreach ($permission->roles as $role)
                                                 @php
@@ -85,18 +85,19 @@
                                         <td style="white-space: nowrap;">{{ $permission->created_at }}</td>
                                         <td class="project-actions">
                                             <div class="d-flex justify-content-end mb-2">
-                                                <a class="btn btn-sm btn-success mr-2" href="" aria-pressed="true" data-toggle="modal" data-target="#modalEdit_{{ $permission->id }}">
-                                                    <i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}
-                                                </a>
-                                                @include('admin.permissions.edit')
-
                                                 <form class="d-inline boton-eliminar" action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST" id="deleteForm_{{ $permission->id }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ $permission->id }}', '{{ $permission->name }}')">
+                                                    <a class="btn btn-sm btn-success"
+                                                    href="{{ route('admin.permissions.edit', $permission->id) }}"><i
+                                                        class="fa fa-fw fa-edit"></i>
+                                                    {{ __('Editar') }}</a>
+
+                                                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ htmlentities($permission->id) }}', '{{ htmlentities($permission->name) }}')">
                                                         <i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}
                                                     </button>
                                                 </form>
+
                                             </div>
 
                                         </td>
@@ -116,11 +117,11 @@
         </div>
     </div>
 
-@endsection
+@stop
 
 @section('footer')
     @include('footer')
-@endsection
+@stop
 
 
 @section('css')
@@ -129,22 +130,23 @@
 
 @section('js')
    <script>
-  function confirmDelete(permissionId, permissionName) {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: `Estás a punto de eliminar el permiso "${permissionName}".`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Eliminar',
-            cancelButtonText: 'Cancelar',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Si el usuario confirma, enviar el formulario de eliminación
-                document.getElementById('deleteForm_' + permissionId).submit();
-            }
-        });
-    }
+ function confirmDelete(permissionId, permissionName) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `Estás a punto de eliminar el permiso '${permissionName}'. Esta acción no se puede deshacer.`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Si el usuario confirma, enviar el formulario
+            document.getElementById('deleteForm_' + permissionId).submit();
+        }
+    });
+}
+
 </script>
 @stop

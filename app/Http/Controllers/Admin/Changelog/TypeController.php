@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Changelog;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 /**
  * Class TypeController
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\Changelog
  */
 class TypeController extends Controller
 {
@@ -22,7 +23,7 @@ class TypeController extends Controller
         $types = Type::paginate();
         $tableSize = Type::getTableSize();
 
-        return view('admin.type.index', compact('types','tableSize'))
+        return view('admin.changelog.type.index', compact('types','tableSize'))
             ->with('i', (request()->input('page', 1) - 1) * $types->perPage());
     }
 
@@ -34,7 +35,7 @@ class TypeController extends Controller
     public function create()
     {
         $type = new Type();
-        return view('type.create', compact('type'));
+        return view('admin.type.create', compact('type'));
     }
 
     /**

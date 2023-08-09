@@ -28,7 +28,7 @@
                         <div class="container-fluid">
                             <div class="row mb-2">
                                 <div class="col-sm-7">
-                                    <h2 class="mb-1 text-primary"><i class="fas fa-tasks"></i> @yield('title')</h2>
+                                    <h2 class="mb-1 text-primary"><i class="fas fa-user-tag"></i> @yield('title')</h2>
                                     <div class="text-muted fw-bold">
                                         {{ $tableSize }} Kb <span class="mx-3">|</span>{!! $roles->total() !!}
                                         registros

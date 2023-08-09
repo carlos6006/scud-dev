@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Changelog;
 
 use App\Models\Changelog;
 use App\Models\Type;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 /**
  * Class ChangelogController
- * @package App\Http\Controllers\Admin
+ * @package App\Http\Controllers\Admin\Changelog
  */
 class ChangelogController extends Controller
 {
@@ -22,16 +23,12 @@ class ChangelogController extends Controller
      */
     public function index()
     {
-
-
     $changelog = new Changelog();
     $types = Type::pluck('nombre', 'id');
     $category = Category::pluck('nombre', 'id');
     $changelogs = Changelog::paginate();
     $tableSize = Changelog::getTableSize();
-    $latestVersion = Changelog::max('version');
-
-    return view('admin.changelog.index', compact('changelog', 'types', 'category', 'changelogs','latestVersion'))
+    return view('admin.changelog.index', compact('changelog', 'types', 'category', 'changelogs'))
         ->with('tableSize', $tableSize);
     }
 
@@ -45,7 +42,8 @@ class ChangelogController extends Controller
         $changelog = new Changelog();
         $types = Type::pluck('nombre', 'id');
         $category = Category::pluck('nombre', 'id');
-        return view('admin.changelog.index', compact('changelog', 'types','category'));
+        $latestVersion = Changelog::max('version');
+        return view('admin.changelog.create', compact('changelog', 'types','category','latestVersion'));
     }
 
     /**
@@ -60,9 +58,15 @@ class ChangelogController extends Controller
 
         $changelog = Changelog::create($request->all());
 
-        return redirect()->route('admin.changelogs.index')
-            ->with('success', 'Changelog created successfully.');
+        if ($changelog) {
+            Alert::success('¡Éxito!', 'El registro ha sido creado exitosamente.')->flash();
+        } else {
+            Alert::error('¡Error!', 'No se pudo crear el registro.')->flash();
+        }
+
+        return redirect()->route('admin.changelogs.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -86,8 +90,11 @@ class ChangelogController extends Controller
     public function edit($id)
     {
         $changelog = Changelog::find($id);
+        $types = Type::pluck('nombre', 'id');
+        $category = Category::pluck('nombre', 'id');
+        $latestVersion = Changelog::max('version');
 
-        return view('changelog.edit', compact('changelog'));
+        return view('admin.changelog.edit', compact('changelog', 'types','category','latestVersion'));
     }
 
     /**
@@ -98,14 +105,18 @@ class ChangelogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Changelog $changelog)
-    {
-        request()->validate(Changelog::$rules);
+{
+    request()->validate(Changelog::$rules);
 
-        $changelog->update($request->all());
-
-        return redirect()->route('changelogs.index')
-            ->with('success', 'Changelog updated successfully');
+    if ($changelog->update($request->all())) {
+        Alert::success('¡Éxito!', 'El registro ha sido actualizado exitosamente.')->flash();
+    } else {
+        Alert::error('¡Error!', 'No se pudo actualizar el registro.')->flash();
     }
+
+    return redirect()->route('admin.changelogs.index');
+}
+
 
     /**
      * @param int $id
@@ -114,9 +125,16 @@ class ChangelogController extends Controller
      */
     public function destroy($id)
     {
-        $changelog = Changelog::find($id)->delete();
+        $changelog = Changelog::find($id);
 
-        return redirect()->route('changelogs.index')
-            ->with('success', 'Changelog deleted successfully');
+        if ($changelog) {
+            $changelog->delete();
+            Alert::success('¡Éxito!', 'El registro ha sido eliminado exitosamente.')->flash();
+        } else {
+            Alert::error('¡Error!', 'No se pudo eliminar el registro.')->flash();
+        }
+
+        return redirect()->route('admin.changelogs.index');
     }
+
 }

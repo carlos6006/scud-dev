@@ -35,15 +35,14 @@
                     @endphp
                 @endforeach
             </div>
-
             <div class="invalid-feedback" id="permissionsFeedback">
                 Por favor, selecciona al menos un permiso.
             </div>
         </div>
     </div>
     <div class="box-footer mt20 d-flex justify-content-end">
-        <a href="{{ url('admin/roles') }}" class="btn btn-secondary">Cancelar</a>
-        <span style="margin-left: 10px;"></span><!-- Aquí agregamos un espacio de 10px -->
+        <a href="{{ URL::previous() }}" class="btn btn-secondary">Cancelar</a>
+        <span style="margin-left: 10px;"></span>
         <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-save"></i> Guardar</button>
     </div>
 </div>

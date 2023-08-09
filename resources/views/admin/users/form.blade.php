@@ -118,11 +118,10 @@
 
             </div>
             <div class="box-footer mt20 d-flex justify-content-end">
-                <a href="{{ url('admin/users') }}" class="btn btn-secondary">Cancelar</a>
-                <span style="margin-left: 10px;"></span><!-- Aquí agregamos un espacio de 10px -->
+                <a href="{{ URL::previous() }}" class="btn btn-secondary">Cancelar</a>
+                <span style="margin-left: 10px;"></span>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-save"></i> Guardar</button>
             </div>
-
         </div>
 
     </div>

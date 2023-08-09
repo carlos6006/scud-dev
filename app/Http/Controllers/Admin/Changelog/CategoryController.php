@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Changelog;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 /**
- * Class CategoryController
- * @package App\Http\Controllers
+ * Class ChangelogController
+ * @package App\Http\Controllers\Admin\Changelog
  */
 class CategoryController extends Controller
 {
@@ -19,8 +21,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::paginate();
+        $tableSize = Category::getTableSize();
 
-        return view('category.index', compact('categories'))
+        return view('admin.changelog.category.index', compact('categories','tableSize'))
             ->with('i', (request()->input('page', 1) - 1) * $categories->perPage());
     }
 

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Cambios de sistema')
+@section('title', 'Tipo')
 
 @section('content_header')
     <div class="container-fluid">
@@ -32,12 +32,11 @@
                     <div class="card-body">
                         @includeIf('partials.errors')
 
-                        <form method="POST" action="{{ route('admin.changelogs.update',$changelog->id) }}" role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.types.update', $type->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-
-                            @include('admin.changelog.form')
+                            @include('admin.type.form')
 
                         </form>
                     </div>
@@ -60,8 +59,3 @@
 @section('js')
 
 @stop
-
-
-
-
-
