@@ -45,31 +45,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Rutas de Administrador
-Route::middleware(['auth', 'role:Admin'])->group(function () {
-    //Index Administrador
-   
-    Route::middleware(['auth', 'role:Admin'])->group(function(){
-        
-      
-    });
-    Route::name('admin.')->prefix('admin')->group(function(){
-        Route::resource('/changelogs', ChangelogController::class);
-        Route::resource('/types', TypeController::class);
-        Route::resource('/categories', CategoryController::class);
-        Route::resource('/tax-regimes', TaxRegimeController::class);    
-        Route::resource('/users', UserController::class);
-        Route::resource('/permissions', PermissionController::class);
-        Route::resource('/roles', RoleController::class);
+// Rutas de Administrador
+Route::middleware(['auth', 'role:Admin'])->name('admin.')->prefix('admin')->group(function () {
+    Route::resource('/changelogs', ChangelogController::class);
+    Route::resource('/types', TypeController::class);
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/tax-regimes', TaxRegimeController::class);
+    Route::resource('/users', UserController::class);
+    Route::resource('/permissions', PermissionController::class);
+    Route::resource('/roles', RoleController::class);
 
-        Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
-        Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
-        Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('users.permissions');
-        Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
-        Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
-        Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
-    });
+    Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
+    Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
+    Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('users.permissions');
+    Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
+    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
+    Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
 });
+
+
 
 //Rutas de Cliente **Administrador
 Route::middleware(['auth', 'role:Admin|Cliente'])->group(function () {

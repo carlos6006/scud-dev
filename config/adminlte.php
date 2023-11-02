@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'SCUD',
-    'title_prefix' => '',
+    'title_prefix' => 'SCUD | ',
     'title_postfix' => '',
 
     /*
@@ -150,8 +150,8 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' =>  true,
     'layout_dark_mode' => null,
 
@@ -294,18 +294,18 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
+        //[
+        //    'type' => 'sidebar-menu-search',
+        //    'text' => 'search',
+        //],
         [
             'text'        => 'Estadisticas',
             'url'         => 'admin/pages',
