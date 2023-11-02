@@ -19,13 +19,6 @@
 @stop
 
 @section('content')
-
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-
     <div class="container-fluid">
         <div class="callout callout-warning">
             <h5><i class="fas fa-info"></i> Nota:</h5>
@@ -272,6 +265,7 @@
 @stop
 
 @section('js')
+
 <script>
     function updateFilePath() {
         var inputFile = document.querySelector('.custom-file-input');

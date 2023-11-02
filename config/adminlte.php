@@ -307,7 +307,7 @@ return [
         //    'text' => 'search',
         //],
         [
-            'text'        => 'Estadisticas',
+            'text'        => 'Dashboard',
             'url'         => 'admin/pages',
             'icon'        => 'nav-icon fas fa-tachometer-alt',
             'label'       => 4,
@@ -315,13 +315,15 @@ return [
             'submenu' => [
                 [
                     'text' => 'Sistema',
-                    'url'  => '#',
+                    'url'  => 'dashboard',
                     'icon' => 'nav-icon fas fa-server',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Usuario',
                     'url'  => '#',
                     'icon' => 'nav-icon fas fa-id-card',
+                    'shift' => 'ml-2',
                 ],
             ]
         ],
@@ -350,21 +352,25 @@ return [
                     'text' => 'Gastos XML',
                     'url'  => 'import-bill-xmls',
                     'icon' => 'nav-icon fas fa-money-bill',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Ingresos XML',
                     'url'  => '#',
                     'icon' => 'nav-icon fas fa-money-bill-wave',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Retenciones XML',
                     'url'  => '#',
                     'icon' => 'nav-icon fas fa-file-invoice-dollar',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Historial de vaijes',
                     'url'  => 'import-payment-transaction',
                     'icon' => 'nav-icon fas fa-road',
+                    'shift' => 'ml-2',
                     // 'icon' => 'nav-icon fab fa-uber',
                 ],
             ],
@@ -377,12 +383,14 @@ return [
                     'text' => 'Financiera',
                     'icon'    => 'nav-icon fas fa-chart-bar',
                     'url'  => '#',
+                    'shift' => 'ml-2',
                 ],
 
                 [
                     'text' => 'Perfil',
                     'icon' => 'nav-icon fas fa-user-cog',
                     'url'  => '#',
+                    'shift' => 'ml-2',
                 ],
             ],
         ],
@@ -410,11 +418,13 @@ return [
                     'text' => 'Clientes',
                     'url'  => '#',
                     'icon' => 'nav-icon fas fa-address-book',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Cuentas bancarias',
                     'url'  => '#',
                     'icon' => 'nav-icon fas fa-credit-card',
+                    'shift' => 'ml-2',
                 ]
             ],
         ],
@@ -441,16 +451,19 @@ return [
                     'text' => 'Usuarios',
                     'url'  => 'admin/users',
                     'icon' => 'nav-icon fas fa-users',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Roles de usuario',
                     'url'  => 'admin/roles',
                     'icon' => 'nav-icon fas fa-user-tag',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Permisos',
                     'url'  => 'admin/permissions',
                     'icon' => 'nav-icon fas fa-check-circle',
+                    'shift' => 'ml-2',
                 ]
             ],
         ],
@@ -670,12 +683,12 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => 'https://cdn.jsdelivr.net/npm/sweetalert2@11',
                 ],
             ],
         ],

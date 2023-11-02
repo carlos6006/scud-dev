@@ -3,17 +3,18 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Dashboard de sistema</h1>
 @stop
 
 @section('content')
+
     <div class="row">
         <div class="col-lg-3 col-6">
 
             <div class="small-box bg-info">
                 <div class="inner">
                     <h3>150</h3>
-                    <p>New Orders</p>
+                    <p>Licencias compradas</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-shopping-bag"></i>

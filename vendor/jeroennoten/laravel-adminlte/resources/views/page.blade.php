@@ -12,6 +12,9 @@
 @section('body_data', $layoutHelper->makeBodyData())
 
 @section('body')
+
+ <!-- SweetAlert -->
+ @include('sweetalert::alert')
     <div class="wrapper">
 
         {{-- Preloader Animation --}}
@@ -49,6 +52,7 @@
         @endif
 
     </div>
+
 @stop
 
 @section('adminlte_js')

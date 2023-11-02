@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ChangelogsSeeder::class);
         $this->call(TaxsRegimeSeeder::class);
         $this->call(SysValuesSeeder::class);
+        $this->call(TaxpayerSeeder::class);
+
 
 
 

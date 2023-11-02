@@ -194,6 +194,7 @@ return array(
     'Database\\Seeders\\PermissionSeeder' => $baseDir . '/database/seeders/PermissionSeeder.php',
     'Database\\Seeders\\RoleSeeder' => $baseDir . '/database/seeders/RoleSeeder.php',
     'Database\\Seeders\\SysValuesSeeder' => $baseDir . '/database/seeders/SysValuesSeeder.php',
+    'Database\\Seeders\\TaxpayerSeeder' => $baseDir . '/database/seeders/TaxpayerSeeder.php',
     'Database\\Seeders\\TaxsRegimeSeeder' => $baseDir . '/database/seeders/TaxsRegimeSeeder.php',
     'Database\\Seeders\\TipeSeeder' => $baseDir . '/database/seeders/TipeSeeder.php',
     'Database\\Seeders\\TransactionsSeeder' => $baseDir . '/database/seeders/TransactionsSeeder.php',

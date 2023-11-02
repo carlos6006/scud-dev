@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Catálogo del Régimen Fiscal')
+@section('title', 'Catálogo de régimen fiscal')
 
 @section('content_header')
     <div class="container-fluid">
