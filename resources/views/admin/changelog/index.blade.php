@@ -19,8 +19,6 @@
 @stop
 
 @section('content')
-    @include('sweetalert::alert')
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -38,7 +36,7 @@
                                 <div class="col-sm-5 d-flex align-items-center justify-content-end">
                                     @csrf
                                     @method('POST')
-                                    <a href="{{ route('changelogs.create') }}"  class="btn btn-primary mx-3"
+                                    <a href="{{ route('admin.changelogs.create') }}"  class="btn btn-primary mx-3"
                                     data-placement="left">
                                     <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
                                 </a>
@@ -75,10 +73,10 @@
                                                                     {{ $registro->descripcion }}
                                                                 </div>
                                                                 <div class="card-tools">
-                                                                    <form action="{{ route('changelogs.destroy', $registro->id) }}" class="boton-eliminar" method="POST"
+                                                                    <form action="{{ route('admin.changelogs.destroy', $registro->id) }}" class="boton-eliminar" method="POST"
                                                                         id="deleteForm_{{ $registro->id }}">
                                                                         <a class="btn btn-sm btn-success"
-                                                                            href="{{ route('changelogs.edit', $registro->id) }}"><i
+                                                                            href="{{ route('admin.changelogs.edit', $registro->id) }}"><i
                                                                                 class="fa fa-fw fa-edit"></i>
                                                                             {{ __('Editar') }}</a>
                                                                         @csrf
@@ -113,7 +111,8 @@
 @stop
 
 @section('footer')
-    @include('footer')
+    <footer>
+    </footer>
 @stop
 
 @section('css')

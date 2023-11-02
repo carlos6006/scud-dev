@@ -126,9 +126,9 @@
 @stop
 
 @section('footer')
-    @include('footer')
+    <footer>
+    </footer>
 @stop
-
 
 @section('css')
     <style>

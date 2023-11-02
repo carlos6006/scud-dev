@@ -32,7 +32,7 @@
                     <div class="card-body">
                         @includeIf('partials.errors')
 
-                        <form method="POST" action="{{ route('admin.changelogs.update',$changelog->id) }}" role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('changelogs.update',$changelog->id) }}" role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
@@ -48,9 +48,8 @@
 @stop
 
 @section('footer')
-
-@include('footer')
-
+<footer>
+</footer>
 @stop
 
 @section('css')

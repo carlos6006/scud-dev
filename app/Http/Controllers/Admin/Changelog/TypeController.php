@@ -77,7 +77,7 @@ class TypeController extends Controller
     {
         $type = Type::find($id);
 
-        return view('admin.type.edit', compact('type'));
+        return view('admin.changelog.type.edit', compact('type'));
     }
 
     /**

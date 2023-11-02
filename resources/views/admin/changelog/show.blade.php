@@ -14,7 +14,7 @@
                             <span class="card-title">{{ __('Show') }} Changelog</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary" href="{{ route('changelogs.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary" href="{{ route('admin.changelogs.index') }}"> {{ __('Back') }}</a>
                         </div>
                     </div>
 

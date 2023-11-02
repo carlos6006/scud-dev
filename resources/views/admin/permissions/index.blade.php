@@ -18,8 +18,6 @@
     </div>
 @stop
 @section('content')
-@include('sweetalert::alert')
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -120,7 +118,8 @@
 @stop
 
 @section('footer')
-    @include('footer')
+    <footer>
+    </footer>
 @stop
 
 

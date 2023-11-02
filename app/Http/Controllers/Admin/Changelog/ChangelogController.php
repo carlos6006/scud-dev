@@ -78,7 +78,7 @@ class ChangelogController extends Controller
     {
         $changelog = Changelog::find($id);
 
-        return view('changelog.show', compact('changelog'));
+        return view('admin.changelog.show', compact('changelog'));
     }
 
     /**

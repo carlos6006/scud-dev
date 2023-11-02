@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesSeeder::class);
         $this->call(ChangelogsSeeder::class);
         $this->call(TaxsRegimeSeeder::class);
+        $this->call(SysValuesSeeder::class);
 
 
 

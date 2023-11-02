@@ -19,7 +19,6 @@
 @stop
 
 @section('content')
-    @include('sweetalert::alert')
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -260,9 +259,12 @@
         </div>
     </div>
     </div>
+
 @stop
+
 @section('footer')
-    @include('footer')
+    <footer>
+    </footer>
 @stop
 
 @section('css')

@@ -2,7 +2,6 @@
 
 return [
 
-
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -17,7 +16,7 @@ return [
 
     'title' => 'SCUD',
     'title_prefix' => '',
-    'title_postfix' => '| SCUD 1',
+    'title_postfix' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -52,13 +51,7 @@ return [
         'allowed' => true,
     ],
 
-
-
-    'footer' => [
-        'version' => '2.0.0',
-        'time' => '2023-08-05',
-        // Otros datos del footer
-    ],
+    
     /*
     |--------------------------------------------------------------------------
     | Admin Panel Logo
@@ -70,13 +63,12 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
-
     'logo' => '<b>SCUD</b>LTE',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'SCUD ',
+    'logo_img_alt' => 'Admin Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,7 +133,7 @@ return [
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => true,
-    'usermenu_desc' => true,
+    'usermenu_desc' => false,
     'usermenu_profile_url' => true,
 
     /*
@@ -299,17 +291,11 @@ return [
 
     'menu' => [
         // Navbar items:
-        // [
-        //     'text'=> 'v1.0',
-        //     'url'=> '#',
-        //     'topnav' => true,
-        // ],
         [
             'type'         => 'navbar-search',
-            'text'         => 'Busqueda',
+            'text'         => 'search',
             'topnav_right' => true,
         ],
-
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
@@ -318,12 +304,7 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'Buscar',
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'clientes delete',
+            'text' => 'search',
         ],
         [
             'text'        => 'Estadisticas',
@@ -419,12 +400,6 @@ return [
 
 
         ['header' => 'Configuraciones de sistema'],
-
-        [
-            'text' => 'Gestor de facturas',
-            'url'  => 'admin/settings',
-            'icon' => 'nav-icon fas fa-file-invoice',
-        ],
         [
             'text' => 'Sucripciones',
             'url'  => 'admin/settings',
@@ -453,11 +428,6 @@ return [
                     'text' => 'Régimen fiscal',
                     'url'  => 'admin/tax-regimes',
                     'icon' => 'nav-icon fas fa-tasks',
-                ],
-                [
-                    'text' => 'Cuentas bancarias',
-                    'url'  => '#',
-                    'icon' => 'nav-icon fas fa-credit-card',
                 ]
             ],
         ],
@@ -484,6 +454,11 @@ return [
                 ]
             ],
         ],
+        [
+            'text' => 'Preferencias del Sistema',
+            'url'  => 'admin/settings',
+            'icon' => 'nav-icon fas fa-cog',
+        ],
         ['header' => 'Ayuda'],
         [
             'text' => 'Componentes',
@@ -502,42 +477,27 @@ return [
             'submenu' => [
                 [
                     'text' => 'Changelogs',
-                    'url'  => 'changelogs',
+                    'url'  => 'admin/changelogs',
                     'icon' => 'nav-icon fa fa-sync-alt',
+                    'shift' => 'ml-2',
                    // 'can'  => ['changelog.crear', 'changelog.ver', 'changelog.modificar', 'changelog.elimuinar'],
                 ],
                 [
                     'text' => 'Tipos',
-                    'url'  => 'types',
+                    'url'  => 'admin/types',
                     'icon' => 'nav-icon fas fa-list',
+                    'shift' => 'ml-2',
                 ],
                 [
                     'text' => 'Categorias',
-                    'url'  => 'categories',
+                    'url'  => 'admin/categories',
+                    'icon_color' => 'red',
                     'icon' => 'nav-icon fas fa-tag',
+                    'shift' => 'ml-2',
                 ],
             ],
-        ],
-
-       /* ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],*/
+        ],       
     ],
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -705,17 +665,17 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'location' => 'https://cdn.jsdelivr.net/npm/chart.js',
                 ],
             ],
         ],
         'Sweetalert2' => [
-            'active' => true,
+            'active' => false,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => 'https://cdn.jsdelivr.net/npm/sweetalert2@11',
+                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],
         ],

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\IndexController;
@@ -29,27 +30,34 @@ use App\Http\Controllers\SummaryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Auth::routes();
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 //Rutas de Administrador
 Route::middleware(['auth', 'role:Admin'])->group(function () {
     //Index Administrador
-    Route::get('/', function () {
-        return view('index');
-    })->name('index');
-
+   
     Route::middleware(['auth', 'role:Admin'])->group(function(){
-        Route::resource('changelogs', ChangelogController::class);
-        Route::resource('types', TypeController::class);
-        Route::resource('categories', CategoryController::class);
+        
+      
     });
-
-
-
-
     Route::name('admin.')->prefix('admin')->group(function(){
-        Route::resource('/tax-regimes', TaxRegimeController::class);
-
+        Route::resource('/changelogs', ChangelogController::class);
+        Route::resource('/types', TypeController::class);
+        Route::resource('/categories', CategoryController::class);
+        Route::resource('/tax-regimes', TaxRegimeController::class);    
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);
         Route::resource('/roles', RoleController::class);
@@ -73,8 +81,4 @@ Route::middleware(['auth', 'role:Admin|Cliente'])->group(function () {
     Route::resource('/import-payment-transaction', ImportPaymentTransactionController::class);
     Route::post('/import-payment-transaction', [ImportPaymentTransactionController::class, 'import'])->name('import-payment-transaction.import');
 });
-
-
-
-
-
+require __DIR__.'/auth.php';

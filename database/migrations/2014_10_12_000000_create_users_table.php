@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('last_access')->nullable();
             $table->time('two_steps')->nullable();
-            $table->boolean('activo');
+            $table->boolean('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -30,14 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-       // Desactivar las restricciones de clave externa
-DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
-// Ejecutar la migración para eliminar la tabla 'users'
-Schema::dropIfExists('users');
-
-// Reactivar las restricciones de clave externa
-DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
+        Schema::dropIfExists('users');
     }
 };

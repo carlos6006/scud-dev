@@ -2,49 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Facades\DB;
 
-/**
- * Class User
- *
- * @property $id
- * @property $name
- * @property $email
- * @property $last_access
- * @property $two_steps
- * @property $activo
- * @property $email_verified_at
- * @property $password
- * @property $remember_token
- * @property $created_at
- * @property $updated_at
- *
- * @property Changelog[] $changelogs
- * @property ImportBillXml[] $importBillXmls
- * @property ImportPaymentTransaction[] $importPaymentTransactions
- * @property ProfilePicture[] $profilePictures
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
-
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    use HasRoles;
-
-    static $rules = [
-		'name' => 'required',
-		'email' => 'required',
-		'activo' => 'required',
-    ];
+    use HasApiTokens, HasFactory, Notifiable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -74,8 +43,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'password' => 'hashed',
     ];
-
     public function adminlte_image()
     {
         return 'https://picsum.photos/300/300';

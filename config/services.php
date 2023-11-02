@@ -30,18 +30,5 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-    'google' => [
-        'client_id' => env('GOOGLE_CLIENT_ID'),
-        'project_id' => env('GOOGLE_PROJECT_ID'),
-        'auth_uri' =>'https://accounts.google.com/o/oauth2/auth',
-        'token_uri' => 'https://oauth2.googleapis.com/token',
-        'auth_provider_x509_cert_url'=>'https://www.googleapis.com/oauth2/v1/certs',
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT'),
-        'redirect_uris' => env('GOOGLE_REDIRECT')
-/*         'client_id' => env('GOOGLE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://localhost:8000/google-callback', */
-    ],
 
 ];

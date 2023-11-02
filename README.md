@@ -67,3 +67,39 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 "# laravel_scud" 
+
+# Guía de Instalación
+
+A continuación, te presentamos los pasos para instalar y configurar tu sistema utilizando Laravel y algunas herramientas adicionales.
+
+## Pasos para Configurar un Proyecto Laravel
+
+1. **Crear un proyecto Laravel**
+
+    ```shell
+    composer create-project laravel/laravel scud
+    cd scud
+    ```
+
+2. **Instalar Breeze (para autenticación)**
+
+    ```shell
+    composer require laravel/breeze --dev
+    php artisan breeze:install
+    ```
+
+3. **Instalar una Plantilla (Opcional)**
+
+    ```shell
+    composer require jeroennoten/laravel-adminlte
+    php artisan adminlte:install
+    ```
+
+4. **Instalar SweetAlert (Opcional)**
+
+    ```shell
+    composer require realrashid/sweet-alert
+    php artisan vendor:publish --tag=sweet-alert
+    ```
+
+> Asegúrate de consultar la [documentación de Laravel](https://laravel.com/docs) para obtener más detalles sobre cómo configurar tu proyecto.

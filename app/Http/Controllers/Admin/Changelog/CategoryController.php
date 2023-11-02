@@ -64,7 +64,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        return view('category.show', compact('category'));
+        return view('admin.changelog.category.show', compact('category'));
     }
 
     /**
@@ -77,7 +77,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        return view('category.edit', compact('category'));
+        return view('admin.changelog.category.edit', compact('category'));
     }
 
     /**

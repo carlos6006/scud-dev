@@ -43,7 +43,7 @@
                                 <div class="col-sm-5 d-flex align-items-center justify-content-end">
                                         @csrf
                                         @method('POST')
-                                        <a href="{{ route('types.create') }}"  class="btn btn-primary mx-3"
+                                        <a href="{{ route('admin.types.create') }}"  class="btn btn-primary mx-3"
                                         data-placement="left">
                                         <i class="fas fa-plus-circle"></i> {{ __('Crear nuevo') }}
                                     </a>
@@ -69,7 +69,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
@@ -88,12 +88,12 @@
 
                                             <td>
                                                 <div class="d-flex justify-content-end mb-2">
-                                                <form action="{{ route('types.destroy',$type->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('types.show',$type->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('types.edit',$type->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('admin.types.destroy',$type->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('admin.types.show',$type->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Ver') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('admin.types.edit',$type->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
                                                 </form>
                                                 </div>
                                             </td>
@@ -109,8 +109,9 @@
         </div>
     @stop
 
-@section('footer')
-    @include('footer')
+    @section('footer')
+    <footer>
+    </footer>
 @stop
 
 

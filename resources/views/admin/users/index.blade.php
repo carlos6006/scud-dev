@@ -148,8 +148,9 @@
         </div>
     @stop
 
-@section('footer')
-    @include('footer')
+    @section('footer')
+    <footer>
+    </footer>
 @stop
 
 
