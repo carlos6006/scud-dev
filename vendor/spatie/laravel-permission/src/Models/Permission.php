@@ -12,7 +12,6 @@ use Spatie\Permission\Guard;
 use Spatie\Permission\PermissionRegistrar;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
-use Illuminate\Support\Facades\DB;
 
 /**
  * @property ?\Illuminate\Support\Carbon $created_at
@@ -87,7 +86,7 @@ class Permission extends Model implements PermissionContract
      *
      * @throws PermissionDoesNotExist
      */
-    public static function findByName(string $name, string $guardName = null): PermissionContract
+    public static function findByName(string $name, ?string $guardName = null): PermissionContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
         $permission = static::getPermission(['name' => $name, 'guard_name' => $guardName]);
@@ -105,7 +104,7 @@ class Permission extends Model implements PermissionContract
      *
      * @throws PermissionDoesNotExist
      */
-    public static function findById(int|string $id, string $guardName = null): PermissionContract
+    public static function findById(int|string $id, ?string $guardName = null): PermissionContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
         $permission = static::getPermission([(new static())->getKeyName() => $id, 'guard_name' => $guardName]);
@@ -122,7 +121,7 @@ class Permission extends Model implements PermissionContract
      *
      * @return PermissionContract|Permission
      */
-    public static function findOrCreate(string $name, string $guardName = null): PermissionContract
+    public static function findOrCreate(string $name, ?string $guardName = null): PermissionContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
         $permission = static::getPermission(['name' => $name, 'guard_name' => $guardName]);
@@ -153,18 +152,5 @@ class Permission extends Model implements PermissionContract
     {
         /** @var PermissionContract|null */
         return static::getPermissions($params, true)->first();
-    }
-    public static function getTableSize()
-    {
-        $tableName = (new self())->getTable();
-        $tableSize = DB::table('information_schema.tables')
-            ->select(DB::raw('SUM(data_length + index_length) / 1024 as table_size'))
-            ->where('table_schema', '=', config('database.connections.mysql.database'))
-            ->where('table_name', '=', $tableName)
-            ->groupBy('table_name')
-            ->pluck('table_size')
-            ->first();
-
-            return number_format($tableSize, 2);
     }
 }

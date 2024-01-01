@@ -66,7 +66,7 @@ class PermissionRegistrar
         $this->cacheExpirationTime = config('permission.cache.expiration_time') ?: \DateInterval::createFromDateString('24 hours');
 
         $this->teams = config('permission.teams', false);
-        $this->teamsKey = config('permission.column_names.team_foreign_key');
+        $this->teamsKey = config('permission.column_names.team_foreign_key', 'team_id');
 
         $this->cacheKey = config('permission.cache.key');
 
@@ -98,7 +98,7 @@ class PermissionRegistrar
     /**
      * Set the team id for teams/groups support, this id is used when querying permissions/roles
      *
-     * @param  int|string|\Illuminate\Database\Eloquent\Model  $id
+     * @param  int|string|\Illuminate\Database\Eloquent\Model|null  $id
      */
     public function setPermissionsTeamId($id): void
     {
@@ -145,7 +145,7 @@ class PermissionRegistrar
         return $this->cache->forget($this->cacheKey);
     }
 
-    public function forgetWildcardPermissionIndex(Model $record = null): void
+    public function forgetWildcardPermissionIndex(?Model $record = null): void
     {
         if ($record) {
             unset($this->wildcardPermissionsIndex[get_class($record)][$record->getKey()]);
@@ -173,6 +173,7 @@ class PermissionRegistrar
     public function clearPermissionsCollection(): void
     {
         $this->permissions = null;
+        $this->wildcardPermissionsIndex = [];
     }
 
     /**
@@ -187,7 +188,7 @@ class PermissionRegistrar
 
     /**
      * Load permissions from cache
-     * This get cache and turns array into \Illuminate\Database\Eloquent\Collection
+     * And turns permissions array into a \Illuminate\Database\Eloquent\Collection
      */
     private function loadPermissions(): void
     {

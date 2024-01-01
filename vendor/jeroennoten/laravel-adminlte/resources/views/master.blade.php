@@ -92,8 +92,6 @@
 
     {{-- Extra Configured Plugins Scripts --}}
     @include('adminlte::plugins', ['type' => 'js'])
-     <!-- SweetAlert -->
- @include('sweetalert::alert')
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))

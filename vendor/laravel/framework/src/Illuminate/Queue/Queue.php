@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Queue\ShouldBeEncrypted;
+use Illuminate\Contracts\Queue\ShouldQueueAfterCommit;
 use Illuminate\Queue\Events\JobQueued;
 use Illuminate\Support\Arr;
 use Illuminate\Support\InteractsWithTime;
@@ -106,7 +107,7 @@ abstract class Queue
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new InvalidPayloadException(
-                'Unable to JSON encode payload. Error code: '.json_last_error(), $value
+                'Unable to JSON encode payload. Error ('.json_last_error().'): '.json_last_error_msg(), $value
             );
         }
 
@@ -141,7 +142,7 @@ abstract class Queue
             'uuid' => (string) Str::uuid(),
             'displayName' => $this->getDisplayName($job),
             'job' => 'Illuminate\Queue\CallQueuedHandler@call',
-            'maxTries' => $job->tries ?? null,
+            'maxTries' => $this->getJobTries($job) ?? null,
             'maxExceptions' => $job->maxExceptions ?? null,
             'failOnTimeout' => $job->failOnTimeout ?? false,
             'backoff' => $this->getJobBackoff($job),
@@ -175,6 +176,27 @@ abstract class Queue
     {
         return method_exists($job, 'displayName')
                         ? $job->displayName() : get_class($job);
+    }
+
+    /**
+     * Get the maximum number of attempts for an object-based queue handler.
+     *
+     * @param  mixed  $job
+     * @return mixed
+     */
+    public function getJobTries($job)
+    {
+        if (! method_exists($job, 'tries') && ! isset($job->tries)) {
+            return;
+        }
+
+        if (isset($job->tries)) {
+            return $job->tries;
+        }
+
+        if (method_exists($job, 'tries') && ! is_null($job->tries())) {
+            return $job->tries();
+        }
     }
 
     /**
@@ -325,6 +347,10 @@ abstract class Queue
      */
     protected function shouldDispatchAfterCommit($job)
     {
+        if (is_object($job) && $job instanceof ShouldQueueAfterCommit) {
+            return true;
+        }
+
         if (! $job instanceof Closure && is_object($job) && isset($job->afterCommit)) {
             return $job->afterCommit;
         }
